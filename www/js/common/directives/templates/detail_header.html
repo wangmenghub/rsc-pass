@@ -1,0 +1,24 @@
+<div class="bg-white gap-row">
+    <div class="list-inset">
+        <div class="row">
+            <div class="col text-left">
+                <img src="./img/pass/pass-icon.png" class="label-icon pull-left">
+                <div class="pull-left text-left">
+                    <h4 class="bold">{{list.send_city|rscLimit:5}}</h4>
+                    <h5 class="text-gray1 gap-3">{{list.send_district|rscLimit:5}}</h5>
+                    <h5 class="text-gray1 gap-3">{{list.time_depart | dateformatFilter:'MM-dd E'}}</h5>
+                </div>
+            </div>
+            <div class="col text-center gap-3">
+                <h5 class="h5 text-balck">{{list.amount | number:3}}吨 {{list.product_categories[0].material_chn}}</h5>
+                <h5 class="status-bg text-orange" ng-if="type!='driver'">{{list.price_total/list.amount | currency : '￥':2 }}元/吨</h5>
+                <h5 class="status-bg text-orange" ng-if="type=='driver'">{{list.price | currency : '￥':2 }}元/吨 </h5>
+            </div>
+            <div class="col text-right">
+                <h4 class="bold">{{list.receive_city|rscLimit:5}}</h4>
+                <h5 class="text-gray1 gap-3">{{list.receive_district|rscLimit:5}}</h5>
+                <h5 class="text-gray1 gap-3">{{list.time_arrival | dateformatFilter:'MM-dd E'}}</h5>
+            </div>
+        </div>
+    </div>
+</div>

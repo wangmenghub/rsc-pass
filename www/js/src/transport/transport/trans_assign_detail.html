@@ -1,0 +1,153 @@
+<ion-view hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <span menu-close nav-transition='ios' nav-direction="back" ng-click="vm.goBack()">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">运输详情</h1>
+            <!--<div class="title nav-bar">
+                <a class="active">指派</a>
+                <a class="" nav-transition="ios" nav-direction="enter" ui-sref="rsc.trans_supply_details({demand_id:vm.demand_id,source:vm.source})">货源详情</a>
+            </div>-->
+        </div>
+    </ion-nav-title>
+    <ion-nav-buttons side="secondary">
+        <button class="button button-clear" ng-if="vm.order.order_count<=0&&vm.source=='grab'" ng-click="vm.closeDemand()">取消</button>
+    </ion-nav-buttons>
+    <ion-content class="bg-gray has-footer" ng-init="init()" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div ng-class="{'bg-white gap-20':$root.rscPlatform == 'isweb'}">
+            <div ng-class="{'login-width content-maxwidth':$root.rscPlatform == 'isweb'}">
+                <ion-refresher spinner="spiral" on-refresh="doRefresh()"></ion-refresher>
+                <rsc-info data="vm.order.demand_user_id" order="vm.order"></rsc-info>
+                <div class="gap-2">
+                    <rsc-detail-header list="vm.order" type="driver"></rsc-detail-header>
+                </div>
+                <div class="bg-white gap-20">
+                    <!--<details-product model="vm.order.product_categories"></details-product>-->
+                    <product-detail model="vm.order.product_categories" data="vm.order" type="'categories'"></product-detail>
+                    <div ng-if="vm.order.replenish.length!=0">
+                        <div ng-repeat="replenish in vm.order.replenish">
+                            <product-detail model="replenish" data="vm.order" type="'replenish'"></product-detail>
+                        </div>
+                    </div>
+                </div>
+                <div class="gap-row bg-white gap-2">
+                    <div class="list-inset">
+                        <h4 class="bold">
+                            货物描述
+                        </h4>
+                        <h4 class="text-gray gap-10">
+                            {{vm.order.appendix}}
+                        </h4>
+                    </div>
+                </div>
+                <!--物流看抢单详情页-->
+                <div class="bg-white gap-20">
+                    <div class="list list-item">
+                        <li class="item item-type">
+                            <span class="bold">接单详情 <small class="normal text-gray h6">(已接单 {{(vm.order.amount-vm.order.amount_remain)/vm.order.amount*100|number:2}} %)</small></span>
+                            <span class="pull-right text-gray">距结束 <timer end-time="vm.order.time_validity" ng-if="!timeOut" finish-callback="finsh()">{{days == 0?'':days+'天'}}{{hhours}}:{{mminutes}}:{{sseconds}}</timer></span>
+                        </li>
+                    </div>
+                </div>
+                <div class="bg-white">
+                    <div class="list list-passdetail" ng-repeat="item in vm.offerCarList track by $index">
+                        <span class="orderby-num text-black">{{$index+1}}</span>
+                        <!--进行中-->
+                        <li ng-if="vm.source == 'grab' && item.status!='old_ineffective'" class="item item-avatar item-icon-right" ui-sref="rsc.dirver_detail({user_id:item.user_id,demand_id:vm.order._id,status:item.status,order_id:item.order_id})">
+                            <img ng-src="{{item.truck_logo}}" image-404="./img/common/driver-car.png" class="car-face">
+                            <h2 class="text-blue">{{item.truck_num}} <img src="./img/pass/pass-icon2.png" class="pass-icon"></h2>
+                            <span>
+						<p ng-if="item.truck_type" class="pull-left">{{item.truck_type|carType}}，</p>
+						<p ng-if="item.truck_weight" class="pull-left">载重{{item.truck_weight|carMaxWeight}}吨</p>
+						<p ng-if="item.truck_long" class="pull-left">，长{{item.truck_long|carLongValue}}米</p>
+					</span>
+                            <div class="clearfix"></div>
+                            <h4 class="text-red">{{item.status |carStatusFilter}}</h4>
+                            <i class="icon ion-ios-arrow-right text-gray"></i>
+                        </li>
+
+                        <li ng-if="vm.source == 'grab' && item.status=='old_ineffective'" class="item item-avatar item-icon-right">
+                            <img ng-src="{{item.truck_logo}}" image-404="./img/common/driver-car.png" class="car-face">
+                            <h2 class="text-blue">{{item.truck_num}} <img src="./img/pass/pass-icon2.png" class="pass-icon"></h2>
+                            <span>
+						<p ng-if="item.truck_type" class="pull-left">{{item.truck_type|carType}}，</p>
+						<p ng-if="item.truck_weight" class="pull-left">载重{{item.truck_weight|carMaxWeight}}吨</p>
+						<p ng-if="item.truck_long" class="pull-left">，长{{item.truck_long|carLongValue}}米</p>
+					</span>
+                            <div class="clearfix"></div>
+                            <h4 class="text-red">{{item.status |carStatusFilter}}</h4>
+                            <i class="icon ion-ios-arrow-right text-gray"></i>
+                        </li>
+                    </div>
+                </div>
+                <!---->
+                <div class="list">
+                    <div class="item item-avatar item-address gap-20" ng-click="rootAddMap(vm.order.send_province,vm.order.send_city,vm.order.send_district,vm.order.send_addraddr)">
+                        <img src="./img/158/landmark.png" class="landmark">
+                        <h2 class="text-gray1">提货地址：{{vm.order.send_city}}{{vm.order.send_district}}{{vm.order.send_addr}}</h2>
+                        <p ng-if="vm.order.send_name">联系人：{{vm.order.send_name}} &nbsp;&nbsp;&nbsp;&nbsp;手机号：{{vm.order.send_phone}}</p>
+                        <p ng-if="!vm.order.send_name&&!vm.order.send_phone">&nbsp;</p>
+                    </div>
+                    <div class="item item-avatar item-address item-address-border" ng-click="rootAddMap(vm.order.receive_province,vm.order.receive_city,vm.order.receive_district,vm.order.receive_addr)">
+                        <img src="./img/158/landmark-1.png" class="landmark">
+                        <h2 class="text-gray1">交货地址：{{vm.order.receive_city}}{{vm.order.receive_district}}{{vm.order.receive_addr}}</h2>
+                        <p ng-if="vm.order.receive_name||vm.order.receive_phone"><i>联系人：{{vm.order.receive_name}}</i> &nbsp;&nbsp;&nbsp;&nbsp;<i>手机号：{{vm.order.receive_phone}}</i>
+                        </p>
+                        <p ng-if="!vm.order.receive_name&&!vm.order.receive_phone">&nbsp;</p>
+                    </div>
+                </div>
+                <!---->
+                <div class="bg-white gap-20">
+                    <div class="list list-item list-type-input">
+                        <li class="item item-type">
+                            <span class="bold">付款方式</span>
+                            <span class="pull-right text-orange">
+							    {{vm.order.payment_method|rscPayChoice}}
+                            </span>
+                        </li>
+                        <li class="item item-type">
+                            <span class="bold">付款类型</span>
+                            <span class="pull-right text-orange">{{vm.order.payment_choice|paymentChoice}}</span>
+                        </li>
+                        <li class="item item-type">
+                            <span class="bold">物流结算</span>
+                            <span class="pull-right text-orange">
+                                {{vm.order.weigh_settlement_style=='get'?'按提货吨数结算':(vm.order.weigh_settlement_style=='fact'?'按到货吨数结算':'按实际路耗结算')}}
+                                <span ng-if="vm.order.weigh_settlement_style=='theory'">
+                                        : 合理路耗:{{vm.order.att_traffic.one[2]==null?0:vm.order.att_traffic.one[2]}}%，
+                                        扣款标准:{{vm.order.att_traffic.one[3]==null?0:vm.order.att_traffic.one[3]}}元
+                                </span>
+                            </span>
+                        </li>
+                    </div>
+                </div>
+                <div class="recommend-bg text-center gap-row gap-10">
+                    <h4 class="text-gray">已成为合作企业</h4>
+                </div>
+                <person-card-new falg='true' user='vm.order.demand_user_id'></person-card-new>
+                <company-info-trade company-id="vm.order.demand_company_id"></company-info-trade>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar bar-light bar-footer" ng-if="vm.source == 'grab'&&vm.overtime!='finsh'">
+        <div class="row button-foot">
+            <div class="col col-50 text-orange" ui-sref="rsc.invite_contact({invite:'offer',id:vm.order._id})">
+                短信邀请司机
+            </div>
+            <div class="col" ng-click="shareAction()">
+                邀请更多司机抢单
+            </div>
+        </div>
+    </ion-footer-bar>
+    <ion-footer-bar class="bar bar-light bar-footer" ng-if="vm.overtime=='finsh'||vm.source =='ineffective'">
+        <div class="row button-foot text-orange" ui-sref="rsc.goods_order_goods_detail({order_id:vm.order.order_id})">
+            <div class="col text-orange">
+                指派超时，请继续指派未运输吨数
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

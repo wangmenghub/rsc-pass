@@ -1,0 +1,38 @@
+<div>
+  <div class="list list-item">
+    <li class="item item-type item-type-border item-icon-right" ng-click="getTraffic(demandList)">
+      物流订单号：{{demandList.index}}
+      <i class="icon" ng-class="demandList.isshow?'ion-ios-arrow-up':'ion-ios-arrow-down'"></i>
+    </li>
+    <div class="bg-white" ng-if="demandList.isshow" ng-repeat="order in demandList.order_list" ng-click="goOrderDetail(order)">
+      <div class="list list-driver">
+        <div class="item item-offer item-offer-transport item-icon-right gap-3">
+          <img src="./img/common/label-icon-purple2.png" class="label-icon1 pull-left">
+          <div class="pull-left text-center">
+            <h4 class="bold">{{order.send_city|rscLimit:5}}</h4>
+            <h6 class="text-gray">{{order.send_district|rscLimit:5}}</h6>
+          </div>
+          <span class="pull-left route">-></span>
+          <div class="pull-left text-center">
+            <h4 class="bold">{{order.receive_city|rscLimit:5}}</h4>
+            <h6 class="text-gray">{{order.receive_district|rscLimit:5}}</h6>
+          </div>
+          <img src="./img/common/line.png" class="pull-left master-line">
+          <div class="pull-left text-center">
+            <h4 class="text-blue">{{order.amount| number}}吨</h4>
+            <h6 class="text-gray">{{order.category_chn}}</h6>
+          </div>
+          <div class="item-face text-center gap-7">
+            <img ng-src="{{order.user_logo}}" image-404="./img/common/infor-face.png" class="transport-face img-circle">
+            <h6 class="text-gray">{{order.real_name}}</h6>
+          </div>
+          <div class="clear"></div>
+          <h5 class="text-red">{{order.payment_method|paymentChoice}}</h5>
+          <h4 class="text-gray">总运费：<span class="text-red">￥{{order.price_total}}</span></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

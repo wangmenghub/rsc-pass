@@ -1,0 +1,46 @@
+<ion-view>
+	<ion-nav-title>
+		<div class="bar bar-stable">
+			<h1 class="title">选择车辆</h1>
+		</div>
+	</ion-nav-title>
+	<!--<ion-nav-buttons side="left">-->
+        <!--<span  menu-close nav-transition='ios' nav-direction="back" ng-click="rootGoBack()">-->
+            <!--<i class="icon ion-ios-arrow-back"></i>-->
+            <!--<span class="default-title">返回</span>-->
+        <!--</span>-->
+	<!--</ion-nav-buttons>-->
+	<!--<ion-nav-buttons side="secondary">-->
+		<!--<button class="button button-clear" ui-sref="rsc.add_driver({order_id:vm.order_id})">添加车辆</button>-->
+	<!--</ion-nav-buttons>-->
+	<!--<div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+		<div class="tabs">
+			<a class="tab-item active" menu-close nav-transition="ios" nav-direction="enter" ui-sref='src.car_anchored({order_id:vm.order_id})'>
+				挂靠车辆
+			</a>
+			<a class="tab-item" menu-close nav-transition="ios" nav-direction="enter"  ui-sref='src.car_owncar({order_id:vm.order_id})'>
+				自有车辆
+			</a>
+		</div>
+	</div>-->
+	<ion-content class="bg-gray has-footer" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div ng-class="{'bg-white gap-20':$root.rscPlatform == 'isweb'}">
+            <div ng-class="{'login-width content-maxwidth':$root.rscPlatform == 'isweb'}">
+		<car-group status="vm.status" sel-car-list="vm.selCarList"></car-group>
+            </div>
+        </div>
+	</ion-content>
+	<ion-footer-bar class="bar bar-light" ng-if="vm.status != 'replace'">
+		<div class="row button-foot">
+			<div class="col col-67">
+				已选择：<span class="text-purple">{{vm.selCarList.length}}个车辆</span>
+			</div>
+			<div  class="col col-purple" ng-click="vm.driverToGrab()">
+				立即通知
+			</div>
+		</div>
+	</ion-footer-bar>
+	<ion-footer-bar class="bar bar-light" ng-if="vm.status == 'replace'">
+	  <h1 class="title" ng-click="vm.replaceCars()">确认替换</h1>
+	</ion-footer-bar>
+</ion-view>

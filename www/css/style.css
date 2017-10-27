@@ -1,0 +1,197 @@
+    /* Empty. Add your own CSS if you like */
+
+    @media (min--moz-device-pixel-ratio: 1.5),
+    (-webkit-min-device-pixel-ratio: 1.5),
+    (min-device-pixel-ratio: 1.5),
+    (min-resolution: 144dpi),
+    (min-resolution: 1.5dppx) {
+        .bar {
+            border: none;
+            background-image: linear-gradient(0deg, #ddd, #ddd 50%, transparent 50%);
+            background-position: bottom;
+            background-size: 100% 0px;
+            background-repeat: no-repeat;
+        }
+    }
+    /*成功页动画*/
+
+    .spinner-modal svg {
+        width: 100px;
+        height: 100px;
+        stroke: #8A86F7;
+        fill: #444;
+    }
+    /*详情页爆灯动画*/
+
+    .spinner.spinner-ripple.orderby-num svg {
+        width: 21px;
+        height: 21px;
+        stroke: #DB4226;
+        fill: #DB4226;
+        right: -20px;
+        top: -7px;
+        position: absolute;
+        font-weight: bold;
+    }
+    /*文字动画*/
+
+    .ant-textlight {
+        background: -webkit-gradient(linear, left top, right top, color-stop(0, rgba(125, 76, 33, 1)), color-stop(0.4, rgba(125, 76, 33, 0.8)), color-stop(0.5, rgba(125, 76, 33, 0.6)), color-stop(0.6, rgba(125, 76, 33, 0.8)), color-stop(1, rgba(125, 76, 33, 1)));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -webkit-animation: ant-textlight 45s infinite linear;
+    }
+
+    @-webkit-keyframes ant-textlight {
+        0% {
+            background-position: -1000px 0;
+        }
+        100% {
+            background-position: 1000px 0;
+        }
+    }
+
+    .site-title {
+        color: #f35626;
+        background-image: -webkit-linear-gradient(92deg, #f35626, #f35626);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -webkit-animation: hue 15s infinite linear;
+    }
+
+    @keyframes hue {
+        0% {
+            -webkit-filter: hue-rotate(0deg);
+        }
+        100% {
+            -webkit-filter: hue-rotate(-360deg);
+        }
+    }
+    /*列表动画*/
+
+    .slide-top.ng-enter-stagger {
+        -webkit-transition-delay: 300ms;
+        transition-delay: 300ms;
+        -webkit-transition-duration: 0;
+        transition-duration: 0;
+    }
+
+    .slide-top {
+        -webkit-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        -moz-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        -ms-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        -o-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        -webkit-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        -moz-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        -ms-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        -o-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .slide-top.ng-enter {
+        transform: translateY(60px);
+        -ms-transform: translateY(60px);
+        -webkit-transform: translateY(60px);
+        transition-duration: 800ms;
+        -webkit-transition-duration: 800ms;
+        opacity: 0;
+    }
+
+    .slide-top.ng-enter-active {
+        transform: translateY(0);
+        -ms-transform: translateY(0);
+        -webkit-transform: translateY(0);
+        opacity: 1;
+    }
+    /*成功页人物头像动画*/
+
+    .bouncy-scale-in {
+        -webkit-transition: all 0 cubic-bezier(0.175, 0.885, 0.32, 1);
+        /* older webkit */
+        -webkit-transition: all 0 cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        -moz-transition: all 0 cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        -ms-transition: all 0 cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        -o-transition: all 0 cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transition: all 0 cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* easeOutBack */
+        -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.45, 1);
+        /* older webkit */
+        -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.45, 1.595);
+        -moz-transition-timing-function: cubic-bezier(0.175, 0.885, 0.45, 1.595);
+        -ms-transition-timing-function: cubic-bezier(0.175, 0.885, 0.45, 1.595);
+        -o-transition-timing-function: cubic-bezier(0.175, 0.885, 0.45, 1.595);
+        transition-timing-function: cubic-bezier(0.175, 0.885, 0.45, 1.595);
+        /* custom */
+    }
+
+    .bouncy-scale-in.ng-enter {
+        transform: scale(1.5);
+        -ms-transform: scale(1.5);
+        -webkit-transform: scale(1.5);
+        transition-duration: 2000ms;
+        -webkit-transition-duration: 2000ms;
+        opacity: 0;
+    }
+
+    .bouncy-scale-in.ng-enter-active {
+        transform: scale(1);
+        -ms-transform: scale(1);
+        -webkit-transform: scale(1);
+        opacity: 1;
+    }
+
+    .bouncy-scale-in.ng-enter-stagger {
+        -webkit-transition-delay: 150ms;
+        transition-delay: 150ms;
+        -webkit-transition-duration: 0;
+        transition-duration: 0;
+    }
+
+    .slide-right {
+        -webkit-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        -moz-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        -ms-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        -o-transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transition: all 0 cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        /* easeOutQuad */
+        -webkit-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        -moz-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        -ms-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        -o-transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        /* easeOutQuad */
+    }
+
+    .slide-right.ng-enter {
+        transform: translateX(36px);
+        -ms-transform: translateX(36px);
+        -webkit-transform: translateX(36px);
+        transition-duration: 300ms;
+        -webkit-transition-duration: 300ms;
+        opacity: 0;
+    }
+
+    .slide-right.ng-enter-active {
+        transform: translateX(0);
+        -ms-transform: translateX(0);
+        -webkit-transform: translateX(0);
+        opacity: 1;
+    }
+
+    .slide-right.ng-enter-stagger {
+        -webkit-transition-delay: 100ms;
+        transition-delay: 100ms;
+        -webkit-transition-duration: 0;
+        transition-duration: 0;
+    }
+    /*弹出框背景模糊*/
+
+    .bg-blur {
+        background-color: rgba(250, 250, 250, 0.96);
+        -webkit-backdrop-filter: blur(12px);
+    }
+
+    .bg-blur-black {
+        background-color: rgba(0, 0, 0, 0.5);
+    }

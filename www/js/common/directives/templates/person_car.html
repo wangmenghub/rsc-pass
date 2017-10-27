@@ -1,0 +1,16 @@
+<div class="card">
+    <div class="item item-text-wrap">
+        <h3 class="text-black">{{user_info.user.real_name}}</h3>
+        <div class="clearfix gap-5"></div>
+        <h5 class="text-gray1" ng-if='!falg'>成为合作企业查看我的联系方式</h5>
+        <h5 class="text-gray1" ng-if='falg'>{{user_info.user.phone}}</h5>
+        <div class="clear"></div>
+        <p class="gap-15">
+            <span class="role-icon">{{user_info.user.role | rolefilter}}</span>
+        </p>
+        <div class="item-face text-center gap-10">
+            <h4 class="text-gray2">个人名片</h4>
+            <img ng-src="{{user_info.user.photo_url}}" image-404="./img/common/infor-face.png"  class="img-circle img-size1 gap-10">
+        </div>
+    </div>
+</div>

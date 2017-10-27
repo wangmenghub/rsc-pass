@@ -1,0 +1,34 @@
+<ion-view>
+	<ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">我的车队</h1>
+        </div>
+    </ion-nav-title>
+	<div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+		<div class="tabs">
+            <a class="tab-item num-fixed" menu-close nav-transition="ios" nav-direction="enter" ui-sref='rsc.trans_grab' >
+                运输
+                <span class="trade-num label-num" ng-if="transpmsg.transportation.total > 0">{{transpmsg.transportation.total}}</span>
+            </a>
+            <a class="tab-item num-fixed" menu-close nav-transition="ios" nav-direction="enter" ui-sref='rsc.trans_order_doing'>
+                订单
+                <span class="trade-num label-num" ng-if="transpmsg.order.total > 0">{{transpmsg.order.total}}</span>
+            </a>
+            <a class="tab-item num-fixed active" menu-close nav-transition="ios" nav-direction="enter" ui-sref='rsc.trans_car' >
+                车辆
+            </a>
+		</div>
+	</div>
+	<!--has-subfooter-->
+	<ion-content class="bg-gray has-subheader has-footer">
+		<ion-refresher spinner="spiral" on-refresh="doRefresh()"></ion-refresher>
+		<!--车辆-->
+		<car-list></car-list>
+		<ion-infinite-scroll ng-if="hasMore" icon="ion-loading-c" on-infinite="loadMore()" distance="15%">
+		</ion-infinite-scroll>
+	</ion-content>
+	<!--<ion-footer-bar class="bar bar-light bar-subfooter" ui-sref="rsc.car_group_list">-->
+		<!--<h1 class="title">车辆管理</h1>-->
+	<!--</ion-footer-bar>-->
+	<rsc-tabs config-name='rsc.center_goods' active=2></rsc-tabs>
+</ion-view>

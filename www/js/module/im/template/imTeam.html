@@ -1,0 +1,91 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">{{vm.sessionName}}</h1>
+        </div>
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ng-click="vm.chat()">群成员</button>
+    </ion-nav-buttons>
+    <ion-content class="bg-gray">
+        <div ng-repeat="msg in vm.session" schroll-bottom="vm.session">
+            <div class="text-center gap-10">
+                <span ng-if="msg.type==='timeTag'" class="text-gray order-title order-title-deep">{{msg.text}}</span>
+                <span ng-if="msg.type==='tip'" class="text-gray order-title order-title-deep">{{msg.showText}}</span>
+            </div>
+            <div ng-if="msg.flow==='in'" class="message-wrapper clearfix">
+                <img class="profile-pic profile-pic-left" ng-src="{{msg.avatar}}" image-404="./img/common/infor-face.png">
+                <div class="chat-bubble chat-bubble-left">
+                    <div ng-if="msg.type==='text'" class="message">{{msg.text}}</div>
+                    <div ng-if="msg.type==='custom-type1'" class="message" ref="mediaMsg"></div>
+                    <div ng-if="msg.type==='custom-type3'" class="message" ref="mediaMsg"></div>
+                    <div ng-if="msg.type==='image'" class="chat-bubble chat-bubble-left" ref="mediaMsg" ng-click="vm.showFullImg(msg.originLink)"></div>
+                    <div ng-if="msg.type==='video'" class="message" ref="mediaMsg"></div>
+                    <div ng-if="msg.type==='audio'" class="message" @click="playAudio(msg.audioSrc)">{{msg.text}}</div>
+                    <div ng-if="msg.type==='file'" class="message"><a href="msg.file.url" target="_blank"><i class="u-icon icon-file"></i>{{msg.file.name}}</a></div>
+                    <div ng-if="msg.type==='custom'" ui-sref="rsc.person_page({id:msg.card.businesscard_userid, type:msg.card.title_left})">
+                        <h4>
+                            <i>个人名片</i>
+                            <div class="clear"></div>
+                        </h4>
+                        <div class="item item-avatar">
+                            <img ng-src="{{msg.card.url}}" image-404="./img/common/infor-face.png">
+                            <div>
+                                <h3>{{msg.card.businesscard_name}}</h3>
+                                <h4 class="text-gray" ng-if="msg.card.buy&&!!msg.card.buy.length">销售：<span ng-repeat="i in msg.card.buy">{{i|categoryFilter}}</span></h4>
+                                <h4 class="text-gray" ng-if="msg.card.sell&&!!msg.card.sell.length">采购：<span ng-repeat="i in msg.card.sell">{{i|categoryFilter}}</span></h4>
+                                <h4 class="text-gray" ng-if="msg.card.transport&&!!msg.card.transport.length">运输：<span ng-repeat="i in msg.card.transport">{{i|categoryFilter}}</span></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="msg.flow==='out'" class="message-wrapper clearfix">
+                <img class="profile-pic profile-pic-right" ng-src="{{msg.avatar}}" image-404="./img/common/infor-face.png">
+                <div class="chat-bubble chat-bubble-right">
+                    <div ng-if="msg.type==='text'" class="message">{{msg.text}}</div>
+                    <div ng-if="msg.type==='custom-type1'" class="message" ref="mediaMsg"></div>
+                    <div ng-if="msg.type==='custom-type3'" class="message" ref="mediaMsg"></div>
+                    <div ng-if="msg.type==='image'" class="chat-bubble chat-bubble-left" ref="mediaMsg" ng-click="vm.showFullImg(msg.originLink)"></div>
+                    <div ng-if="msg.type==='video'" class="message" ref="mediaMsg"></div>
+                    <div ng-if="msg.type==='audio'" class="message" @click="playAudio(msg.audioSrc)">{{msg.text}}</div>
+                    <div ng-if="msg.type==='file'" class="message"><a href="msg.file.url" target="_blank"><i class="u-icon icon-file"></i>{{msg.file.name}}</a></div>
+                    <div ng-if="msg.type==='custom'" ui-sref="rsc.person_page({id:msg.card.businesscard_userid, type:msg.card.title_left})">
+                        <h4>
+                            <i>个人名片</i>
+                            <div class="clear"></div>
+                        </h4>
+                        <div class="item item-avatar">
+                            <img ng-src="{{msg.card.url}}" image-404="./img/common/infor-face.png">
+                            <div>
+                                <h3>{{msg.card.businesscard_name}}</h3>
+                                <h4 class="text-gray" ng-if="msg.card.buy&&!!msg.card.buy.length">销售：<span ng-repeat="i in msg.card.buy">{{i|categoryFilter}}</span></h4>
+                                <h4 class="text-gray" ng-if="msg.card.sell&&!!msg.card.sell.length">采购：<span ng-repeat="i in msg.card.sell">{{i|categoryFilter}}</span></h4>
+                                <h4 class="text-gray" ng-if="msg.card.transport&&!!msg.card.transport.length">运输：<span ng-repeat="i in msg.card.transport">{{i|categoryFilter}}</span></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="bottom"></div>
+    </ion-content>
+    <form novalidate>
+        <ion-footer-bar class="bar-light item-input-inset message-footer" id="bottom">
+            <div class="footer-btn-wrap footer-left">
+                <label>
+                    <img src="./img/common/chat-icon2.png" class="chat-icon">
+                    <input type="file" style="display:none" accept="*" 
+                    id="file" name='file' onchange="angular.element(this).scope().vm.fileNameChanged(this)" />
+                </label>
+                <!-- <img src="./img/common/chat-icon1.png" class="chat-icon"> -->
+            </div>
+            <label class="item-input-wrapper">
+                <textarea ng-enter="vm.sendMsg('session')" placeholder="" class="textarea" minlength="1" maxlength="1500" ng-model="vm.msg" autofocus></textarea>
+            </label>
+            <button class="button button-small button-positive footer-btn-wrap footer-right" ng-click="vm.sendMsg('session')">
+                发送
+            </button>
+        </ion-footer-bar>
+    </form>
+</ion-view>

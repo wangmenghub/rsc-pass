@@ -1,0 +1,48 @@
+<div ng-if="data.type == 'real_name' ">
+    <div class="list">
+        <label class="item item-input">
+      <input type="text" ng-model="data.real_name" maxlength="10">
+    </label>
+    </div>
+</div>
+
+<div ng-if="data.type == 'nick_name' ">
+    <div class="list">
+        <label class="item item-input">
+      <input type="text" ng-model="data.nick_name" maxlength="10">
+    </label>
+    </div>
+</div>
+
+<div ng-if="data.type == 'phone' ">
+    <div>
+        <ion-list>
+            <form name="myPhone" novalidate>
+                <ion-item style="padding: 6px">
+                    <input class="font-col" type="tel" name="phone" id="phone" ng-model="data.phone" placeholder="请输入新的手机号" required maxlength="11"
+                        ng-pattern="/(^13[0-9]{9}$)|(^15[0-9]{9}$)|(^17[0-9]{9}$)|(^18[012356789][0-9]{8}$)/">
+                    <div class="form-error" ng-messages="myPhone.phone.$dirty&&myPhone.phone.$error">
+                        <div ng-message="pattern">请输入11位手机号码</div>
+                    </div>
+                </ion-item>
+                <div class="item item-input" style="padding: 6px">
+                    <input type="text" class="input-code" name="vertify" ng-model="data.code" placeholder="请输入验证码" required maxlength="6" />
+                    <button ng-disabled="myPhone.phone.$error.required||myPhone.phone.$error['pattern']" class="pull-right button ng-binding button-assertive button-small"
+                        ng-click="data.send_vertify(data)">{{data.btn_text}}</button>
+                    <div class="form-error">
+                        {{errConfig}}
+                    </div>
+                </div>
+            </form>
+        </ion-list>
+    </div>
+</div>
+
+<div ng-if="data.type == 'post' ">
+    <div class="list">
+        <label class="item item-input">
+      <input type="text" ng-model="data.post" maxlength="10" placeholder="请输入">
+    </label>
+    </div>
+</div>
+

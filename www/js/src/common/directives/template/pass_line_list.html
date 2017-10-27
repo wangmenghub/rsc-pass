@@ -1,0 +1,25 @@
+<div>
+	<ion-item class="item-routelist item-icon-right gap-10" ng-click="lineDetail(line)">
+		<img src="./img/pass/pass-icon1.png" class="label-icon1 pull-left">
+		<div class="pull-left text-center">
+			<h3 class="bold">{{line.start_city|rscLimit:5}}</h3>
+			<h6 class="text-gray">{{line.start_district|rscLimit:5}}</h6>
+		</div>
+		<span class="pull-left route">-></span>
+		<div class="pull-left text-center ">
+			<h3 class="bold">{{line.end_city|rscLimit:5}}</h3>
+			<h6 class="text-gray">{{line.end_district|rscLimit:5}}</h6>
+		</div>
+		<div class="text-center pull-right">
+			<h6 class="text-gray">被下单 <span class="text-red">{{line.order_count?line.order_count:0}}</span> 次</h6>
+			<h6 class="text-gray">单价(元/吨) <span class="text-red">{{line.money | currency : '￥'}}</span></h6>
+		</div>
+		<i class="icon ion-ios-arrow-right"></i>
+		<ion-option-button class="button-positive" ng-click="editLine(line._id);$event.stopPropagation();">
+			编辑
+		</ion-option-button>
+		<ion-option-button class="button-assertive" ng-click="delLine(line._id);$event.stopPropagation();">
+			删除
+		</ion-option-button>
+	</ion-item>
+</div>

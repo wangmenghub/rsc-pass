@@ -1,0 +1,61 @@
+<div class="card">
+    <div class="item item-avatar item-text-wrap">
+        <img ng-src="{{vm.company_info.company.url_logo || './img/common/logo-icon.png'}}" image-404='./img/common/logo-icon.png' ng-click="$root.rootGoDetail('TRADE', vm.company_info.company._id)"
+            class="home-logo" >
+        <h3 class="text-black">
+            {{vm.company_info.company.nick_name || vm.company_info.company.nick_name}}
+            <img ng-if='vm.company_info.company.verify_phase=="SUCCESS"' src="./img/158/label-v.png" class="label-v" >
+            <img ng-if='vm.company_info.company.vip' src="./img/158/label-model.png" class="label-model">
+        </h3>
+        <h5 class="text-gray1" ng-if="vm.company_info.company.type=='TRADE'">采购：
+            <span ng-repeat='buy in vm.company_info.arrBuy'>{{buy.chn}}&nbsp</span>
+            销售：<span ng-repeat='sell in vm.company_info.arrSell'>{{sell.chn}}&nbsp</span>
+        </h5>
+        <h4 class="text-gray" ng-if="vm.company_info.company.type!='TRADE'">
+            运输：<span ng-repeat="i in vm.company_info.company.transport track by $index">{{i|typeName}} </span>
+            <span ng-if="vm.company_info.company.transport.length==0">暂无</span>
+        </h4>
+        <div class="item-face text-center gap-10">
+            <h4 class="text-gray2">企业名片</h4>
+        </div>
+    </div>
+    <div class="bg-white gap-row" ng-if="vm.company_info.company.type!='TRADE'">
+        <div class="row text-center">
+            <!--<div class="col">-->
+            <!--<h5>线路</h5>-->
+            <!--<h5 class="gap-5">{{vm.companyInfo.count.TRAFFIC_LINE}}</h5>-->
+            <!--</div>-->
+            <!--<div class="col">-->
+            <!--<h5>抢单</h5>-->
+            <!--<h5 class="gap-5">{{vm.companyInfo.count.DRIVER_DEMAND}}</h5>-->
+            <!--</div>-->
+            <div class="col">
+                <h5>货源</h5>
+                <h5 class="gap-5">{{vm.company_info.count.DRIVER_DEMAND}}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="row text-center text-gray gap-10" ng-if="vm.company_info.company.type=='TRADE'">
+        <div class="col">
+            <h5>报价</h5>
+            <h5 class="gap-5">{{vm.company_info.count.DJ?vm.company_info.count.DJ:0}}</h5>
+
+        </div>
+        <div class="col">
+            <h5>竞价</h5>
+            <h5 class="gap-5">{{vm.company_info.count.JJ?vm.company_info.count.JJ:0}}</h5>
+        </div>
+        <div class="col">
+            <h5>采购</h5>
+            <h5 class="gap-5">{{vm.company_info.count.TRADE_DEMAND?vm.company_info.count.TRADE_DEMAND:0}}</h5>
+        </div>
+        <div class="col">
+            <h5>运输</h5>
+            <h5 class="gap-5">{{vm.company_info.count.TRAFFIC_DEMAND?vm.company_info.count.TRAFFIC_DEMAND:0}}</h5>
+        </div>
+    </div>
+    <div class="list-inset">
+        <h5 class="text-gray1 line-height gap-5"><span class="bold">企业介绍:</span> {{vm.company_info.company.des}}</h5>
+        <h5 class="text-gray1 gap-5"><span class="bold">所在地区:</span> {{vm.company_info.company.province}}- {{vm.company_info.company.city}}</h5>
+    </div>
+</div>

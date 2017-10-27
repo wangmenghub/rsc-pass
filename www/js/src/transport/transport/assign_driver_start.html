@@ -1,0 +1,164 @@
+<ion-view view-title="指派车辆" ng-init="vm.init()" hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <span menu-close nav-transition='ios' nav-direction="back" ng-click="rootGoBack()">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons>
+    <form name="frm_price" novalidate>
+        <ion-content class="bg-gray" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+            <div>
+                <rsc-info data="vm.order.demand_user_id" order="vm.order"></rsc-info>
+            </div>
+            <div class="gap-2">
+                <rsc-detail-header list="vm.order"></rsc-detail-header>
+            </div>
+            <div class="bg-white">
+                <!--<details-product model="vm.order.product_categories"></details-product>-->
+                <product-detail model="vm.order.product_categories" data="vm.order" type="'categories'"></product-detail>
+                <div ng-if="vm.order.replenish.length!=0">
+                    <div ng-repeat="replenish in vm.order.replenish">
+                        <product-detail model="replenish" data="vm.order" type="'replenish'"></product-detail>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="list">
+                <details-product model="vm.order.product_categories"></details-product>
+            </div>-->
+            <!--<div class="list slide-top">
+                <div class="item" ng-repeat="products in vm.order.products_replenish">
+                    <h3 class="bold">{{products.layer_1_chn}} {{products.layer_2_chn}}</h3>
+                    <div class="clear"></div>
+                    <div class="item-add">
+                        <h4 class="bold title text-green">{{products.layer_3_chn}}</h4>
+                        <div ng-repeat="i in products.product_name">
+                            <div class="row">
+                                <h4 class="col col-10 text-green" ng-if="i.name">
+                                    {{i.name}}
+                                </h4>
+                                <h4 class="col text-green" ng-repeat="j in i.long">
+                                    {{j.long?j.long:''}}件重：{{j.amount_unit}}吨
+                                </h4>
+                                <h4 class="col text-green" ng-repeat="j in i.attribute">
+                                    {{j.name}}：{{j.value}}{{j.unit}}
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <h5 class="text-gray1 pull-right">根据实际补货计算</h5>
+                </div>
+            </div>-->
+            <div class="bg-white gap-20">
+                <div class="list list-item list-type-input">
+                    <li class="item item-input list-input">
+                        <span class="input-label">运输吨数</span>
+                        <input type="tel" ng-model="vm.order.amount_remain" class="text-right" disabled>
+                    </li>
+                    <li class="item item-input list-input">
+                        <span class="input-label">运输价格(元／吨)</span>
+                        <input type="number" placeholder="请输入" ng-model="vm.order.product_categories[0].pass_price" class="text-right">
+                    </li>
+                    <li class="item item-type item-icon-right" ng-click='vm.assignMinuit()'>
+                        有效期
+                        <span class="pull-right text-gray">{{vm.termOfValidity?vm.termOfValidityTxt:'请选择'}}</span>
+                        <i class="icon ion-ios-arrow-right text-gray"></i>
+                    </li>
+                </div>
+            </div>
+            <div class="list list-item">
+                <li class="item gap-20">
+                    提货时间
+                    <span class="pull-right text-gray">{{vm.order.time_depart|rsctime}}</span>
+                </li>
+            </div>
+            <div class="list list-item">
+                <li class="item gap-20">
+                    交货时间
+                    <span class="pull-right text-gray">{{vm.order.time_arrival|rsctime}}</span>
+                </li>
+            </div>
+            <div class="bg-white gap-20">
+                <div class="list list-item list-type-input">
+                    <li class="item item-icon-right item-type" ng-click="vm.selPaymentMethod()">
+                        付款方式
+                        <span class="pull-right text-gray">{{vm.demand.payment_method|paymentChoice}} </span>
+                        <i class="icon ion-ios-arrow-right text-gray"></i>
+                    </li>
+                    <div ng-if="vm.demand.payment_method == 'partition'">
+                        <li class="item item-input list-input">
+                            <span class="input-label">首付款比例（%）</span>
+                            <input name="percentage" required type="text" ng-model="vm.demand.percentage_advanc" placeholder="请输入" class="text-right">
+                        </li>
+                        <li class="item item-type">
+                            尾款支付起始日期
+                            <span class="pull-right text-gray" value="货到并完成质检日">货到并完成质检日</span>
+                        </li>
+                        <li class="item item-input list-input">
+                            <span class="input-label">尾款延期支付天数</span>
+                            <input required type="text" ng-model="vm.demand.count_day_extension" placeholder="请输入" class="text-right">
+                        </li>
+                    </div>
+                    <li class="item item-icon-right item-type" ng-click="vm.selPaymentChoice()">
+                        付款类型
+                        <span required class="pull-right text-gray">{{vm.sale.payment_choice |paymentChoice}}</span>
+                        <i class="icon ion-ios-arrow-right text-gray"></i>
+                    </li>
+                </div>
+            </div>
+            <div class="bg-white gap-20">
+                <ion-list>
+                    <ion-radio required ng-model="vm.method" ng-value="'get'">按提货吨数结算</ion-radio>
+                    <ion-radio required ng-model="vm.method" ng-value="'fact'">按到货吨数结算</ion-radio>
+                    <ion-radio required ng-if="vm.order.product_categories[0].unit != '件'" ng-model="vm.method" ng-value="'theory'">按实际路耗结算</ion-radio>
+                </ion-list>
+                <div class="list list-item list-type-input" ng-if="vm.order.product_categories[0].unit != '件'&& vm.method=='theory'">
+                    <!--<li class="item item-type item-type-no">-->
+                    <!--按实际路耗结算-->
+                    <!--</li>-->
+                    <li class="item item-input list-input">
+                        <span class="input-label text-gray">合理路耗(%)</span>
+                        <input required name="rodeLoss" id="rodeLoss" type="text" ng-model="vm.order.att_traffic.one[2]" placeholder="请输入" class="text-right">
+                    </li>
+                    <div class="form-error" ng-messages="asignDriverForm.rodeLoss.$dirty&&asignDriverForm.rodeLoss.$error">
+                        <div ng-message="required">合理路耗不能为空</div>
+                    </div>
+                    <li class="item item-input list-input">
+                        <span class="input-label text-gray">扣款标准(元)</span>
+                        <input required name="contribution" id="contribution" type="text" ng-model="vm.order.att_traffic.one[3]" placeholder="请输入" class="text-right">
+                    </li>
+                    <div class="form-error" ng-messages="asignDriverForm.contribution.$dirty&&asignDriverForm.contribution.$error">
+                        <div ng-message="required">扣款标准不能为空</div>
+                        <!--<div ng-message="pattern">请输入数字</div>-->
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white gap-20">
+                <div class="list list-item list-type-input">
+                    <label class="item item-input list-input">
+                        <textarea class="text-gray1" ng-model='vm.data.comment' rows="3" wrap="soft" maxlength="200" placeholder="请输入货物描述"></textarea>
+                    </label>
+                </div>
+            </div>
+            <div class="list">
+                <div class="item item-avatar item-address gap-20 item-icon-right" ng-click="rootAddMap(vm.order.send_province,vm.order.send_city,vm.order.send_district,vm.order.send_addr)">
+                    <img src="./img/158/landmark.png" class="landmark">
+                    <h2 class="text-gray1">提货地址：{{vm.order.send_city}}{{vm.order.send_district}}{{vm.order.send_addr}}</h2>
+                    <p ng-if="vm.order.send_name||vm.order.send_phone">联系人：{{vm.order.send_name}} &nbsp;&nbsp;手机号：{{vm.order.send_phone}}</p>
+                    <p ng-if="!vm.order.send_name&&!vm.order.send_phone"></p>
+                    <i class="icon ion-ios-arrow-right text-gray"></i>
+                </div>
+                <div class="item item-avatar item-address item-address-border item-icon-right" ng-click="rootAddMap(vm.order.receive_province,vm.order.receive_city,vm.order.receive_district,vm.order.receive_addr)">
+                    <img src="./img/158/landmark-1.png" class="landmark">
+                    <h2 class="text-gray1">交货地址：{{vm.order.receive_city}}{{vm.order.receive_district}}{{vm.order.receive_addr}}</h2>
+                    <p ng-if="vm.order.receive_name||vm.order.receive_phone">联系人：{{vm.order.receive_name}} &nbsp;&nbsp;&nbsp;&nbsp;手机号：{{vm.order.receive_phone}}</p>
+                    <p ng-if="!vm.order.receive_name&&!vm.order.receive_phone"></p>
+                    <i class="icon ion-ios-arrow-right text-gray"></i>
+                </div>
+            </div>
+        </ion-content>
+        <ion-footer-bar class="bar bar-royal">
+            <h1 class="title" ng-click="vm.assignDriver(frm_price.$invalid)">选择车辆</h1>
+        </ion-footer-bar>
+    </form>
+</ion-view>

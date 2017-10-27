@@ -1,0 +1,50 @@
+<ion-view>
+	<ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">我的订单</h1>
+        </div>
+    </ion-nav-title>
+	<div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+		<div class="tabs">
+            <a class="tab-item num-fixed" menu-close nav-transition="ios" nav-direction="enter" ui-sref='rsc.trans_grab' >
+                运输
+                <span class="trade-num label-num" ng-if="transpmsg.transportation.total > 0">{{transpmsg.transportation.total}}</span>
+            </a>
+            <a class="tab-item num-fixed active" menu-close nav-transition="ios" nav-direction="enter" ui-sref='rsc.trans_order_doing'>
+                订单
+                <span class="trade-num label-num" ng-if="transpmsg.order.total > 0">{{transpmsg.order.total}}</span>
+            </a>
+            <a class="tab-item num-fixed" menu-close nav-transition="ios" nav-direction="enter" ui-sref='rsc.trans_car' >
+                车辆
+            </a>
+		</div>
+	</div>
+	<ion-content class="bg-gray has-subheader has-footer" ng-init="vm.init()">
+		<ul class="row third-bar text-center" ng-controller="pass_sell_order_ctrl" ng-init="init()">
+			<li menu-close nav-transition="ios" nav-direction="enter" class="col" ui-sref="rsc.trans_order_doing" >进行中 {{transpOrderMsg.effective?transpOrderMsg.effective:0}}</li>
+			<li menu-close nav-transition="ios" nav-direction="enter" class="col active" ui-sref="rsc.trans_order_already" >已完成 {{transpOrderMsg.complete?transpOrderMsg.complete:0}}  </li>
+		</ul>
+		<!--<div ng-controller="pass_sell_order_ctrl" class="button-bar trade-bar trade-bar-status" ng-init="init()" nav-transition="ios">-->
+			<!--<a class="button" menu-close  nav-transition="ios" nav-direction="enter" ui-sref="rsc.trans_order_doing">进行中 {{effective?effective:0}} </a>-->
+			<!--<a class="button active" menu-close  nav-transition="ios" nav-direction="enter" ui-sref="rsc.trans_order_already">已完成 {{ineffective?ineffective:0}} </a>-->
+		<!--</div>-->
+		<ion-refresher spinner="spiral" on-refresh="doRefresh()"></ion-refresher>
+		<!--订单-->
+
+		<loading-dire loadparam="vm.reqcomplete"></loading-dire>
+		<div ng-show="vm.reqcomplete">
+			<div class="text-center gap-70" ng-if="!orders || orders.length==0">
+				<h4 class="text-gray">暂无运输订单</h4>
+				<!--<h4 class="text-black gap-5">请先发布运输抢单</h4>-->
+				<!--<button class="gap-10 button-circle" ui-sref="rsc.release_grab_list">发布运输</button>-->
+			</div>
+			<div ng-if="orders.length>0" ng-repeat="order in orders track by $index">
+				<div ng-class="{'gap-10':!$first}"></div>
+				<car-order-list demand-list="order" go-order-detail="goOrderDetail(order)" source="already"></car-order-list>
+			</div>
+		</div>
+		<ion-infinite-scroll immediate-check="false" ng-if="hasMore" icon="ion-loading-c" on-infinite="loadMore()" distance="15%">
+		</ion-infinite-scroll>
+	</ion-content>
+	<rsc-tabs config-name='rsc.center_goods' active=2></rsc-tabs>
+</ion-view>

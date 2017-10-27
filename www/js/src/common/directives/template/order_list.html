@@ -1,0 +1,38 @@
+<div class="item item-offer item-icon-right">
+	<img src="./img/common/label-icon-purple2.png" class="label-icon1 pull-left">
+	<div class="pull-left text-center">
+		<h4 class="bold">{{order.send_city|rscLimit:5}}</h4>
+		<h6 class="text-gray">{{order.send_district|rscLimit:5}}</h6>
+	</div>
+	<span class="pull-left route">-></span>
+	<div class="pull-left text-center">
+		<h4 class="bold">{{order.receive_city|rscLimit:5}}</h4>
+		<h6 class="text-gray">{{order.receive_district|rscLimit:5}}</h6>
+	</div>
+	<img src="./img/common/line.png" class="pull-left master-line">
+	<div class="pull-left text-center">
+		<h4 class="text-blue">{{order.amount | number:3}}吨</h4>
+		<h6 class="text-gray">{{order.material | paymentChoice}}</h6>
+	</div>
+	<!--<div class="item-face text-center gap-7">-->
+	<!--<img class="face img-circle" ng-src="{{order.user_photo}}" image-404="./img/common/infor-face.png">-->
+	<!--<h6 class="text-gray">{{order.user_name}}</h6>-->
+	<!--</div>-->
+	<div class="clearfix"></div>
+	<!--<h6 class="text-gray">订单号：-->
+	<!--{{order.index}}-->
+	<!--</h6>-->
+	<p>{{order.company_name}}
+		<img ng-if="order.verify_phase == 'SUCCESS'" src="./img/158/label-v.png" class="label-v">
+		<span class="pull-right h4 text-red">
+			{{order.price_theory | currency : '￥' }}
+		</span>
+	</p>
+	<p>
+		<span ng-if="status == 'effective'" class="text-red">进行中</span>
+		<span ng-if="status == 'complete'" class="text-red">已完成</span>
+		<span ng-if="status == 'cancelled'" class="text-red">已取消</span>
+		<!--<span class="text-red">您主动取消</span>-->
+		<!--<span class="text-red">货主方主动取消</span>-->
+	</p>
+</div>

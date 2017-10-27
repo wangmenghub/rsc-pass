@@ -1,0 +1,54 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">加入企业</h1>
+        </div>
+    </ion-nav-title>
+    <ion-content class="bg-gray" ng-init="vm.init()" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div class="item-search row">
+            <div class="col col-80">
+                <i class="ion-search tel-search"></i>
+                <input type="text" placeholder="搜索企业名称" ng-model="vm.name">
+            </div>
+            <button class="col col-20 button button-light button-small" ng-click="vm.search(vm.name)">
+                搜索
+            </button>
+        </div>
+        <div class="bg-white" ng-repeat="item in vm.search_list track by $index" ng-class="$index!=0?'gap-10':''">
+            <div class="list list-driver">
+                <div class="item item-avatar item-icon-right item-driver">
+                    <img ng-src="{{item.url_logo}}" image-404="./img/common/logo-icon.png" class="driver-face" />
+                    <h3>
+                        {{item.nick_name}}
+                        <span ng-if="item.verify_phase == 'SUCCESS'">
+                            <img src="./img/158/label-v.png" class="label-v" />
+                        </span>
+                    </h3>
+                    <h5 class="text-gray">
+                        运输：<span ng-repeat="i in item.transport track by $index">{{i|categoryFilter}}&nbsp</span>
+                    </h5>
+                    <i class="icon">
+                    <button class="btn-agreeapply" ng-click="vm.joinCompany(item._id, item.verify_phase)">加入企业</button>
+                </i>
+                </div>
+            </div>
+            <div class="item item-body item-body-condensed">
+                <p class="text-gray">
+                    {{item.des}}
+                </p>
+                <p class="text-gray">
+                    地址：{{item.province}}{{item.city}}
+                </p>
+            </div>
+            <div class="row text-center col-companyhome">
+                <div class="col col-25" ng-repeat="i in item.url_honor track by $index" ng-if="($index+1)/3<=1">
+                    <img ng-src="{{i}}" class="img-size" image-404="./img/common/company-img.png">
+                </div>
+                <div class="col col-25" ng-if="item.url_honor.length != 0">
+                    <img src="./img/common/company-more.png" class="img-size">
+                </div>
+            </div>
+        </div>
+        <ion-infinite-scroll ng-if="vm.exist" immediate-check="false" icon="ion-loading-c" on-infinite="vm.loadMore()" distance="5%">
+    </ion-content>
+</ion-view>

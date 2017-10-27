@@ -1,0 +1,49 @@
+<ion-view hide-back-button="true">
+	 <ion-nav-buttons side="left">
+        <span  menu-close nav-transition='ios' nav-direction="back" ng-click="rootGoBack()">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons>
+	<ion-nav-title>
+		<div class="bar bar-positive">
+			<h1 class="title">货源地图</h1>
+		</div>
+	</ion-nav-title>
+	<ion-content class="bg-gray" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+		<div ng-init="vm.init()">
+			<!--<app-map></app-map>-->
+			<div id='container' style='width:100%;'></div>
+			<div id='panel' style='display:none'></div>
+			<div class="list">
+				<div class="item item-offer item-icon-right">
+					<div class="gap-5"></div>
+					<img src="./img/pass/pass-icon.png" class="label-icon1 pull-left">
+					<div class="pull-left text-center">
+						<h4 class="bold">{{vm.demandDetail.send_city|rscLimit:5}}</h4>
+						<h6 class="text-gray">{{vm.demandDetail.send_district|rscLimit:5}}</h6>
+					</div>
+					<span class="pull-left route">-></span>
+					<div class="pull-left text-center">
+						<h4 class="bold">{{vm.demandDetail.receive_city|rscLimit:5}}</h4>
+						<h6 class="text-gray">{{vm.demandDetail.receive_district|rscLimit:5}}</h6>
+					</div>
+					<img src="./img/common/line.png" class="pull-left master-line">
+					<div class="pull-left text-center">
+						<h4 class="text-blue">{{vm.demandDetail.amount | number:1}}吨</h4>
+						<h6 class="text-gray">{{vm.demandDetail.material | paymentChoice}}</h6>
+					</div>
+					<div class="item-face text-center gap-10">
+						<img ng-src="{{vm.demandDetail.user_photo}}" image-404="./img/common/infor-face.png" class="face img-circle">
+						<h6 class="text-gray">{{vm.demandDetail.user_name}}</h6>
+					</div>
+					<div class="clearfix"></div>
+					<p class="gap-10">
+						全程 <span class="text-red" id="distance"></span> 公里
+						<span class="pull-right text-gray" id="time"></span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

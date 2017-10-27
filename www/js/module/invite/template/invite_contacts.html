@@ -1,0 +1,77 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">通讯录</h1>
+        </div>
+    </ion-nav-title>
+    <ion-nav-buttons side="secondary">
+        <button class="button button-clear" ui-sref="rsc.invite_phone({role:vm.role})" ng-if="!vm.invite">输入手机号</button>
+    </ion-nav-buttons>
+    <ion-content class="bg-gray" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+    <div class="text-center gap-70" ng-if="vm.loading">
+        <h4 class="text-gray">正在加载...</h4>
+    </div>
+    <div ng-if="!vm.loading">    
+        <div class="item-search row">
+            <div class="col col-80">
+                <i class="ion-search tel-search"></i>
+                <input  ng-change="vm.search(vm.search_name)" type="text" placeholder="搜索联系人" ng-model="vm.search_name">
+            </div>
+            <button class="col col-20 button button-light button-small" ng-click="vm.search(vm.search_name)">
+                搜索
+            </button>
+        </div>
+        <div ng-repeat="(letter, list) in vm.sorted_users">
+            <div class="item item-divider" id="index_{{letter}}">
+                {{letter}}
+            </div>
+            <div class="bg-white list-telitem-checkbox">
+                <div class="list list-telitem item-checkbox" ng-repeat="users in list track by $index">
+                    <label for="{{letter+$index}}">
+                    <span class="checkbox" ng-show="!users.res">
+                        <input type="checkbox" ng-model="users.isSelect" ng-click="vm.select($event, users)" id="{{letter+$index}}">
+                    </span>
+                    <li class="item item-avatar item-tel item-icon-left item-icon-right">
+                        <img src="./img/common/infor-face.png" class="face">
+                            <h2>
+                                {{users.name}}
+                                <span class="h5 text-gray">{{users.company_name}}</span>
+                            </h2>
+                            <p>{{users.phone}}</p>
+                            <i class="icon">
+                                <h4 class="text-gray" ng-if="!users.res">
+                                    未上线
+                                </h4>
+                                <h4 class="text-gray" ng-if="users.res&&users.friend">
+                                    已添加
+                                </h4>
+                                <button class="btn-agreeapply btn-agreeapply-blue" ng-if="users.res&&!users.friend">
+                                    加好友
+                                </button>
+                            </i>
+                    </li>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="text-center gap-70" ng-if="vm.show">
+            <h4 class="text-gray1">没有搜索结果</h4>
+        </div>
+    </div>
+    </ion-content>
+    <div class="alpha_sidebar">
+        <h6 on-tap="vm.gotoList('index_{{letter}}')" ng-repeat="letter in vm.alphabet">
+            {{letter}}
+        </h6>
+    </div>
+    <ion-footer-bar class="bar bar-light bar-footer">
+        <div class="row button-foot">
+            <div class="col col-67">
+                已选择 {{vm.count}} 位联系人
+            </div>
+            <div class="col col-purple" ng-disabled="!vm.agree" ng-click="vm.inviteImmediately()">
+                立即邀请
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

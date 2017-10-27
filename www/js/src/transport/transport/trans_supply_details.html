@@ -1,0 +1,246 @@
+<ion-view hide-back-button="true">
+    <!--顶部导航-->
+    <ion-nav-buttons side="left">
+        <span  menu-close nav-transition='ios' nav-direction="back" ng-click="vm.goBack()">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <div class="title nav-bar">
+                <a class="" nav-transition="ios" nav-direction="enter" ui-sref="rsc.trans_assign_detail({demand_id:vm.demand_id,source:vm.source})">指派</a>
+                <a class="active">货源详情</a>
+            </div>
+        </div>
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ng-if="vm.order.order_count<=0&&vm.source=='grab'" ng-click="vm.closeDemand()">取消</button>
+    </ion-nav-buttons>
+    <ion-content class="bg-gray has-footer" ng-init="init()" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div ng-class="{'bg-white gap-20':$root.rscPlatform == 'isweb'}">
+            <div ng-class="{'login-width content-maxwidth':$root.rscPlatform == 'isweb'}">
+        <ion-refresher spinner="spiral" on-refresh="doRefresh()"></ion-refresher>
+        <div class="list">
+            <div class="item item-offer item-icon-right">
+                <img src="./img/pass/pass-icon.png" class="label-icon pull-left">
+                <div class="pull-left text-center">
+                    <h4 class="bold">{{vm.order.send_city|rscLimit:5}}</h4>
+                    <h6 class="text-gray">{{vm.order.send_district|rscLimit:5}}</h6>
+                </div>
+                <span class="pull-left route">-></span>
+                <div class="pull-left text-center">
+                    <h4 class="bold">{{vm.order.receive_city|rscLimit:5}}</h4>
+                    <h6 class="text-gray">{{vm.order.receive_district|rscLimit:5}}</h6>
+                </div>
+                <img src="./img/common/line.png" class="pull-left master-line">
+                <div class="pull-left text-center">
+                    <h4 class="text-blue">{{vm.order.amount}}吨</h4>
+                    <h6 class="text-gray">{{vm.order.category_chn}}
+                    </h6>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!--<div class="bg-white gap-20">
+            <div class="list list-item list-type-input">
+                <li class="item item-type item-type-no item-type-standard item-icon-right" ng-click="vm.productsDetail()">
+                    运输货物
+                    <i class="icon ion-ios-arrow-right"></i>
+                </li>
+                <div class="bg-green gap-10">
+                    <div class="list-inset">
+                        <h5 class="text-green {{$index.first ? '': 'gap-10'}}" ng-repeat="item in vm.order.products">{{item.category_chn}}
+                            <span ng-if="item.shop_unit == '件'" class="pull-right text-gray1">剩余{{item.count}}{{item.shop_unit}}</span>
+                            <span ng-if="item.shop_unit != '件'" class="pull-right text-gray1">剩余{{item.amount}}{{item.shop_unit}}</span>
+                        </h5>
+                        <h5 class="text-green gap-10" ng-repeat="item in vm.order.products_replenish">{{item.layer_1_chn}}<span class="pull-right text-gray1">根据实际补货计算</span></h5>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="gap-10"></div>
+            <div class="clearfix"></div>
+        </div>-->
+        <div class="gap-20">
+            <div class="list">
+                <details-product model="vm.order.product_categories"></details-product>
+                <!--<div class="item" ng-repeat="products in vm.order.product_categories track by $index">-->
+                    <!--<h3 class="bold">{{products.layer_1_chn}} {{products.layer_2_chn}}</h3>-->
+                    <!--<div class="clear"></div>-->
+                    <!--<div ng-class="{'gap-10':!$first}" ng-repeat="i in products.product_name">-->
+                        <!--<div class="item-add">-->
+                            <!--<div class="text-green">-->
+                                <!--<h4 class="bold title text-green">{{products.layer_3_chn}}</h4>-->
+                            <!--</div>-->
+                            <!--<div class="row row-wrap text-green">-->
+                                <!--<h4 class="col col-10 text-green" ng-if="i.guige">-->
+                                    <!--{{i.guige}}-->
+                                <!--</h4>-->
+                                <!--<h4 class="col col-50 text-green" ng-repeat="j in i.attribute">-->
+                                    <!--{{i.name?i.name+'：':''}}{{j.name}}：{{j.value}}{{j.unit}}-->
+                                <!--</h4>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="clear"></div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+            </div>
+        </div>
+        <div class="gap-10">
+            <div class="list slide-top">
+                <div class="item" ng-repeat="products in vm.order.products_replenish">
+                    <h3 class="bold">{{products.layer_1_chn}} {{products.layer_2_chn}}</h3>
+                    <div class="clear"></div>
+                    <div class="item-add">
+                        <h4 class="bold title text-green">{{products.layer_3_chn}}</h4>
+                        <div ng-repeat="i in products.product_name">
+                            <div class="row">
+                                <h4 class="col col-10 text-green" ng-if="i.name">
+                                    {{i.name}}
+                                </h4>
+                                <h4 class="col text-green" ng-repeat="j in i.long">
+                                    {{j.long?j.long:''}}件重：{{j.amount_unit}}吨
+                                </h4>
+                                <h4 class="col text-green" ng-repeat="j in i.attribute">
+                                    {{j.name}}：{{j.value}}{{j.unit}}
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <h5 class="text-gray1 pull-right">根据实际补货计算</h5>
+                </div>
+            </div>
+        </div>
+        <div class="list">
+            <div class="item item-avatar item-address gap-20" ng-click="rootAddMap(vm.order.send_province,vm.order.send_city,vm.order.send_district,vm.order.send_addraddr)">
+                <img src="./img/158/landmark.png" class="landmark">
+                <h2 class="text-gray1">提货地址：{{vm.order.send_city}}{{vm.order.send_district}}{{vm.order.send_addr}}</h2>
+                <p ng-if="vm.order.send_name">联系人：{{vm.order.send_name}} &nbsp;&nbsp;&nbsp;&nbsp;手机号：{{vm.order.send_phone}}</p>
+                <p ng-if="!vm.order.send_name&&!vm.order.send_phone">&nbsp;</p>
+            </div>
+            <div class="item item-avatar item-address item-address-border" ng-click="rootAddMap(vm.order.receive_province,vm.order.receive_city,vm.order.receive_district,vm.order.receive_addr)">
+                <img src="./img/158/landmark-1.png" class="landmark">
+                <h2 class="text-gray1">交货地址：{{vm.order.receive_city}}{{vm.order.receive_district}}{{vm.order.receive_addr}}</h2>
+                <p ng-if="vm.order.receive_name||vm.order.receive_phone"><i>联系人：{{vm.order.receive_name}}</i> &nbsp;&nbsp;&nbsp;&nbsp;<i>手机号：{{vm.order.receive_phone}}</i>
+                </p>
+                <p ng-if="!vm.order.receive_name&&!vm.order.receive_phone">&nbsp;</p>
+            </div>
+        </div>
+        <div class="gap-20">
+            <div class="list">
+                <div class="item item-passdetail">
+                    <h2 class="text-black">
+                        <span class="bold">提货时间</span>
+                    </h2>
+                    <p>
+                        <span class="text-red">{{vm.order.time_depart|rsctime}}</span>
+                    </p>
+                </div>
+                <div class="item item-passdetail">
+                    <h2 class="text-black">
+                        <span class="bold">交货时间</span>
+                    </h2>
+                    <p>
+                        <span class="text-red">{{vm.order.time_arrival|rsctime}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="gap-20">
+            <div class="list">
+                <div class="item item-passdetail">
+                    <h2 class="text-black">
+                        <span class="bold">付款方式</span>
+                    </h2>
+                    <p>
+                        <span class="text-red">{{vm.order.payment_method|rscPayChoice}}</span>
+                    </p>
+                </div>
+                <div class="item item-passdetail">
+                    <h2 class="text-black">
+                        <span class="bold">付款类型</span>
+                    </h2>
+                    <p>
+                        <span class="text-red">{{vm.order.payment_choice|paymentChoice}}</span>
+                    </p>
+                </div>
+                <div class="item item-passdetail">
+                    <h2 class="text-black">
+                        <span class="bold">物流结算</span>
+                    </h2>
+                    <p>
+                        <span class="text-red">
+                            {{vm.order.weigh_settlement_style=='get'?'按提货吨数结算':(vm.order.weigh_settlement_style=='fact'?'按到货吨数结算':'按实际路耗结算')}}
+
+                            <span ng-if="vm.order.weigh_settlement_style=='theory'">
+                                    : 合理路耗:{{vm.order.att_traffic.one[2]==null?0:vm.order.att_traffic.one[2]}}%，
+                                    扣款标准:{{vm.order.att_traffic.one[3]==null?0:vm.order.att_traffic.one[3]}}元
+                            </span>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="gap-20"></div>
+        <div class="item item-passdetail" ng-if="vm.order.appendix">
+            <h2 class="text-gray1">
+                <span class="bold text-black">货物描述</span>
+                <span class="pull-right">{{vm.order.appendix}}</span>
+            </h2>
+        </div>
+        <div class="flex-center list-passcompany">
+            <div class="list">
+                <div class="item item-avatar">
+                    <img class="img-circle" ng-src="{{vm.companyInfo.company.url_logo}}" image-404="./img/common/logo-icon.png" ng-click="rootGoDetail(vm.company.type,vm.company._id)">
+                    <h2>
+                        {{vm.companyInfo.company.nick_name}}
+                        <img ng-if="vm.companyInfo.company.verify_phase == 'SUCCESS'" src="./img/158/label-v.png" class="label-v">
+                    </h2>
+                    <h4 class="text-gray">
+                        运输：<span ng-repeat="i in vm.companyInfo.company.transport track by $index">{{i|typeName}} </span>
+                        <span ng-if="vm.companyInfo.company.transport.length==0">暂无</span>
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white gap-row">
+            <div class="row text-center">
+                <!--<div class="col">-->
+                    <!--<h5>线路</h5>-->
+                    <!--<h5 class="gap-5">{{vm.companyInfo.count.TRAFFIC_LINE}}</h5>-->
+                <!--</div>-->
+                <!--<div class="col">-->
+                    <!--<h5>抢单</h5>-->
+                    <!--<h5 class="gap-5">{{vm.companyInfo.count.DRIVER_DEMAND}}</h5>-->
+                <!--</div>-->
+                <div class="col">
+                    <h5>货源</h5>
+                    <h5 class="gap-5">{{vm.companyInfo.count.DRIVER_DEMAND}}</h5>
+                </div>
+            </div>
+        </div>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar bar-light bar-footer" ng-if="vm.source == 'grab'&&vm.overtime!='finsh'">
+        <div class="row button-foot">
+            <!--ui-sref="rsc.traffic_invite({enter:true})"-->
+            <div class="col col-50 text-red"  ui-sref="rsc.invite_contact({invite:'offer',id:vm.order._id})">
+                短信邀请司机
+            </div>
+            <div class="col" ng-click="shareAction()">
+                邀请更多司机抢单
+            </div>
+        </div>
+    </ion-footer-bar>
+    <ion-footer-bar class="bar bar-light bar-footer" ng-if="vm.overtime=='finsh'||vm.source =='ineffective'">
+        <div class="row button-foot text-red" ui-sref="rsc.goods_order_goods_detail({order_id:vm.order.order_id})">
+            <div class="col text-red">
+                指派超时，请继续指派未运输吨数
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

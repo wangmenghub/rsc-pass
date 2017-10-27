@@ -1,0 +1,226 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">企业主页</h1>
+        </div>
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ui-sref="rsc.traffic_company_setting" ng-if="vm.operate">设置</button>
+    </ion-nav-buttons>
+    <ion-content class="bg-gray" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div class="text-center" ng-if="!vm.loading">
+            <div class="bg-comhomepage text-center" ng-style="{'background-image': !!vm.companyInfo.url_company_bg_img?('url('+vm.companyInfo.url_company_bg_img+')'):'url(./img/me/bg-comhomepage.png)'}" ng-click="vm.changeBackground()">
+                <img ng-src="{{vm.companyInfo.url_logo}}" image-404="./img/common/logo-icon.png" class="companyhome-icon">
+                <h2 class="text-white gap-10 bold">
+                    {{vm.companyInfo.nick_name}}
+                </h2>
+                <h6 class="gap-10">
+                    <img src="./img/158/label-v.png" class="label-v" ng-if="vm.companyInfo.verify_phase=='SUCCESS'">
+                    <img src="./img/158/label-model.png" class="label-model" ng-if="!!vm.vip">
+                </h6>
+            </div>
+            <div class="bg-companynpage">
+                <div class="row row-homepage text-center text-gray gap-10" ng-if="vm.userInfo.user.role=='TRADE_STORAGE'">
+                    <div class="col" ng-click="vm.tabSwitch('address')">
+                        <h5>仓库</h5>
+                        <h5 class="gap-5">{{vm.address_store||0}}</h5>
+                    </div>
+                </div>
+                <div class="row row-homepage text-center text-gray gap-10" ng-if="vm.url_type!='TRAFFIC'&&vm.userInfo.user.role!='TRADE_STORAGE'">
+                    <div class="col" ng-class='{"active":vm.type == "trade_all"}' ng-click="vm.tabSwitch('trade_all')">
+                        <h5>企业</h5>
+                        <h5 class="gap-5">主页</h5>
+                    </div>
+
+                    <div class="col" ng-if="vm.userInfo.user.role!='TRADE_PURCHASE'" ng-class='{"active":vm.type == "trade_pricing"}' ng-click="vm.tabSwitch('trade_pricing')">
+                        <h5>报价</h5>
+                        <h5 class="gap-5">{{vm.count.SALE||0}}</h5>
+                    </div>
+
+                    <div class="col" ng-if="vm.userInfo.user.role!='TRADE_SALE'" ng-class='{"active":vm.type == "trade_demand"}' ng-click="vm.tabSwitch('trade_demand')">
+                        <h5>采购</h5>
+                        <h5 class="gap-5">{{vm.count.PURCHASE||0}}</h5>
+                    </div>
+
+                    <div class="col" ng-class='{"active":vm.type == "traffic_demand"}' ng-click="vm.tabSwitch('traffic_demand')">
+                        <h5>运输</h5>
+                        <h5 class="gap-5">{{vm.count.TRAFFIC||0}}</h5>
+                    </div>
+
+                </div>
+                <div class="row row-homepage text-center text-gray gap-10" ng-if="vm.url_type=='TRAFFIC'">
+                    <div class="col" ng-class='{"active":vm.type == "traffic_all"}' ng-click="vm.tabSwitch('traffic_all')">
+                        <h5>企业</h5>
+                        <h5 class="gap-5">主页</h5>
+                    </div>
+
+                    <div class="col" ng-class='{"active":vm.type == "traffic_driver_demand"}' ng-click="vm.tabSwitch('traffic_driver_demand')">
+                        <h5>物流抢单</h5>
+                        <h5 class="gap-5">{{vm.count.traffic_driver_demand||0}}</h5>
+                    </div>
+
+                    <div class="col" ng-class='{"active":vm.type == "traffic_line"}' ng-click="vm.tabSwitch('traffic_line')">
+                        <h5>物流线路</h5>
+                        <h5 class="gap-5">{{vm.count.traffic_line||0}}</h5>
+                    </div>
+
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="row" ng-cloak>
+                <div class="col col-33"></div>
+                <div class="col col-33 text-center">
+                    <div class="master-info" ng-if="vm.message != 0" ui-sref="rsc.trade_message">
+                        <img ng-src="{{vm.lastInfo}}" image-404="./img/common/infor-face.png" class="img-circle">
+                        <span class="text-white">{{vm.message}}条新消息</span>
+                    </div>
+                </div>
+                <div class="col col-33"></div>
+            </div>
+
+        </div>
+
+        <div class="gap-row" ng-if="(vm.type =='traffic_all'||vm.type =='trade_all')&&!vm.loading">
+            <div class="list-inset">
+                <h5 class="text-gray1 gap-10 line-height" ng-if="vm.userInfo.user.role!='TRAFFIC_ADMIN'">
+                    <span class="bold">经营范围:</span> 采购:
+                    <span ng-repeat="item in vm.companyInfo.buy track by $index">
+                        <span ng-if="item">{{item|categoryFilter}}、</span>
+                    <span ng-if="!item">无</span>
+                    </span>
+                    销售:
+                    <span ng-repeat="item in vm.companyInfo.sell track by $index">
+                        <span ng-if="item">{{item|categoryFilter}}、</span>
+                    <span ng-if="!item">无</span>
+                    </span>
+                </h5>
+                <h5 class="text-gray1 gap-10 line-height" ng-if="vm.userInfo.user.role=='TRAFFIC_ADMIN'">
+                    <span class="bold">经营范围:</span> 运输:
+                    <span ng-repeat="item in vm.companyInfo.transport track by $index">
+                                <span ng-if="item">{{item|categoryFilter}}、</span>
+                    <span ng-if="!item">无</span>
+                    </span>
+                </h5>
+                <h5 class="text-gray1 line-height gap-5"><span class="bold">企业介绍:</span> {{vm.companyInfo.des}}</h5>
+                <h5 class="text-gray1 gap-5"><span class="bold">所在地区:</span> {{vm.companyInfo.province}}&nbsp{{vm.companyInfo.city }}&nbsp{{vm.companyInfo.district}}</h5>
+            </div>
+        </div>
+
+        <div ng-if="!vm.loading">
+            <ion-scroll zooming="false" direction="x" scrollbar-x="false" style="margin:0 8px;width:auto;overflow-x: hidden;">
+                <ul class="trade-company" ng-if="vm.type =='traffic_all'||vm.type =='trade_all'" class="row text-center col-companyhome">
+                    <li ng-click="vm.uploadImg()">
+                        <img ng-src="./img/common/company-more.png" class="show-icon">
+                    </li>
+                    <li ng-click="vm.showPhoto($index)" ng-repeat="i in vm.companyInfo.url_honor track by $index" ng-if="!!i">
+                        <img ng-src="{{i}}" image-404="./img/common/company-more.png" class="show-icon">
+                    </li>
+                </ul>
+            </ion-scroll>
+        </div>
+
+        <div class="gap-row text-center gap-70" ng-if="vm.loading">
+            <h4 class="text-gray">正在加载...</h4>
+        </div>
+
+        <div class="gap-20">
+            <div ng-class="{'row row-wrap row-wrap-list gap-5':$root.rscPlatform == 'isweb'}">
+                <div class="slide-top" ng-class="{'col col-50':$root.rscPlatform == 'isweb'}" ng-repeat="list in vm.content track by $index" ng-if="!vm.loading">
+                    <div class="text-center gap-10" ng-if="list.list.time_creation">
+                        <span class="text-gray order-title">{{list.list.time_creation|rsctime}}</span>
+                        <div class="gap-10"></div>
+                    </div>
+                    <div class="list-card gap-15">
+                        <rsc-order-list list="list" go-detail="vm.goDetail(list,list.user._id,list.company._id)" is-praise="vm.isPraise(list._id,list.users,list.isPraised,list.showPraise,$index)" is-fabulous="yes"></rsc-order-list>
+                    </div>
+                    <!--公司创建-->
+                    <div class="list list-myitem ">
+                        <li class="item item-avatar" ng-if="list.type == 'company_verify'">
+                            <img ng-src="{{list.user.photo_url}}" class="infor-icon" image-404="./img/common/infor-face.png" ng-click="rootGoDetail(list.user.role,list.user._id)">
+                            <h3 class="text-black">
+                                {{list.user.real_name}}-<span ng-if="list.user.post != ''">{{list.user.post}}</span>
+                                <span ng-if="list.user.post == ''">{{list.user.role|rolefilter}}</span>
+                            </h3>
+
+                            <h2 class="text-black">成功创建{{list.data.nick_name}}，并已通过平台认证</h2>
+                            <div class="myitem-list gap-5">
+                                <div class="item item-avatar item-company">
+                                    <img ng-src="{{list.data.url_logo}}" class="infor-icon" image-404="./img/common/logo-icon.png" />
+                                    <h3>
+                                        {{list.data.nick_name}}
+                                        <img src="./img/158/label-v.png" class="label-v">
+                                    </h3>
+                                    <h5 ng-if="vm.userInfo.user.role=='TRADE_ADMIN'">
+                                        采购：<span ng-repeat="i in list.data.buy"><i>{{i|categoryFilter}}</i> </span> 销售：
+                                        <span ng-repeat="i in list.data.buy"><i>{{i|categoryFilter}}</i> </span>
+                                    </h5>
+                                    <h5 ng-if="vm.userInfo.user.role=='TRAFFIC_ADMIN'">
+                                        运输：<span ng-repeat="i in list.data.transport"><i>{{i|categoryFilter}}</i> </span>
+                                    </h5>
+                                </div>
+                                <div class="set-companyintro">
+                                    {{list.data.des}}
+                                </div>
+                                <p class="text-gray">
+                                    {{list.time_long}}
+                                    <span class="pull-right num-fixed">
+                                        <span ng-if="list.showPraise">
+                                            <i class="praise ion-android-favorite-outline" ng-click="vm.isPraise(list._id,list.users,list.isPraised,list.showPraise,$index)" ng-if="!list.isPraised"> 赞</i>
+                                            <i class="praise ion-android-favorite-outline" ng-click="vm.isPraise(list._id,list.users,list.isPraised,list.showPraise,$index)" ng-if="list.isPraised"> 取消</i>
+                                        </span>
+                                    <img src="./img/common/info-icon.png" class="info-icon" ng-click="list.showPraise = !list.showPraise">
+                                    </span>
+                                </p>
+                                <p class="praise-text" ng-if="list.users.length != 0">
+                                    <i class="ion-android-favorite-outline"></i>
+                                    <!--<i class="ion-android-favorite" ng-if="list.isPraised == true"></i>-->
+                                    <span ng-repeat="item in list.users track by $index">{{item.real_name}}<i ng-if="list.users.length != $index+1">，</i></span>
+                                    <span class="ion-arrow-up-b"></span>
+                                </p>
+                            </div>
+                        </li>
+
+                        <!--公司改介绍-->
+                        <li class="item item-avatar" ng-if="list.type == 'company_des'">
+                            <img ng-src="{{list.user.photo_url}}" class="infor-icon" image-404="./img/common/infor-face.png" ng-click="rootGoDetail(list.user.role,list.user._id)">
+                            <h3 class="text-black">
+                                {{list.user.real_name}}-<span ng-if="list.user.post != ''">{{list.user.post}}</span>
+                                <span ng-if="list.user.post == ''">{{list.user.role|rolefilter}}</span>
+                            </h3>
+                            <h2 class="text-black">设置公司简介</h2>
+                            <div class="set-companyintro">
+                                {{list.data.des}}
+                            </div>
+                            <p class="text-gray">
+                                {{list.time_long}}
+                                <span class="pull-right num-fixed">
+                                    <span ng-if="list.showPraise">
+                                        <i class="praise ion-android-favorite-outline" ng-click="vm.isPraise(list._id,list.users,list.isPraised,list.showPraise,$index)" ng-if="!list.isPraised"> 赞</i>
+                                        <i class="praise ion-android-favorite-outline" ng-click="vm.isPraise(list._id,list.users,list.isPraised,list.showPraise,$index)" ng-if="list.isPraised"> 取消</i>
+                                    </span>
+                                <img src="./img/common/info-icon.png" class="info-icon" ng-click="list.showPraise = !list.showPraise">
+                                </span>
+                            </p>
+                            <p class="praise-text" ng-if="list.users.length != 0">
+                                <i class="ion-android-favorite-outline"></i>
+                                <!--<i class="ion-android-favorite" ng-if="list.isPraised == true"></i>-->
+                                <span ng-repeat="item in list.users track by $index">{{item.real_name}}<i ng-if="list.users.length != $index+1">，</i></span>
+                                <span class="ion-arrow-up-b"></span>
+                            </p>
+                        </li>
+
+                    </div>
+                </div>
+            </div>
+
+            <ion-infinite-scroll ng-if="vm.exist" immediate-check="false" icon="ion-loading-c" on-infinite="vm.loadMore()" distance="2%">
+            </ion-infinite-scroll>
+        </div>
+
+
+
+    </ion-content>
+    <!-- <ion-footer-bar class="bar bar-balanced">
+        <h1 class="title">+ 申请合作</h1>
+    </ion-footer-bar> -->
+</ion-view>

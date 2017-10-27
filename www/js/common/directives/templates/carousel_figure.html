@@ -1,0 +1,22 @@
+<div class="bg-gray">
+    <ion-slide-box class="slider-radius slider-gap" on-slide-changed="slideHasChanged($index)" auto-play="true" does-continue="true"
+                   slide-interval=3000
+                   show-pager="false">
+        <!--<ion-slide>-->
+            <!--<img src="{{vm.carousel_img[0].url}}" class="banner-responsive img-radius" ng-click="vm.aboutUs($index)">-->
+        <!--</ion-slide>-->
+        <!--<ion-slide>-->
+            <!--<img src="{{vm.carousel_img[1].url}}" class="banner-responsive img-radius" ng-click="vm.aboutUs($index)">-->
+        <!--</ion-slide>-->
+        <!--<ion-slide>-->
+            <!--<a href="tel:{{vm.carousel_img[2].text}}">-->
+                <!--<img src="{{vm.carousel_img[2].url}}" class="banner-responsive img-radius">-->
+            <!--</a>-->
+        <!--</ion-slide>-->
+        <ion-slide>
+        <a ng-click="vm.aboutUs($index)">
+            <div class="banner-bg"></div>
+        </a>
+        </ion-slide>
+    </ion-slide-box>
+</div>

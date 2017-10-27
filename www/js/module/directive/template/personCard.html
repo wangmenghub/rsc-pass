@@ -1,0 +1,16 @@
+<div class="card card-condensed" ng-click="onClick({user:user})">
+    <div class="item item-text-wrap">
+        <h3 class="text-black">{{user.real_name}}</h3>
+        <div class="clearfix gap-15"></div>
+        <h5 class="text-gray1">手机：{{user.phone}}</h5>
+        <h5 class="text-gray1">公司：{{company.nick_name}}</h5>       
+        <div class="clear"></div>
+        <p class="gap-15">
+            <span class="role-icon">{{user.role|rolefilter}}</span>
+        </p>
+        <div class="item-face text-center gap-10">
+            <h4 class="text-gray2">个人名片</h4>
+            <img ng-src="{{user.photo_url}}" image-404="./img/common/infor-face.png" class="img-circle img-size1 gap-15">
+        </div>
+    </div>
+</div>

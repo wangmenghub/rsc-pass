@@ -1,0 +1,40 @@
+<div ng-click="goDetail({data:data})">
+    <div class="item item-avatar item-pass">
+        <img ng-click="rootGoDetail(userInfo.role,userInfo._id);$event.stopPropagation()" src="{{userInfo.photo_url}}" image-404="./img/common/infor-face.png">
+        <h3 class="text-black">{{userInfo.send_name?userInfo.send_name:userInfo.real_name}}</h3>
+        <p>货源 {{data.demand_count}}</p>
+        <div class="item-face text-center">
+            <h6 class="text-gray">{{data.company_name}}</h6>
+            <img ng-if="data.verify_phase == 'SUCCESS'" src="./img/158/label-v.png" class="label-v">
+        </div>
+    </div>
+    <div class="list-inset">
+        <div class="row gap-5">
+            <div class="col text-left">
+                <img src="./img/pass/pass-icon.png" class="label-icon pull-left">
+                <div class="pull-left">
+                    <h4 class="bold">{{data.send_city|rscLimit:5}}</h4>
+                    <h5 class="text-gray1 gap-3">{{data.send_district|rscLimit:5}}</h5>
+                    <h5 class="text-gray1 gap-3">{{data.time_depart | dateformatFilter:'MM-dd E'}}</h5>
+                </div>
+            </div>
+            <div class="col text-center gap-3">
+                <h5 class="h5 text-black">{{data.amount | number:3}}吨 {{data.product_categories[0].material_chn}}</h5>
+                <h5 class="status-bg text-orange">{{data.price_max==data.price_min?data.price_max:data.price_min+'~'+data.price_max}} 元/吨</h5>
+            </div>
+            <div class="col text-right">
+                <h4 class="bold">{{data.receive_city|rscLimit:5}}</h4>
+                <h5 class="text-gray1 gap-3">{{data.receive_district|rscLimit:5}}</h5>
+                <h5 class="text-gray1 gap-3">{{data.time_arrival | dateformatFilter:'MM-dd E'}}</h5>
+            </div>
+        </div>
+        <h5 class="text-gray gap-10">
+            已有{{data.unoffer_list.length}}家企业接单
+            <span class="pull-right text-gray" ng-if="data.time_validity">
+                距结束 <timer finish-callback="demandStatus()" end-time="data.time_validity">
+                {{days == 0?'':days+'天'}}{{hhours}}:{{mminutes}}:{{sseconds}}
+                </timer>
+			</span>
+        </h5>
+    </div>
+</div>

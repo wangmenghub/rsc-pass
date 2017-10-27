@@ -1,0 +1,22 @@
+<ion-view >
+
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">
+                {{vm.type == 'Pick_up_the_goods' ? '提货地址':'交货地址'}}
+            </h1>
+        </div>
+    </ion-nav-title>
+    <ion-content class="bg-gray" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div class="list">
+            <div class="item item-avatar item-address gap-10" ng-click="vm.setState(item)" ng-repeat="item in vm.address_data">
+                <img src="./img/158/landmark.png" class="landmark">
+                <h2 class="text-gray1">{{item.province}}{{item.city}}{{item.district}}{{item.addr}}</h2>
+                <p>联系人：{{item.prin_name}} &nbsp;&nbsp;&nbsp;&nbsp;<span>手机号：{{item.prin_phone}}&nbsp&nbsp</span> </p>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar bar-light">
+        <h1 class="title text-red" ng-click="vm.addAddress(vm.type, vm.source)"> +新增地址</h1>
+    </ion-footer-bar>
+</ion-view>

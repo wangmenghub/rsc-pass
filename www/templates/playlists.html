@@ -1,0 +1,49 @@
+<ion-view view-title="Playlists">
+
+  <!--顶部导航-->
+  <ion-nav-title>
+    <div class="bar bar-positive">
+      <div class="button-bar nav-bar">
+        <a class="button" href="#/app/lab" menu-close nav-transition="ios" nav-direction="enter">采购</a>
+        <a class="button active" menu-close nav-transition="ios" nav-direction="enter">销售</a>
+      </div>
+    </div>
+  </ion-nav-title>
+
+  <ion-nav-buttons side="secondary">
+    <button class="button button-clear">更多</button>
+  </ion-nav-buttons>
+
+  <!--顶部二级导航-->
+  <div class="tabs-striped tabs-top">
+    <div class="tabs">
+      <a class="tab-item active" href="#">二级</a>
+      <a class="tab-item" href="#/app/search" menu-close nav-transition="ios" nav-direction="enter">二级</a>
+      <a class="tab-item" href="#/app/browse" menu-close nav-transition="ios" nav-direction="enter">二级</a>
+    </div>
+  </div>
+
+
+  <!--中间内容区-->
+  <ion-content class="has-subheader has-subfooter">
+    <ion-list>
+      <ion-item ng-repeat="playlist in playlists" nav-transition="ios" nav-direction="enter" href="#/app/playlists/{{playlist.id}}">
+        {{playlist.title}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+
+
+  <!--底部二级导航-->
+  <div class="bar bar-footer bar-balanced bar-subfooter">
+    <div class="title">Footer</div>
+  </div>
+
+  <!--底部一级导航-->
+  <div class="tabs">
+    <a class="tab-item active">交易</a>
+    <a class="tab-item" href="#/app/search" menu-close nav-transition="ios" nav-direction="enter">物流</a>
+    <a class="tab-item">设置</a>
+  </div>
+
+</ion-view>

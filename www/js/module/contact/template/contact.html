@@ -1,0 +1,77 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <div style="margin:0 auto; width:134px;">
+                <div class="button-bar button-navbar">
+                    <a class="button" menu-close nav-transition="ios" nav-direction="enter" ui-sref="rsc.message">消息</a>
+                    <a class="button active" menu-close nav-transition="ios" nav-direction="enter" ui-sref="rsc.contact">好友</a>
+                    <!--<a menu-close nav-transition="ios" nav-direction="enter" ui-sref="rsc.manage_colleague" ng-if="vm.role =='TRADE_ADMIN'">管理</a>-->
+                </div>
+            </div>
+        </div>
+    </ion-nav-title>
+    <ion-nav-buttons side="secondary">
+        <button ng-if="$root.rscPlatform == 'isapp'" class="button button-clear" ui-sref="rsc.invite">邀请</button>
+    </ion-nav-buttons>
+    <ion-content class="bg-gray" ng-class="{'has-footer':$root.rscPlatform == 'isapp','has-subheader':$root.rscPlatform == 'isweb'}">
+        <div class="text-center gap-70" ng-if="vm.loading">
+            <h4 class="text-gray">正在加载...</h4>
+        </div>
+        <div ng-if="!vm.loading">
+            <div class="row item-search">
+                <div class="col col-80">
+                    <i class="ion-search tel-search"></i>
+                    <input type="text" placeholder="搜索联系人" ng-model="vm.search_name" ng-change="vm.search(vm.search_name)">
+                </div>
+                <button class="col col-20 button button-light button-small" ng-click="vm.search(vm.search_name)">
+                搜索
+            </button>
+            </div>
+            <div ng-if="vm.show">
+                <div ng-repeat="item in vm.arr|orderBy:['key.charCodeAt()']:true" ng-if="item.value.list.length != 0">
+                    <div class="item item-divider">
+                        {{item.key|relationRole}}
+                    </div>
+                    <div class="bg-white">
+                        <div class="list list-driver">
+                            <li class="item item-avatar item-icon-right item-driver item-driver-condensed" ng-repeat="user in item.value.list" ng-if="user.name" ng-click="vm.goDetail(user)">
+                                <img ng-if="!user.show" ng-src="{{user.img}}" class="driver-face" image-404="./img/common/infor-face.png">
+                                <img ng-if="user.show" class="driver-face" ng-src="./img/common/infor-face.png">
+                                <h3 class="title-center">{{user.name}}
+                                    <span class="h6 text-gray" ng-if="user.company_name">
+                                        {{user.company_name}}&nbsp 
+                                        <img ng-if="user.verify_phase == 'SUCCESS'" src="./img/158/label-v.png" class="label-v">
+                                        <!--<img src="./img/158/label-v-orange.gif" class="label-v">-->
+                                    </span>
+                                    <span class="h6 text-red" ng-if="user.show&&item.key=='WORK'">已邀请合作企业</span>
+                                    <span class="h6 text-red" ng-if="user.show&&item.key!='WORK'">已邀请，待上线</span>
+                                </h3>
+                                <i class="icon" ng-if="item.key != 'FRIEND'">
+                                    <h5 class="text-gray">{{user.role|relationRole}}&nbsp;</h5>
+                                </i>
+                            </li>
+                            <li class="item item-avatar item-icon-right item-driver item-driver-condensed" ng-repeat="user in item.value.list" ng-if="user.user_name" ng-click="vm.chat(user._id,'p2p',user.role)">
+                                <img ng-src="{{user.photo_url}}" class="driver-face" image-404="./img/common/infor-face.png">
+                                <h3 class="title-center">{{user.user_name}}
+
+                                </h3>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="!vm.show" class="text-center gap-70">
+                <h4 class="text-gray">
+                    暂无数据
+                </h4>
+                <h4 class="text-gray gap-5">
+                    您可以邀请好友
+                </h4>
+                <button class="gap-20 button-circle" ui-sref="rsc.invite">
+                立即邀请
+            </button>
+            </div>
+        </div>
+    </ion-content>
+    <rsc-tabs active=3 config-name="rsc.center_goods"></rsc-tabs>
+</ion-view>

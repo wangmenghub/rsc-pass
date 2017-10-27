@@ -1,0 +1,110 @@
+<!--<ion-view hide-nav-bar="true">-->
+<ion-view>
+    <ion-nav-bar class="bar bar-nocolor">
+        <ion-nav-buttons>
+            <button class="button button-clear icon ion-ios-arrow-back " ng-click="rootGoBack()">
+                    返回
+                    <!--<span menu-close nav-transition='ios' nav-direction="back">
+                        <i class="icon ion-ios-arrow-back"></i>-->
+                        <!--<span class="default-title">返回</span>-->
+                    <!--</span>-->
+            </button>
+        </ion-nav-buttons>
+        <h1 class="title">企业主页</h1>
+        <ion-nav-buttons side="secondary">
+            <button class="button button-clear" ui-sref="rsc.traffic_company_setting" ng-if="vm.operate">设置</button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <!--  <ion-nav-title>
+            <div class="bar bar-positive">
+                <h1 class="title">企业主页</h1>
+            </div>
+        </ion-nav-title>
+        <ion-nav-buttons side="secondary">
+            <button class="button button-clear" ui-sref="trade.trade_company_setting" ng-if="vm.operate">设置</button>
+        </ion-nav-buttons>-->
+    <!--头部自定义颜色-->
+    <!--<div class="bar bar-header bar-nocolor">
+            <button class="button button-clear" ng-click="rootGoBack()">
+                <span menu-close nav-transition='ios' nav-direction="back">
+                    <i class="icon ion-ios-arrow-back"></i>
+                    <span class="default-title">返回</span>
+                </span>
+            </button>
+            <h1 class="title">企业主页</h1>
+            <button class="button button-clear" ui-sref="trade.trade_company_setting" ng-if="vm.operate">设置</button>
+        </div>-->
+    <ion-content class="has-header" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+
+        <div class="bg-white text-center">
+
+            <div class="bg-comhomepage text-center" ng-style="{'background-image': !!vm.companyInfo.url_company_bg_img?('url('+vm.companyInfo.url_company_bg_img+')'):'url(./img/me/bg-comhomepage.png)'}"
+                ng-click="vm.changeBackground()">
+                <img ng-src="{{vm.companyInfo.url_logo}}" image-404="./img/common/logo-icon.png" class="companyhome-icon">
+                <h2 class="text-white gap-10 bold">
+                    {{vm.companyInfo.nick_name}}
+                </h2>
+                <h6 class="gap-10">
+                    <img src="./img/158/label-v.png" class="label-v" ng-if="vm.companyInfo.verify_phase=='SUCCESS'">
+                    <img src="./img/158/label-model.png" class="label-model" ng-if="!!vm.vip">
+                </h6>
+            </div>
+
+            <!-- <div class="row row-homepage text-center text-gray gap-10">
+
+                <div class="col" ng-class='{"active":vm.type == "ALL"}' ng-click="vm.tabSwitch('ALL')">
+                    <h4>企业</h4>
+                    <h4 class="gap-5">主页</h4>
+                </div>
+
+                <div class="col" ng-class='{"active":vm.type == "SALE"}' ng-click="vm.tabSwitch('SALE')">
+                    <h4>报价</h4>
+                    <h4 class="gap-5">{{vm.count.SALE||0}}</h4>
+                </div>
+
+                <div class="col" ng-class='{"active":vm.type == "PURCHASE"}' ng-click="vm.tabSwitch('PURCHASE')">
+                    <h4>采购</h4>
+                    <h4 class="gap-5">{{vm.count.PURCHASE||0}}</h4>
+                </div>
+
+                <div class="col" ng-class='{"active":vm.type == "TRAFFIC"}' ng-click="vm.tabSwitch('TRAFFIC')">
+                    <h4>运输</h4>
+                    <h4 class="gap-5">{{vm.count.TRAFFIC||0}}</h4>
+                </div>
+
+            </div> -->
+            <div class="clearfix"></div>
+
+        </div>
+
+        <div class="gap-row bg-white">
+            <div class="list-inset">
+                <h5 class="text-gray1 gap-10 line-height">
+                    <span class="bold">经营范围:</span> 运输:
+                    <span ng-repeat="item in vm.companyInfo.transport track by $index">
+                            <span ng-if="item">{{item|categoryFilter}}、</span>
+                    <span ng-if="!item">无</span>
+                    </span>
+                </h5>
+                <h5 class="text-gray1 line-height gap-5"><span class="bold">企业介绍:</span> {{vm.companyInfo.des}}</h5>
+                <h5 class="text-gray1 gap-5"><span class="bold">所在地区:</span> {{vm.companyInfo.province}}&nbsp{{vm.companyInfo.city }}&nbsp{{vm.companyInfo.district}}</h5>
+            </div>
+        </div>
+
+        <ion-scroll zooming="false" direction="x" scrollbar-x="false" style="margin:0 8px;width:auto;overflow-x: hidden;">
+            <ul class="trade-company" class="row text-center col-companyhome">
+                <li ng-click="vm.uploadImg()">
+                     <img ng-src="./img/common/company-more.png" class="show-icon">
+                </li>
+                <li ng-click="vm.showPhoto($index)" ng-repeat="i in vm.companyInfo.url_honor track by $index" ng-if="!!i">
+                    <img ng-src="{{i}}" image-404="./img/common/company-more.png" class="show-icon">
+                </li>
+            </ul>
+        </ion-scroll>
+
+
+    </ion-content>
+    <!-- <ion-footer-bar class="bar bar-balanced">
+            <h1 class="title">+ 申请合作</h1>
+        </ion-footer-bar> -->
+</ion-view>

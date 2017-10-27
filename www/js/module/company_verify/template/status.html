@@ -1,0 +1,56 @@
+<div>
+    <div ng-if="(!company||!company._id)&&!company_status.supply" class="bg-white text-center gap-row num-fixed">
+        <div class="gap-30"></div>
+        <h3>我是企业负责人</h3>
+        <h5 class="gap-5">认证企业将免费获得交易权限、企业日报和管理等功能</h5>
+        <h5 class="gap-5" ng-click="aboutUs()">了解更多 &gt;</h5>
+        <button class="gap-20 button-circle" ui-sref="rsc.trade_company_setting">立即认证企业</button>
+        <div class="gap-120"></div>
+        <img src="./img/common/majorper-img.png" class="majorper-img">
+    </div>
+    <div ng-if="company&&company._id&&company.verify_phase != 'SUCCESS'" class="text-center bg-white gap-row">
+        <div class="gap-30"></div>
+        <h2 ng-if="vm.company_info.verify_phase == 'PROCESSING'" class="text-red">认证企业审核中</h2>
+        <h2 ng-if="vm.company_info.verify_phase == 'PROCESSING'" class="text-red">联系秘书急速通过</h2>
+        <h2 ng-if="vm.company_info.verify_phase == 'FAILED'" class="text-red">认证审核失败</h2>
+        <h5 ng-if="vm.company_info.verify_phase == 'FAILED'" class="text-red gap-10">认证资料不完善，请重新申请。联系秘书极速咨询！</h5>
+        <div class="gap-30">
+            <a>
+                <div class="menu-info menu-info-company">
+                    <img src="./img/common/infor-face2.png" class="img-circle">
+                    <h4>小燕</h4>
+                    <h4 class="text-black">在线秘书</h4>
+                    <i class="ion-ios-telephone text-black"></i>
+                </div>
+            </a>
+            <h4 class="text-gray gap-10">或</h4>
+            <div class="clear gap-10"></div>
+            <div class="menu-info menu-info-company">
+                <!-- <span class="text-gray">重新加入企业</span> -->
+                <span class="text-gray" ui-sref="rsc.trade_company_setting">修改资料重新认证</span>
+            </div>
+        </div>
+    </div>
+    <div ng-if="company_status.supply" class="text-center bg-white gap-row">
+            <div class="gap-30"></div>
+        <h2 class="text-red">已申请加入企业</h2>
+        <h2 class="text-red">等待管理员审批</h2>
+        <div class="gap-30">
+            <a>
+                <div class="menu-info menu-info-company">
+                    <img src="./img/common/infor-face2.png" class="img-circle">
+                    <h4>小燕</h4>
+                    <h4 class="text-black">在线秘书</h4>
+                    <i class="ion-ios-telephone text-black"></i>
+                </div>
+            </a>
+            <h4 class="text-gray gap-10">或</h4>
+            <div class="clear gap-10"></div>
+            <div class="menu-info menu-info-company">
+                <span class="text-gray">重新加入企业</span>
+            </div>
+        </div>
+    </div>
+    <!-- supply -->
+
+</div>

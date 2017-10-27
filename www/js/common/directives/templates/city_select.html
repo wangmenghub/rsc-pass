@@ -1,0 +1,10 @@
+<ion-modal-view class="bg-blur">
+    <ion-header-bar class="bar bar-nocolor">
+        <button class="button button-clear button-primary" ng-click="vm.returnCancel()">取消</button>
+        <h1 class="title">选择地点</h1>
+        <button class="button button-clear button-primary" ng-click="vm.returnOk()">确定</button>
+    </ion-header-bar>
+    <ion-content delegate-handle="mainScroll">
+        <citys-item data="vm"></citys-item>
+    </ion-content>
+</ion-modal-view>

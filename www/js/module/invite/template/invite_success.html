@@ -1,0 +1,44 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">完成邀请</h1>
+        </div>
+    </ion-nav-title>
+    <ion-content ng-init="vm.init()" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div class="success-bg gap-30">
+            <div class="text-center">
+                <ion-spinner class="spinner-modal" icon="ripple"></ion-spinner>
+                <h1 class="text-gray1">成功邀请</h1>
+                <h1 class="text-gray1">
+                    {{vm.count}}<span>{{(vm.role != 'PURCHASE'&&vm.role != 'SALE')?'位':'家'}}</span>{{vm.role|rolefilter}}
+                </h1>
+                <h5 class="text-gray gap-20">他们将马上收到通知！</h5>
+                <h5 class="text-gray gap-5">等待他们注册上线后，将自动成为您的{{vm.role|rolefilter}}</h5>
+                <div class="gap-20"></div>
+                <div class="text-center">
+                    <button class="button-inline button-dark button-round" ng-click="vm.success()">
+                        完成邀请
+                    </button>
+                </div>
+            </div>
+            <div class="visitor-padding gap-50">
+                <h5 class="text-gray">{{vm.data.type=='FRIEND'?'好友':'同事'}}-{{vm.role|rolefilter}}</h5>
+                <ul class="visitor-list gap-10" ng-repeat="i in vm.data.list track by $index">
+                    <li class="slide-right">
+                        <img src="{{i}}" class="img-face img-circle" image-404="./img/common/infor-face.png">
+                    </li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+    
+            <!-- <div class="visitor-padding">
+                <h5 class="text-gray">商业智能-精准匹配客户</h5>
+                <ul class="visitor-list gap-10">
+                    <li class="slide-top" ng-repeat="i in vm.records2">
+                        <img src="{{i.img}}" class="img-face">
+                    </li>
+                </ul>
+            </div> -->
+        </div>
+    </ion-content>
+</ion-view>

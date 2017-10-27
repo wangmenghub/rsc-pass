@@ -1,0 +1,188 @@
+/* Empty. Add your own CSS if you like */
+
+
+/*登录注册样式*/
+
+.bg-unlogin {
+    background: url("../img/general/bg-passunlogin.jpg") no-repeat center center;
+    background-size: 100%;
+}
+
+.unlogin-bot {
+    position: fixed;
+    bottom: 11px;
+}
+
+.unlogin-bot .button.col.col-50 {
+    min-height: 44px;
+    line-height: 44px;
+    max-width: 45%;
+}
+
+.unlogin-bot .button.col:first-child {
+    margin: 0 12px 0 12px;
+}
+
+.unlogin-bot .button.col:last-child {
+    margin-right: 12px;
+}
+
+.item-login {
+    padding: 5px 15px 10px 15px;
+    margin-top: -5px;
+}
+
+.item-login .item {
+    /*padding: 0;*/
+    border: none;
+    margin: 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.item-login .item:last-child {
+    border-bottom: none;
+}
+
+.item-login .item-input {
+    padding-left: 35px;
+}
+
+.code {
+    width: 15px;
+    height: 21px;
+    margin-left: 8px;
+}
+
+
+/*适配小手机*/
+
+.btn-code {
+    min-width: 86px;
+}
+
+.item-login .icon {
+    font-size: 28px;
+    color: #2C2C2C;
+}
+
+.item-login .ion-eye-disabled {
+    color: #999;
+}
+
+.item-login .item-icon-left .icon {
+    left: 0;
+}
+
+.item-login .item-icon-right .icon {
+    right: 0;
+}
+
+.login-foot {
+    padding: 20px 80px;
+}
+
+
+/*注册页面选择从事类型radio*/
+
+.reg-radio {
+    padding: 8px 0;
+}
+
+.reg-radio .col.col-50{
+    padding: 3px 0;
+}
+
+.reg-radio input {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    -webkit-appearance: none;
+    top: 4px;
+    margin: 0 15px 0 0;
+}
+
+.reg-radio input:before {
+    display: table;
+    width: 100%;
+    height: 100%;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 28px;
+    background: #fff;
+    border: 1px solid #BFBFBF;
+    content: ' ';
+    -webkit-transition: background-color 20ms ease-in-out;
+    transition: background-color 20ms ease-in-out;
+}
+
+.reg-radio input:checked:after {
+    opacity: 1;
+}
+
+.reg-radio input:after {
+    top: 29%;
+    left: 21%;
+}
+
+.reg-radio input:checked:before {
+    background: #DE4226;
+    border-color: #DE4226;
+}
+
+.reg-radio input:after {
+    -webkit-transition: opacity 0.05s ease-in-out;
+    transition: opacity 0.05s ease-in-out;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    position: absolute;
+    display: table;
+    width: 14px;
+    height: 6px;
+    border: 1px solid #fff;
+    border-top: 0;
+    border-right: 0;
+    content: ' ';
+    opacity: 0;
+}
+
+
+/*我要买卖*/
+
+.list-buytype h2 {
+    width: 150px;
+    text-align: center;
+    padding: 20px 0 0 20px;
+    color: #333;
+}
+
+
+/*错误提示*/
+
+.form-error {
+    background: #FFF3EB;
+    margin-left: -15px;
+    text-align: center;
+    z-index: 99;
+}
+
+.form-error div {
+    font-size: 12px;
+    padding: 3px;
+    color: rgba(234, 70, 72, 1);
+}
+
+.form-error-line {
+    margin-left: 0;
+    top: -20px;
+}
+
+
+/*个人设置修改手机号*/
+
+.item-input input.input-code {
+    max-width: 150px;
+    padding-right: 0;
+}

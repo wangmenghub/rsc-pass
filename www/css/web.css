@@ -1,0 +1,269 @@
+/*头部*/
+
+
+/*
+.bar.bar-stable {
+    background-image: linear-gradient(0deg, #577EE5, #577EE5 0%, transparent 0%);
+    border-color: #577EE5;
+    background: #577EE5;
+}
+
+.bar.bar-positive {
+    background-image: linear-gradient(0deg, #577EE5, #577EE5 0%, transparent 0%);
+    border-color: #577EE5;
+    background: #577EE5;
+}
+
+.bar.bar-stable .title {
+    color: #fff;
+    font-size: 16px;
+}
+
+.bar.bar-stable .nav-bar {
+    color: rgba(255, 255, 255, .5);
+}
+
+.nav-bar a.active,
+.nav-bar a.activated {
+    border-color: none;
+    color: #fff;
+}
+
+.nav-bar a.active {
+    font-weight: bold;
+}
+
+.bar-stable .button.button-clear {
+    font-size: 14px;
+    color: #fff;
+    font-weight: normal;
+}
+
+.bar-stable .button.button-clear.ion-navicon {
+    color: #577EE5;
+}
+
+.bar .buttons span {
+    line-height: 32px;
+    color: #fff;
+    font-size: 15px;
+    margin-left: 2px;
+    cursor: pointer;
+}*/
+
+
+/*左侧导航样式*/
+
+.menu-content {
+    -webkit-transform: none;
+    transform: none;
+    box-shadow: -1px 0px 2px rgba(0, 0, 0, 0), 1px 0px 2px rgba(0, 0, 0, 0)
+}
+
+.item-leftmenu {
+    margin-top: 20%;
+    position: absolute;
+    width: 100%;
+    left: 0;
+}
+
+.item-leftmenu .item {
+    border: none;
+    background: transparent;
+}
+
+.item-leftmenu .item-content {
+    background: transparent;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 15px;
+}
+
+.item-leftmenu .item-content.activated {
+    background-image: linear-gradient(90deg, #FFF 0%, #FFF 100%);
+    border-color: #fff;
+}
+
+.item-leftmenu .item-icon-right .icon {
+    right: 100px;
+    top: 1px;
+}
+
+.tab-item .icon {
+    color: #f2f2f2;
+}
+
+.tab-item.tab-item-active .icon {
+    color: #111;
+}
+
+
+/*右侧导航样式*/
+
+.list-menuright {
+    margin-top: 20px;
+}
+
+.list-menuright .item {
+    font-weight: bold;
+    padding: 10px 0 10px 68px;
+    border-left: 1px solid #ef771f;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.list-menuright .item-border-green {
+    border-left: 1px solid #68b54b;
+}
+
+
+/*.list-menuright .item-border-green:first-child {
+    padding-top: 20px;
+}*/
+
+.list-menuright .item-icon-left .icon {
+    left: 20px;
+}
+
+.menu-img {
+    width: 191px;
+    height: 81px;
+    margin: 50px 0 0 20px;
+}
+
+.menu-img1 {
+    position: fixed;
+    bottom: -8px;
+    z-index: 99;
+    right: 75px;
+    width: 150px;
+    height: 151px;
+}
+
+
+/**/
+
+
+.list.col {
+    padding: 5px;
+}
+
+/*.row-wrap-list .col.col-50 {
+    padding: 5px;
+}*/
+
+.row-wrap-list .col.col-50 {
+    padding: 5px;
+    max-width: 48%;
+}
+
+.row-wrap-list .list-card {
+    margin: 5px;
+}
+
+.scroll-content {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.img-radius {
+    border-radius: 5px;
+}
+
+.slider-radius {
+    border-radius: 5px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+
+/*web端登录注册页面背景图*/
+
+.bg-login {
+    background: url("../img/general/login-bg.png") no-repeat;
+    background-size: cover;
+    /*background-size: 1980px 1000px;*/
+    /*padding-top: 258px;*/
+    background-position: center 1px;
+}
+
+.bg-login-gap {
+    margin-top: 15%;
+}
+
+
+/*web端登录注册列表宽度*/
+
+.login-width {
+    max-width: 375px;
+    margin: 0 auto;
+}
+
+
+/*web端选择产品类型列表背景颜色、宽度*/
+
+.bg-lightgray {
+    background: transparent;
+    border: none;
+}
+
+.login-width-type {
+    max-width: 650px;
+}
+
+
+/*.login-width-middle {
+    max-width: 60%;
+    padding-bottom: 50px;  
+}*/
+
+
+/*web端内容宽度*/
+
+.content-maxwidth {
+    max-width: 60%;
+    padding-bottom: 50px;
+}
+
+
+/*主页*/
+
+.personhome-width {
+    max-width: 60%;
+    margin: 0 auto;
+}
+
+.list-master {
+    background: url("../img/me/myhome-bg.jpg") no-repeat center -20px;
+    background-size: 100%;
+    padding: 50px 0 15px 0;
+    border-radius: 5px;
+}
+
+.status-minheight {
+    min-height: 300px;
+}
+
+
+/*右侧title文字*/
+
+.bar.bar-stable .title-size {
+    font-size: 14px;
+}
+
+.title-size span {
+    display: inline-block;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+
+/*模态框宽度*/
+
+@media (min-width: 680px) {
+    .modal {
+        right: 32%;
+        left: 32%;
+        width: 36%;
+    }
+}

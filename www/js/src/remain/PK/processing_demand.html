@@ -1,0 +1,71 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <!--<div class="title nav-bar">
+                <a menu-close class="active num-fixed" ui-sref="rsc.center_goods">看指派</a>
+                <a menu-close class="num-fixed" ui-sref='rsc.line' nav-transition='none' ion-direction='enter'>发线路</a>
+            </div>-->
+            <div style="dispaly:block; margin:0 auto; width:160px;">
+                <div class="button-bar button-navbar">
+                    <a menu-close class="button active num-fixed" ui-sref="rsc.center_goods">看指派</a>
+                    <a menu-close class="button num-fixed" ui-sref='rsc.line' nav-transition='none' ion-direction='enter'>发线路</a>
+                </div>
+            </div>
+        </div>
+    </ion-nav-title>
+    <rsc-sub-header active=2 config-name="rsc.center_goods" msg="msgData"></rsc-sub-header>
+    <ion-content class="bg-gray has-subheader">
+        <ion-refresher spinner="spiral" on-refresh="vm.doRefresh()"></ion-refresher>
+        <div ng-init="vm.init()">
+            <div ng-if="vm.reqcomplete&&(!vm.offers||vm.offers.length==0)">
+                <div class="text-center gap-70">
+                    <h4 class="text-gray">当前暂无计划信息</h4>
+                    <h4 class="text-gray gap-5">您可以在货源页面参与抢单</h4>
+                    <button menu-close nav-transition="ios" nav-direction="enter" ui-sref="rsc.center_goods" class="gap-20 button-circle">前往抢单</button>
+                </div>
+            </div>
+            <div ng-class="{'row row-wrap row-wrap-list gap-5':$root.rscPlatform == 'isweb'}">
+                <div class="slide-top bg-white list-card" ng-if="vm.reqcomplete&&vm.offers.length>0" ng-class="{'col col-50':$root.rscPlatform == 'isweb','gap-15':!$first}"
+                    ng-click="vm.goDetail(offer)" ng-repeat="offer in vm.offers">
+                    <div class="list-inset">
+                        <div class="row">
+                            <div class="col text-left">
+                                <img src="./img/pass/pass-icon1.png" class="label-icon pull-left">
+                                <div class="pull-left text-left">
+                                    <h4 class="bold">{{offer.demand.send_city|rscLimit:5}}</h4>
+                                    <h5 class="text-gray1 gap-3">{{offer.demand.send_district|rscLimit:5}}</h5>
+                                    <h5 class="text-gray1 gap-3">{{offer.demand.time_depart | dateformatFilter:'MM-dd E'}}</h5>
+                                </div>
+                            </div>
+                            <div class="col text-center gap-3">
+                                <h5 class="h5 text-black">{{offer.demand.amount | number:3}}吨 {{offer.demand.product_categories[0].material_chn}}</h5>
+                                <h5 class="status-bg text-orange">{{offer.demand.price_total/offer.demand.amount | currency : '￥':2 }}元/吨</h5>
+                            </div>
+                            <div class="col text-right">
+                                <h4 class="bold">{{offer.demand.receive_city|rscLimit:5}}</h4>
+                                <h5 class="text-gray1 gap-3">{{offer.demand.receive_district|rscLimit:5}}</h5>
+                                <h5 class="text-gray1 gap-3">{{offer.demand.time_arrival | dateformatFilter:'MM-dd E'}}</h5>
+                            </div>
+                        </div>
+                        <!--<h5 ng-if="!cancel" class="text-gray gap-10">-->
+                        <!--已有{{offer.demand.unoffer_list.length}}家企业接单-->
+                        <!--<span class="pull-right text-gray" ng-if="!time_end">-->
+                        <!--距结束：<timer finish-callback="finished()" end-time="offer.demand.time_validity">{{days == 0?'':days+'天'}}{{hhours}}:{{mminutes}}:{{sseconds}}</timer>-->
+                        <!--</span>-->
+                        <!--<span class="pull-right text-gray" ng-if="time_end">-->
+                        <!--已结束-->
+                        <!--</span>-->
+                        <!--</h5>-->
+                        <h5 ng-if="!cancel" class="text-orange gap-10">
+                            待货源方派货
+                        </h5>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <ion-infinite-scroll immediate-check="false" ng-if="vm.hasMore" icon="ion-loading-c" on-infinite="vm.loadMore()" distance="15%">
+        </ion-infinite-scroll>
+    </ion-content>
+    <rsc-tabs config-name='rsc.center_goods' active=1></rsc-tabs>
+</ion-view>

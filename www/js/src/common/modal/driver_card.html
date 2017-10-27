@@ -1,0 +1,25 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-black">
+        <h1 class="title">证件信息</h1>
+    </ion-header-bar>
+    <ion-content class="bg-black">
+        <div class="text-center" ng-if="vm.userInfo.user.id_card_number_url&&vm.userInfo.user.jia_shi_zheng_url&&vm.userInfo.truck.xing_shi_zheng_url">
+            <h5 class="text-gray">身份证</h5>
+            <img src="{{vm.userInfo.user.id_card_number_url}}" class="card-img gap-5">
+            <h5 class="text-gray">驾驶证</h5>
+            <img src="{{vm.userInfo.user.jia_shi_zheng_url}}" class="card-img gap-5">
+            <h5 class="text-gray">行驶证</h5>
+            <img src="{{vm.userInfo.truck.xing_shi_zheng_url}}" class="card-img gap-5">
+        </div>
+        <div class="text-center" ng-if="!vm.userInfo.user.id_card_number_url&&!vm.userInfo.user.jia_shi_zheng_url&&!vm.userInfo.truck.xing_shi_zheng_url&&!vm.loading">
+            <div class="text-center gap-70">
+                <h4 class="text-gray"> 该司机没有上传证件信息</h4>
+                <div class="gap-100"></div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar bar-black">
+        <h1 class="title" ng-click='vm.closeModal()'>关闭</h1>
+    </ion-footer-bar>
+</ion-modal-view>

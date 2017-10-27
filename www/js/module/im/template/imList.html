@@ -1,0 +1,137 @@
+<ion-view hide-back-button="true">
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <div style="margin:0 auto; width:134px;">
+                <div class="button-bar button-navbar">
+                    <a class="button active" menu-close nav-transition="ios" nav-direction="enter" ui-sref="rsc.message">消息</a>
+                    <a class="button" menu-close nav-transition="ios" nav-direction="enter" ui-sref="rsc.contact">好友</a>
+                </div>
+            </div>
+        </div>
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button ng-if="$root.rscPlatform == 'isapp'" class="button button-clear" ng-click="vm.invite()">邀请</button>
+    </ion-nav-buttons>
+    <ion-content class="bg-gray" ng-class="{'has-footer':$root.rscPlatform == 'isapp','has-subheader':$root.rscPlatform == 'isweb'}">
+        <!-- <ion-refresher pulling-text="" spinner="spiral" on-refresh="vm.doRefresh()"></ion-refresher> -->
+
+        <a ui-sref="rsc.video">
+            <img src="./img/common/video-img.png" class="img-responsive">
+        </a>
+        <div ng-if="vm.loading">
+            <div class="text-center gap-70">
+                <h4 class="text-gray">正在加载...</h4>
+            </div>
+        </div>
+        <div class="bg-white" style="margin-top:-5px;" ng-if="!vm.loading">
+            <div class="list list-driver">
+                <li class="item item-avatar item-driver" ui-sref="rsc.slide">
+                    <img src="./img/common/infor-icon.png" class="driver-face">
+                    <h3>
+                        平台公告
+                    </h3>
+                    <p>
+                        定制企业版+企业数据中心，实现互联网战略升级！
+                    </p>
+                </li>
+                <li class="item item-avatar item-driver" ng-click="vm.newRelation()">
+                    <img src="./img/me/new-face.png" class="driver-face" ng-class="{'shake animated infinite':vm.data}">
+                    <h3 class="num-fixed">新的关系&nbsp;
+                        <span class="driver-num label-num" ng-if="!!vm.msg.count">{{vm.msg.count}}</span>
+                        <span class="h5 pull-right text-gray gap-3">{{vm.verify.time|rsctime}}</span>
+                    </h3>
+                    <span ng-if="!vm.msg.count">
+                        <p>暂无新消息</p>
+                    </span>
+                    <span ng-if="!!vm.msg.count">
+                      <p class="text-gray" ng-if="vm.msg.msg.type == 'WORK'">邀请成为你的{{vm.msg.msg.extend|relationRole}}</p>
+                      <p class="text-gray" ng-if="vm.msg.msg.type == 'FRIEND'">邀请你成为好友</p>
+                      <p class="text-gray" ng-if="vm.msg.msg.type == 'COMPANY_SUPPLY'">申请加入新同事&nbsp&nbsp{{vm.msg.msg.extend|relationRole}}</p>
+                      <p class="text-gray" ng-if="vm.msg.msg.type == 'COMPANY_INVITE'">邀请你加入新同事 - {{vm.msg.msg.extend|relationRole}}</p>
+                  </span>
+                </li>
+
+                <div ng-repeat="message in vm.teamlist|orderBy:'-updateTime'">
+                    <li class="item item-avatar item-driver" ng-class="{true: 'text-brown'}[message.isTop]">
+                        <img ng-src="{{message.avatar}}" image-404="./img/common/logo-icon.png" class="driver-face">
+                        <span class="msg-num label-num" ng-show="!!message.unread">{{message.unread}}</span>
+                        <span ng-click="vm.chat(message.id, 'team')">
+                            <h3>
+                                {{message.name}} - 企业群
+                            </h3>
+                            <p ng-if="message.lastMsg.type == 'text'">
+                                {{message.lastMsg.fromNick}}:{{message.lastMsg.text}}
+                            </p>
+                            <p ng-if="message.lastMsg.type == 'audio'">
+                                {{message.lastMsg.fromNick}}:{{!!message.lastMsg.text?message.lastMsg.text:'语音'}}
+                            </p>
+                            <p ng-if="message.lastMsg.type == 'image'">
+                                {{message.lastMsg.fromNick}}:{{!!message.lastMsg.pushContent?message.lastMsg.pushContent:'图片'}}
+                            </p>
+                            <p ng-if="message.lastMsg.type == 'geo'">
+                                {{message.lastMsg.fromNick}}:{{!!message.lastMsg.pushContent?message.lastMsg.pushContent:'位置'}}
+                            </p>
+                            <p ng-if="message.lastMsg.type == 'video'">
+                                {{message.lastMsg.fromNick}}:{{!!message.lastMsg.pushContent?message.lastMsg.pushContent:'视频'}}
+                            </p>
+                            <p ng-if="message.lastMsg.type == 'file'">
+                                {{message.lastMsg.fromNick}}:{{!!message.lastMsgShow?message.lastMsgShow:'[文件消息]'}}
+                            </p>
+                            <p ng-if="message.lastMsg.type == 'custom'">
+                                {{message.lastMsg.fromNick}}:{{!!message.lastMsgShow?message.lastMsgShow:'[自定义消息]'}}
+                            </p>
+                            <p ng-if="message.lastMsg.type == 'notification'&&message.lastMsg.attach.type == 'addTeamMembers'">
+                                群通知:<span>{{message.lastMsg.newMember}}</span>加入群
+                        </p>
+                        <p ng-if="!message.lastMsg">
+                            开始聊天吧
+                        </p>
+                        </span>
+                    </li>
+                </div>
+
+                <div ng-repeat="message in vm.sessionlist|orderBy:'-updateTime'">
+                    <li ng-if="message.scene == 'p2p'" class="item item-avatar item-driver" ng-class="{true: 'text-brown'}[message.isTop]" on-hold="vm.popupMessageOpthins(message)">
+                        <img ng-src="{{message.companyInfo.photo_url}}" class="driver-face" image-404="./img/common/infor-face.png" ng-click="rootGoDetail(message.companyInfo.role,message.to)">
+                        <span class="msg-num label-num" ng-show="!!message.unread">{{message.unread}}</span>
+                        <span ng-click="vm.chat(message.id, 'p2p', message.companyInfo.role)">
+                            <h3>
+                                {{message.companyInfo.real_name}}
+                                <span ng-if="message.companyInfo.nick_name">
+                                    <span class="h5 text-gray">{{message.companyInfo.nick_name}}</span>
+                        <img ng-if="message.companyInfo.verify_phase == 'SUCCESS'" src="./img/158/label-v.png" class="label-v">
+                        </span>
+                        <span class="h5 pull-right text-gray gap-3">{{message.updateTimeShow}}</span>
+                        </h3>
+                        <p ng-if="message.lastMsg.type == 'text'">
+                            {{message.lastMsg.text}}
+                        </p>
+                        <p ng-if="message.lastMsg.type == 'audio'">
+                            {{!!message.lastMsg.text?message.lastMsg.text:'语音'}}
+                        </p>
+                        <p ng-if="message.lastMsg.type == 'image'">
+                            {{!!message.lastMsg.pushContent?message.lastMsg.pushContent:'图片'}}
+                        </p>
+                        <p ng-if="message.lastMsg.type == 'geo'">
+                            {{!!message.lastMsg.pushContent?message.lastMsg.pushContent:'位置'}}
+                        </p>
+                        <p ng-if="message.lastMsg.type == 'video'">
+                            {{!!message.lastMsg.pushContent?message.lastMsg.pushContent:'视频'}}
+                        </p>
+                        <p ng-if="message.lastMsg.type == 'file'">
+                            {{!!message.lastMsgShow?message.lastMsgShow:'[文件消息]'}}
+                        </p>
+                        <p ng-if="message.lastMsg.type == 'custom'">
+                            {{!!message.lastMsgShow?message.lastMsgShow:'[自定义消息]'}}
+                        </p>
+                        <p ng-if="!message.lastMsg">
+                            开始聊天吧
+                        </p>
+                        </span>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <rsc-tabs active=3 config-name="rsc.center_goods"></rsc-tabs>
+</ion-view>

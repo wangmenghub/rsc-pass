@@ -1,0 +1,16 @@
+<ion-view hide-back-button="true">
+	<ion-nav-buttons side="left">
+        <span  menu-close nav-transition='ios' nav-direction="back" ng-click="rootGoBack()">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons>
+	<ion-nav-title>
+		<div class="bar bar-stable">
+			<h1 class="title">货源地图</h1>
+		</div>
+	</ion-nav-title>
+	<ion-content class="bg-gray" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+		<trans-map></trans-map>
+	</ion-content>
+</ion-view>

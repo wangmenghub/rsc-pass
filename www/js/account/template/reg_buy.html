@@ -1,0 +1,28 @@
+<ion-view view-title="选择常运货物" hide-back-button="true">
+	<ion-content ng-init="vm.getIndustry()" class="has-footer">
+		<div class="bg-white">
+			<ul class="list list-buytype">
+				<li class="item item-checkbox {{item.selected?'active':''}}" ng-repeat="item in vm.Industry track by $index">
+					<label class="checkbox">
+						<input type="checkbox" value="item.chn" ng-click="vm.itemSelected($event,item)">
+					</label>
+					<img src={{item.file}} class="pull-left img-size">
+					<h2 class="pull-left">
+						{{item.chn}}
+						<br/>
+						{{item.eng}}
+					</h2>
+				</li>
+			</ul>
+			<div class="text-center gap-50">
+				<h5 class="text-gray">系统会针对您的选择</h5>
+				<h5 class="text-gray">为您推荐货主</h5>
+				<div class="gap-50"></div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</ion-content>
+	<ion-footer-bar class="bar bar-positive">
+		<h1 class="title" ng-click="vm.completeIndustry()">选好了，完成注册</h1>
+	</ion-footer-bar>
+</ion-view>

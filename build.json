@@ -1,0 +1,18 @@
+{
+    "android": {
+        "debug": {
+            "keystore": "./rsc-release-key.keystore",
+            "storePassword": "a11111",
+            "alias": "rsc-release",
+            "password" : "a11111",
+            "keystoreType": ""
+        },
+        "release": {
+            "keystore": "./rsc-release-key.keystore",
+            "storePassword": "a11111",
+            "alias": "rsc-release",
+            "password" : "a11111",
+            "keystoreType": ""
+        }
+    }
+}

@@ -1,0 +1,41 @@
+<!--货源---订单---指派司机成功-->
+<ion-view class="bg-blur assign_driver_succeed" hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <span menu-close nav-transition='ios' nav-direction="back" ng-click="vm.locationHrf()">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">指派成功</h1>
+        </div>
+    </ion-nav-title>
+    <ion-content ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div class="success-bg gap-20">
+            <div class="text-center">
+                <div style="height: 120px; margin: auto">
+                    <ion-spinner class="spinner-modal" icon="ripple"></ion-spinner>
+                </div>
+                <h1 class="text-gray1">正在通知</h1>
+                <h1 class="text-gray1">{{vm.dirverLogos.length}}位司机</h1>
+                <h6 class="text-gray gap-20">他们将马上收到指派通知！</h6>
+                <h6 class="text-gray gap-5">他们可在运输-指派行情中查看到您的最新指派信息</h6>
+                <div class="gap-20"></div>
+                <div class="text-center">
+                    <button class="button-inline button-dark button-round" ng-click="vm.goDetail()">
+						查看详情
+					</button>
+                </div>
+            </div>
+            <div class="visitor-padding gap-50">
+                <h5 class="text-gray">司机</h5>
+                <ul class="visitor-list gap-10">
+                    <li class="slide-right" ng-repeat="logo in vm.dirverLogos track by $index">
+                        <img src="{{logo.photo_url}}" class="img-face img-circle">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,42 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-light">
+    </ion-header-bar>
+    <ion-content class="has-header" overflow-scroll="true" style="overflow: visible;" on-swipe-down="vm.closeModal()">
+        <img src="{{vm.background_img}}" class="img-responsive">
+        <div class="bg-white item-login">
+            <form name="frm_login" novalidate>
+                <div class="list">
+                    <li class="item item-input item-icon-left">
+                        <i class="icon ion-iphone"></i>
+                        <input class="font-col" type="tel" name="phone" id="phone" ng-model="vm.user.phone" placeholder="输入手机号" required maxlength="11"
+                            ng-pattern="/(^13[0-9]{9}$)|(^15[0-9]{9}$)|(^17[0-9]{9}$)|(^18[012356789][0-9]{8}$)/">
+                    </li>
+                    <li class="item-input item-icon-left">
+                        <i class="icon"><img src="./img/general/code.png" class="code"></i>
+                        <input type="tel" name="code" id="code" ng-model="vm.user.verify_code" placeholder="输入验证码" required maxlength="6" ng-pattern="/[0-9]{6}/">
+                        <button class="button button-small button-assertive btn-code" ng-disabled="vm.isDisabled" ng-click="vm.getCode()">
+						    {{vm.btn_text}}
+					    </button>
+                    </li>
+                </div>
+            </form>
+        </div>
+        <div class="list-inset">
+            <button ng-disabled="frm_login.$invalid" ng-click="vm.login()" class="button button-block button-stabled">
+				登录
+			</button>
+            <!--<button class="button button-block button-dark" ui-sref="register">
+			    注册
+		    </button>-->
+        </div>
+        <!-- <div class="list-inset">
+            <label class="reg-radio">
+                <input type="checkbox" class="" name="type" ng-model="vm.autoLogin">
+                <span class="text-gray">自动登录</span>
+            </label>
+        </div> -->
+    </ion-content>
+    <ion-footer-bar class="bar bar-nocolor hide-on-keyboard-open">
+        <h1 class="title text-brown" ng-click='vm.closeModal()'>关闭</h1>
+    </ion-footer-bar>
+</ion-modal-view>

@@ -1,0 +1,102 @@
+<ion-view>
+	<ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">
+               我的发布
+            </h1>
+        </div>
+    </ion-nav-title>
+	<ion-content ng-init="init()" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+		<div class="transitions-content">
+			<div class="container gap-45">
+				<div class="row-bootstrap nav-pc-frameline">
+					<ion-refresher spinner="spiral" on-refresh="doRefresh()" ng-if="Platform.isWebView()"></ion-refresher>
+					<div class="col-xs-12 col-sm-9 col-md-9">
+						<div class="row-bootstrap bg-white">
+							<!--<div class="btn-group btn-group-justified" role="group" aria-label="...">-->
+							<!--<div class="btn-group" role="group">-->
+							<!--<a ng-click="queryOrder(false)">-->
+							<!--<button type="button" class="btn btn-navbar2 {{query.two?'':'active'}}">三方物流</button>-->
+							<!--</a>-->
+							<!--</div>-->
+							<!--&lt;!&ndash; ui-sref="tab.eBankIncome.left.tsupply"     ui-sref="tab.eBankIncome.center"   ui-sref="tab.eBankIncome.right" &ndash;&gt;-->
+							<!--<div class="btn-group">-->
+							<!--<a ng-click="queryOrder(true)">-->
+							<!--<button type="button" class="btn btn-navbar2 {{query.two?'active':''}}">两方物流</button>-->
+							<!--</a>-->
+							<!--</div>-->
+
+							<!--</div>-->
+
+						</div>
+						<div ng-if="!orders||orders.length==0">
+							<no-data-hint></no-data-hint>
+						</div>
+						<div ng-if="orders.length>0" class="row3-bootstrap" ng-repeat="order in orders">
+							<div class="col-sm-6 col-md-6 gap-10">
+								<pass-order-item-new order="order" go-detail="goDetail(order)"></pass-order-item-new>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<ion-infinite-scroll ng-if="hasMore" icon="ion-loading-c" on-infinite="loadMore()" distance="15%">
+		</ion-infinite-scroll>
+	</ion-content>
+</ion-view>
+<!--<div ng-controller="singleCtrl" ng-init="init()">-->
+<!--<navbar-->
+<!--ng-init="navbar.navLeftIco='ion-ios-arrow-back'; navbar.title='我的发布' ;navbar.navRightHref='tab.';navbar.navRight='';navbar.navLeft='返回';navbar.navLeftHref='tab.TrafficMenus';">-->
+<!--</navbar>-->
+<!--<ion-content ng-init="start()">-->
+<!--<div class="transitions-content">-->
+<!--<div class="container gap-45">-->
+<!--<div class="row-bootstrap nav-pc-frameline">-->
+
+<!--<div class="col-sm-3 col-md-3">-->
+<!--<navpc ng-init="isorder='active'"></navpc>-->
+<!--</div>-->
+
+<!--<ion-refresher  spinner="spiral" on-refresh="doRefresh()"></ion-refresher>-->
+
+<!--<div class="col-xs-12 col-sm-9 col-md-9">-->
+<!--<div class="row-bootstrap bg-white">-->
+<!--<div class="btn-group btn-group-justified" role="group" aria-label="...">-->
+<!--<div class="btn-group" role="group">-->
+<!--<a ng-click="">-->
+<!--<button type="button" class="btn btn-navbar2 {{!query.offer?'active':''}}">三方物流</button>-->
+<!--</a>-->
+<!--</div>-->
+<!--&lt;!&ndash; ui-sref="tab.eBankIncome.left.tsupply"     ui-sref="tab.eBankIncome.center"   ui-sref="tab.eBankIncome.right" &ndash;&gt;-->
+<!--<div class="btn-group">-->
+<!--<a ng-click="">-->
+<!--<button type="button" class="btn btn-navbar2 {{query.offer?'active':''}}">两方物流</button>-->
+<!--</a>-->
+<!--</div>-->
+
+<!--</div>-->
+
+<!--</div>-->
+<!--&lt;!&ndash; 我的抢单&ndash;&gt;-->
+<!--<div class="row1-bootstrap bg-white gap-15" ng-repeat="single in singles">-->
+<!--<div class="gap-10">-->
+<!--<driver-old-order-item go-new="goDetail(order_id)" order-id="single._id"></driver-old-order-item>-->
+<!--</div>-->
+<!--<div class="clearfix"></div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--</div>-->
+<!--</div>-->
+<!--<footer></footer>-->
+<!--</div>-->
+
+<!--<ion-infinite-scroll ng-if="hasMore" icon="ion-loading-c" on-infinite="loadMore()" distance="15%">-->
+<!--</ion-infinite-scroll>-->
+
+<!--</ion-content>-->
+<!--</div>-->
+
+

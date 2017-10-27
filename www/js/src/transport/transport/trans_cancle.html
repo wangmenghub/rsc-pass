@@ -1,0 +1,53 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">运输中心</h1>
+        </div>
+    </ion-nav-title>
+    <!--顶部二级导航-->
+    <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+        <div class="tabs">
+            <a class="tab-item active num-fixed" menu-close nav-transition="ios" nav-direction="enter" ui-sref='rsc.trans_grab' >
+                我的运输
+                <span class="trade-num label-num ng-binding" ng-if="transpmsg.transportation.total > 0">{{transpmsg.transportation.total}}</span>
+            </a>
+            <a class="tab-item num-fixed" menu-close nav-transition="ios" nav-direction="enter" ui-sref='rsc.trans_order_doing'>
+                订单
+                <span class="trade-num label-num ng-binding" ng-if="transpmsg.order.total > 0">{{transpmsg.order.total}}</span>
+            </a>
+            <a class="tab-item num-fixed" menu-close nav-transition="ios" nav-direction="enter" ui-sref='rsc.trans_car' >
+                车辆
+            </a>
+        </div>
+    </div>
+    <ion-content class="bg-gray has-subheader has-footer" ng-init="vm.init()">
+        <ul class="row third-bar text-center">
+            <li menu-close nav-transition="ios" nav-direction="enter" class="col" ui-sref="rsc.trans_grab" >进行中<span ng-if="transp.underway != 0">{{transp.underway}}</span></li>
+            <li menu-close nav-transition="ios" nav-direction="enter" class="col" ui-sref="rsc.trans_complete" >已过期 <span ng-if="transp.expired != 0">{{transp.expired}}</span></li>
+            <li menu-close nav-transition="ios" nav-direction="enter" class="col active" ui-sref="rsc.trans_cancle" >已取消<span ng-if="transp.canceled != 0">{{transp.canceled}}</span></li>
+        </ul>
+        <!--<div ng-controller="pass_sell_ctrl" ng-init="init()" nav-transition="ios">-->
+            <!--<div class="button-bar trade-bar trade-bar-status">-->
+                <!--<a class="button" menu-close nav-transition="ios" nav-direction="enter" ui-sref="rsc.trans_grab">进行中{{effective}}</a>-->
+                <!--<a class="button active" menu-close nav-transition="ios" nav-direction="enter" ui-sref="rsc.trans_cancle">已失效 {{ineffective}} </a>-->
+            <!--</div>-->
+        <!--</div>-->
+        <ion-refresher spinner="spiral" on-refresh="doRefresh()"></ion-refresher>
+        <!--运输-->
+        <loading-dire loadparam="vm.reqcomplete"></loading-dire>
+        <div ng-show="vm.reqcomplete">
+            <div class="text-center gap-70" ng-if="vm.orders.length<=0">
+                <h4 class="text-gray">您还有没有指派物流</h4>
+                <h4 class="text-gray gap-5">先获取货源再指派给司机进行运输</h4>
+                <button class="gap-20 button-circle" ui-sref="rsc.center_goods">查看货源</button>
+            </div>
+            <div class="slide-top" ng-if="vm.orders.length>0" ng-repeat="order in vm.orders track by $index">
+                <div ng-class="{'gap-10':!$first}"></div>
+                <pass-order-item order="order" go-detail="goDetail(order)" source="cancle"></pass-order-item>
+            </div>
+        </div>
+        <ion-infinite-scroll immediate-check="false" ng-if="vm.hasMore" icon="ion-loading-c" on-infinite="loadMore()" distance="15%">
+        </ion-infinite-scroll>
+    </ion-content>
+    <rsc-tabs config-name='rsc.center_goods' active=2></rsc-tabs>
+</ion-view>

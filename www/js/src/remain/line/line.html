@@ -1,0 +1,105 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <!--<div class="title nav-bar">
+                <a menu-close class="num-fixed" ui-sref="rsc.center_goods">看指派</a>
+                <a menu-close class="num-fixed active" ui-sref='rsc.line' nav-transition='none' ion-direction='enter' >发线路</a>
+            </div>-->
+            <div style="dispaly:block; margin:0 auto; width:160px;">
+                <div class="button-bar button-navbar">
+                    <a menu-close class="button num-fixed" ui-sref="rsc.center_goods">看指派</a>
+                    <a menu-close class="button num-fixed active" ui-sref='rsc.line' nav-transition='none' ion-direction='enter'>发线路</a>
+                </div>
+            </div>
+        </div>
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ui-sref="rsc.add_line">+线路</button>
+    </ion-nav-buttons>
+    <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+        <!--<div class="tabs">-->
+            <!--<a class="tab-item num-fixed active" nav-clear menu-close nav-transition="none" nav-direction="enter">-->
+                    <!--我发布的线路-->
+                    <!--&lt;!&ndash;<span class="trade-num label-num" >1</span>&ndash;&gt;-->
+                <!--</a>-->
+            <!--<a class="tab-item num-fixed" nav-clear menu-close nav-transition="none" nav-direction="enter">-->
+                    <!--等待确认-->
+                    <!--&lt;!&ndash;<span class="trade-num label-num" >1</span>&ndash;&gt;-->
+                <!--</a>-->
+            <!--<a class="tab-item num-fixed" nav-clear menu-close nav-transition="none" nav-direction="enter">-->
+                    <!--已失效-->
+                    <!--&lt;!&ndash;<span class="trade-num label-num" >1</span>&ndash;&gt;-->
+                <!--</a>-->
+        <!--</div>-->
+    </div>
+    <ion-content class="bg-gray  scroll-content ionic-scroll has-header has-footer">
+        <ion-refresher spinner="spiral" on-refresh="vm.doRefresh()"></ion-refresher>
+        <!--看线路-->
+        <div ng-class="{'row row-wrap row-wrap-list gap-5 ':$root.rscPlatform == 'isweb'}" class="gap-15">
+            <div class="list-card slide-top" ng-class="{'col col-50':$root.rscPlatform == 'isweb','gap-15':!$first}" ng-repeat="line in vm.lineLists"
+                ng-click="vm.lineDetail(line)" ng-if="vm.reqcomplete&&vm.lineLists.length>0">
+                <div class="list-inset">
+                    <div class="row">
+                        <div class="col text-left">
+                            <img src="./img/pass/line-icon.png" class="line-icon pull-left">
+                            <div class="pull-left">
+                                <h4 class="bold gap-3">{{line.start_city}}</h4>
+                                <h5 class="text-gray1 gap-10">{{line.start_district}}</h5>
+                            </div>
+                        </div>
+                        <div class="col text-center gap-3">
+                            <h5 class="text-orange">去：￥{{line.money}}元/吨</h5>
+                            <h5 class="status-bg text-orange">回：￥{{line.unmoney}}元/吨</h5>
+                        </div>
+                        <div class="col text-right">
+                            <h4 class="bold gap-3">{{line.end_city}}</h4>
+                            <h5 class="text-gray1 gap-10">{{line.end_district}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="vm.reqcomplete&&(!vm.lineLists||vm.lineLists.length==0)">
+            <div class="text-center gap-70">
+                <h4 class="text-gray">您还没有发布线路</h4>
+                <h4 class="text-gray gap-5">发布后货主会快速给你下单</h4>
+                <button class="gap-20 button-circle" ui-sref="rsc.add_line">发布线路</button>
+            </div>
+        </div>
+        <ion-infinite-scroll immediate-check="false" ng-if="vm.hasMore" icon="ion-loading-c" on-infinite="vm.loadMore()" distance="15%">
+        </ion-infinite-scroll>
+    </ion-content>
+
+    <!--底部一级导航-->
+    <rsc-tabs config-name='rsc.center_goods' active=1></rsc-tabs>
+
+
+    <!--<ion-content class="bg-gray has-subheader has-subfooter">-->
+    <!--<ion-refresher spinner="spiral" on-refresh="vm.doRefresh()"></ion-refresher>-->
+    <!--<div ng-init="vm.init()">-->
+    <!--<h5 class="list-inset text-center text-gray gap-10">我发布的线路 {{vm.count}} 条</h5>-->
+    <!--<div ng-if="vm.myAskPriceNum" class="text-center">-->
+    <!--<button class="update-infonew">刷新成功</button>-->
+    <!--</div>-->
+    <!--<div ng-if="!vm.lineLists||vm.lineLists.length==0">-->
+    <!--<div class="text-center gap-70">-->
+    <!--<h4 class="text-gray">您还没有发布线路</h4>-->
+    <!--<h4 class="text-gray gap-5">发布后货主会快速给你下单</h4>-->
+    <!--&lt;!&ndash;<button class="gap-20 button-circle" ui-sref="sell_release.add_line">发布线路</button>&ndash;&gt;-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<ion-list class="slide-top" show-delete="false" show-reorder="false" ng-repeat="item in vm.lineLists">-->
+    <!--<pass-traffic-line line='item' line-detail="vm.lineDetail(item)"></pass-traffic-line>-->
+    <!--</ion-list>-->
+    <!--</div>-->
+    <!--<ion-infinite-scroll immediate-check="false" ng-if="vm.hasMore" icon="ion-loading-c" on-infinite="vm.loadMore()" distance="15%">-->
+    <!--</ion-infinite-scroll>-->
+    <!--</ion-content>-->
+    <!--&lt;!&ndash;底部二级导航&ndash;&gt;-->
+    <!--<div class="bar bar-footer bar-light bar-subfooter">-->
+    <!--<div class="title" ui-sref="rsc.add_line">发布线路</div>-->
+    <!--</div>-->
+
+    <!--&lt;!&ndash;底部一级导航&ndash;&gt;-->
+    <!--<rsc-tabs config-name='rsc.center_goods' active=1></rsc-tabs>-->
+</ion-view>

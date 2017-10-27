@@ -1,0 +1,78 @@
+<ion-view hide-back-button="vm.enter">
+    <!-- <ion-nav-buttons side="left">
+        <span  menu-close nav-transition='ios' nav-direction="back" ng-if="vm.enter" ng-click="goMenuClose('pass.traffic_verify_company')">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons> -->
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">企业设置</h1>
+        </div>
+    </ion-nav-title>
+     <ion-nav-buttons side="secondary">
+        <button class="button button-clear" ng-click="vm.reverify()" ng-if="vm.verify">重新认证</button>
+    </ion-nav-buttons>
+    <ion-content class="bg-gray has-footer" ng-init="vm.init()" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div class="bg-white gap-10">
+
+            <div class="list list-item list-type-input">
+                <li class="item item-type item-icon-left item-icon-right" ng-click="vm.modify_companyinfo('url_logo')">
+                    <span class="icon icon-left text-black" ng-class="{'text-gray':vm.verify}">企业LOGO</span>
+                    <img ng-src="{{vm.companyInfo.url_logo}}" class="pull-right face img-circle" image-404="./img/common/logo-icon.png" />
+                    <i class="icon ion-ios-arrow-right text-gray"></i>
+                </li>
+
+                <li class="item item-type item-icon-right" ng-class="{'text-gray':vm.verify}" ng-click="vm.modify_companyinfo('nick_name')">
+                    企业简称(6个汉字)
+                    <span class="pull-right text-gray">{{vm.companyInfo.nick_name}}</span>
+                    <i class="icon ion-ios-arrow-right text-gray"></i>
+                </li>
+                <city-picker options="vm.pickCityPickDataSendNew"></city-picker>
+                
+            </div>
+        </div>
+
+        <div class="bg-white gap-10">
+            <div class="list list-item list-type-input">
+                <li class="item item-type item-icon-right" ng-class="{'text-gray':vm.verify}" ng-click="vm.openIndustryModal()">
+                    开通行业
+                    <span class="pull-right text-gray" ng-repeat="i in vm.com_info">
+                        {{i.toLowerCase()|categoryFilter}}&nbsp
+                    </span>
+                    <i class="icon ion-ios-arrow-right text-gray"></i>
+                </li>
+                <li class="item item-type item-icon-left item-icon-right" ng-click="vm.modify_companyinfo('licenseimg')">
+                    <span class="icon icon-left text-black" ng-class="{'text-gray':vm.verify}">营业执照</span>
+                    <img ng-src="{{vm.companyInfo.url_yingyezhizhao}}" class="pull-right face" image-404="./img/158/qc-img.png"
+                    />
+                    <i class="icon ion-ios-arrow-right text-gray"></i>
+                </li>
+            </div>
+        </div>
+
+        <div class="bg-white gap-10">
+            <div class="list list-item list-type-input">
+                <li class="item item-type item-icon-right" ng-class="{'text-gray':vm.verify}" ng-click="vm.modify_companyinfo('des')">
+                    企业介绍
+                    <div class="text-gray text-overflow">{{(vm.companyInfo.des == '')?'请输入企业文字介绍...':vm.companyInfo.des}}</div>
+                </li>
+
+               
+            </div>
+        </div>
+        <div class="gap-30">
+            <p class="text-gray text-center">申请平台认证</p>
+            <p class="text-gray text-center">有助于提高企业的信任度</p>
+        </div>
+
+
+    </ion-content>
+
+    <ion-footer-bar class="bar bar-light bar-footer" ng-click="vm.modify_companyinfo('submit')">
+        <!--<atlas-progress class="atlas-progress-positive" color="'#7658f6'"></atlas-progress>-->
+        <h1 class="title" ng-if="vm.companyInfo.verify_phase == 'NO'||!vm.companyInfo.verify_phase">申请平台认证</h1>
+        <h1 class="title" ng-if="vm.companyInfo.verify_phase == 'PROCESSING'">正在申请平台认证</h1>
+        <h1 class="title" ng-if="vm.companyInfo.verify_phase == 'SUCCESS'">已成功申请平台认证</h1>
+    </ion-footer-bar>
+</ion-view>

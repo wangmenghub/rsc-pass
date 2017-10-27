@@ -1,0 +1,31 @@
+<ion-view hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <span menu-close nav-transition='ios' nav-direction="back" ng-click="rootGoBack()">
+             <i class="icon ion-ios-arrow-back"></i>
+             <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons>
+    <ion-nav-title>
+        <div class="bar bar-positive">
+            <h1 class="title">货源地图</h1>
+        </div>
+    </ion-nav-title>
+    <ion-content class="bg-gray" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div ng-init="vm.init()">
+            <!--<app-map></app-map>-->
+            <div id='container' style='width:100%;'></div>
+            <div id='panel' style='display:none'></div>
+
+        </div>
+    </ion-content>
+    <div class="list" style="position:fixed;bottom:0;width:100%;">
+        <div class="item item-icon-right">
+            <h2>{{vm.address}}</h2>
+            <div class="clearfix gap-5"></div>
+            <h5>[位置]</h5>
+            <i class="icon" ng-click="vm.goMap()">
+                <img src="./img/common/nav-icon.png" class="nav-icon">
+            </i>
+        </div>
+    </div>
+</ion-view>

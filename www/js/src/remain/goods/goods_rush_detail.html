@@ -1,0 +1,257 @@
+<ion-view hide-back-button="true">
+	<ion-nav-buttons side="left">
+		<span  nav-transition='ios' nav-direction="back"  ng-click="vm.goLocation()" >
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+	</ion-nav-buttons>
+	<ion-nav-title>
+		<div class="bar bar-positive">
+			<div class="title nav-bar">
+				<a class="" nav-transition="ios" nav-direction="enter"
+				   ui-sref="rsc.goods_detail({demand_id:vm.data.demand_id,wait:vm.wait})">指派</a>
+				<a class="active">货源详情</a>
+			</div>
+		</div>
+	</ion-nav-title>
+	<ion-nav-buttons side="right">
+		<button class="button button-clear" ui-sref="rsc.goods_map({demand_id:vm.data.demand_id})">地图</button>
+	</ion-nav-buttons>
+	<ion-content class="bg-gray" ng-init="vm.init()" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+		<div class="" ng-class="{'bg-white gap-20':$root.rscPlatform == 'isweb'}">
+			<div class="" ng-class="{'login-width content-maxwidth':$root.rscPlatform == 'isweb'}">
+		<ion-refresher spinner="spiral" on-refresh="doRefresh()"></ion-refresher>
+		<div class="bg-white">
+                <div class="list-inset gap-row">
+                    <div class="row gap-5">
+                        <div class="col text-left">
+                            <img src="./img/pass/pass-icon.png" class="label-icon pull-left">
+                            <div class="pull-left">
+                                <h4 class="bold">{{vm.demandList.send_city|rscLimit:5}}</h4>
+                                <h5 class="text-gray1 gap-3">{{vm.demandList.send_district|rscLimit:5}}</h5>
+                                <h5 class="text-gray1 gap-3">{{vm.demandList.time_depart | dateformatFilter:'MM-dd E'}}</h5>
+                            </div>
+                        </div>
+                        <div class="col text-center gap-3">
+                            <h5 class="h5 text-black">{{vm.demandList.amount | number:3}}吨 {{vm.demandList.product_categories[0].material_chn}}</h5>
+                            <h5 class="status-bg text-orange">{{vm.demandList.price_max==vm.demandList.price_min?vm.demandList.price_max:vm.demandList.price_min+'~'+vm.demandList.price_max}} 元/吨</h5>
+                        </div>
+                        <div class="col text-right">
+                            <h4 class="bold">{{vm.demandList.receive_city|rscLimit:5}}</h4>
+                            <h5 class="text-gray1 gap-3">{{vm.demandList.receive_district|rscLimit:5}}</h5>
+                            <h5 class="text-gray1 gap-3">{{vm.demandList.time_arrival | dateformatFilter:'MM-dd E'}}</h5>
+                        </div>
+
+                </div>
+				<!--<img src="./img/pass/pass-icon.png" class="label-icon1 pull-left">-->
+				<!--<div class="pull-left text-center">-->
+					<!--<h4 class="bold">{{vm.demandList.send_city|rscLimit:5}}</h4>-->
+					<!--<h6 class="text-gray">{{vm.demandList.send_district|rscLimit:5}}</h6>-->
+				<!--</div>-->
+				<!--<span class="pull-left route">-></span>-->
+				<!--<div class="pull-left text-center">-->
+					<!--<h4 class="bold">{{vm.demandList.receive_city|rscLimit:5}}</h4>-->
+					<!--<h6 class="text-gray">{{vm.demandList.receive_district|rscLimit:5}}</h6>-->
+				<!--</div>-->
+				<!--<img src="./img/common/line.png" class="pull-left master-line">-->
+				<!--<div class="pull-left text-center">-->
+					<!--<h4 class="text-blue">{{vm.demandList.amount | number:3}}吨</h4>-->
+					<!--<h6 class="text-gray">{{vm.demandList.products[0].type | paymentChoice}}</h6>-->
+				<!--</div>-->
+			</div>
+		</div>
+
+		<div class="bg-white gap-20" ng-click="rootGoDetail(vm.companyUserInfo.user.role,vm.companyUserInfo.user._id)">
+			<div class="list">
+				<div class="item item-avatar item-offer item-offer-list">
+					<h3>
+						{{vm.companyInfo.company.nick_name}}
+						<img ng-if="vm.companyInfo.company.verify_phase == 'SUCCESS'" src="./img/158/label-v.png" class="label-v">
+					</h3>
+					<div class="clear"></div>
+					<h5 class="text-gray">联系人： {{vm.companyUserInfo.user.real_name}}</h5>
+					<div class="item-face text-center gap-10">
+						<img ng-src="{{vm.companyUserInfo.user.photo_url}}" class="pull-right img-face img-circle"
+							 image-404="./img/common/logo-icon.png">
+						<!--<h6 class="text-gray">xxx</h6>-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bg-white "  style="border-top: #f0f0f0 solid 2px">
+			<div class="list list-item list-type-input">
+				<!--<li class="item item-type item-type-no item-type-standard item-icon-right" ng-click="vm.productsDetail()">-->
+				<!--运输货物-->
+				<!--<i class="icon ion-ios-arrow-right"></i>-->
+				<!--</li>-->
+				<div class="list">
+                    <details-product model="vm.order.product_categories"></details-product>
+					<!--<div class="item" ng-repeat="products in vm.order.product_categories track by $index">-->
+						<!--<h3 class="bold">{{products.layer_1_chn}} {{products.layer_2_chn}}</h3>-->
+						<!--<div class="clear"></div>-->
+						<!--<div ng-class="{'gap-10':!$first}" ng-repeat="i in products.product_name">-->
+							<!--<div class="item-add">-->
+								<!--<div class="text-green">-->
+									<!--<h4 class="bold title text-green">{{products.layer_3_chn}}</h4>-->
+								<!--</div>-->
+								<!--<div class="row row-wrap text-green">-->
+									<!--<h4 class="col col-10 text-green" ng-if="i.guige">-->
+										<!--{{i.guige}}-->
+									<!--</h4>-->
+									<!--<h4 class="col col-50 text-green" ng-repeat="j in i.attribute">-->
+										<!--{{i.name?i.name+'：':''}}{{j.name}}：{{j.value}}{{j.unit}}-->
+									<!--</h4>-->
+								<!--</div>-->
+							<!--</div>-->
+						<!--</div>-->
+					<!--</div>-->
+				</div>
+			</div>
+			<div class="gap-10"></div>
+			<div class="clearfix"></div>
+		</div>
+		<div class="list">
+			<div class="item item-avatar item-address gap-10" ng-click="rootAddMap(vm.demandList.send_province,vm.demandList.send_city,vm.demandList.send_district,vm.demandList.send_addr)">
+				<img src="./img/158/landmark.png" class="landmark">
+				<h2 class="text-gray1">提货地址：{{vm.demandList.send_city}}{{vm.demandList.send_district}}{{vm.demandList.send_addr}}</h2>
+				<p ng-if="vm.demandList.send_name">联系人：{{vm.demandList.send_name}}
+					&nbsp;&nbsp;&nbsp;&nbsp;手机号：{{vm.demandList.send_phone}}</p>
+				<p ng-if="!vm.demandList.send_name">&nbsp;</p>
+			</div>
+			<div class="item item-avatar item-address item-address-border" ng-click="rootAddMap(vm.demandList.receive_province,vm.demandList.receive_city,vm.demandList.receive_district,vm.demandList.receive_addr)">
+				<img src="./img/158/landmark-1.png" class="landmark">
+				<h2 class="text-gray1">
+
+					交货地址：{{vm.demandList.receive_city}}{{vm.demandList.receive_district}}{{vm.demandList.receive_addr}}</h2>
+				<p ng-if="vm.demandList.receive_name">联系人：{{vm.demandList.receive_name}} &nbsp;&nbsp;&nbsp;&nbsp;手机号：{{vm.demandList.receive_phone}}</p>
+				<p ng-if="!vm.demandList.receive_name">&nbsp;</p>
+			</div>
+		</div>
+
+		<div class="gap-10">
+			<div class="list">
+				<div class="item item-passdetail item-icon-right">
+					<h2 class="text-black">
+						<span class="bold">提货时间</span>
+					</h2>
+					<p>
+						<span class="text-red">{{vm.demandList.time_depart|rsctime}}</span>
+					</p>
+				</div>
+				<div class="item item-passdetail item-icon-right">
+					<h2 class="text-black">
+						<span class="bold">交货时间</span>
+					</h2>
+					<p>
+						<span class="text-red">{{vm.demandList.time_arrival|rsctime}}</span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="gap-10">
+			<div class="list">
+				<div class="item item-passdetail item-icon-right">
+					<h2 class="text-black">
+						<span class="bold">付款方式</span>
+					</h2>
+					<p>
+						<span class="text-red">
+							{{vm.demandList.payment_method|paymentChoice}}
+							<span ng-if="vm.demandList.payment_method=='partition'">首付款比例:{{vm.demandList.percentage_advance}}% 尾款支付起始日期:货到并完成质检日</span>
+							{{vm.demandList | payDayDes}}
+						</span>
+
+					</p>
+				</div>
+				<div class="item item-passdetail item-icon-right">
+					<h2 class="text-black">
+						<span class="bold">付款类型</span>
+					</h2>
+					<p>
+						<span class="text-red">{{vm.demandList.payment_choice|paymentChoice}}</span>
+					</p>
+				</div>
+				<div class="item item-passdetail item-icon-right">
+					<h2 class="text-black">
+						<span class="bold">物流结算</span>
+					</h2>
+					<p>
+						<!--<span class="text-red">{{vm.demandList.weigh_settlement_style!='get'?'按提货吨数结算':'按到货吨数结算'}}</span>-->
+						<span class="text-red">{{vm.demandList.weigh_settlement_style=='get'?'按提货吨数结算':(vm.demandList.weigh_settlement_style=='fact'?'按到货吨数结算':'按实际路耗结算')}}</span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="gap-10"></div>
+		<div class="item item-passdetail">
+			<h2 class="text-gray1">
+				<span class="bold text-black">货物描述</span>
+				<span class="pull-right">{{vm.demandList.appendix?vm.demandList.appendix:'无特殊说明'}}</span>
+			</h2>
+		</div>
+
+		<div ng-click="rootGoDetail(vm.companyInfo.company.type,vm.companyInfo.company._id)">
+			<div class="flex-center list-passcompany">
+				<div class="list">
+					<div class="item item-avatar">
+						<img class="img-circle" ng-src="{{vm.companyInfo.company.url_logo}}" image-404="./img/common/logo-icon.png">
+						<h2>
+							{{vm.companyInfo.company.nick_name}}
+							<img ng-if="vm.companyInfo.company.verify_phase == 'SUCCESS'" src="./img/158/label-v.png" class="label-v">
+							<!--<img ng-if="vm.companyInfo.company.verify_phase == 'SUCCESS'" src="./img/158/label-v-orange.gif" class="label-v">-->
+						</h2>
+						<h4 class="text-gray">
+							<span>
+								采购：<span ng-repeat="i in vm.companyInfo.arrBuy">{{i.chn}} </span>
+								<span ng-if="vm.companyInfo.arrBuy.length==0">暂无</span>
+							</span>
+							</br>
+							<span>
+								销售：<span ng-repeat="i in vm.companyInfo.arrSell">{{i.chn}} </span>
+								<span ng-if="vm.companyInfo.arrSell.length==0">暂无</span>
+							</span>
+						</h4>
+						<h4 class="text-gray">
+
+						</h4>
+					</div>
+				</div>
+			</div>
+			<div class="bg-white gap-row">
+				<div class="row text-center">
+					<div class="col">
+						<h5>采购</h5>
+						<h5 class="gap-5">{{vm.companyInfo.count.TRADE_DEMAND}}</h5>
+					</div>
+					<div class="col">
+						<h5>报价</h5>
+						<h5 class="gap-5">{{vm.companyInfo.count.DJ}}</h5>
+					</div>
+					<div class="col">
+						<h5>竞拍</h5>
+						<h5 class="gap-5">{{vm.companyInfo.count.JJ}}</h5>
+					</div>
+					<div class="col">
+						<h5>货源</h5>
+						<h5 class="gap-5">{{vm.companyInfo.count.TRAFFIC_DEMAND}}</h5>
+					</div>
+				</div>
+			</div>
+		</div>
+			</div>
+		</div>
+	</ion-content>
+	<ion-footer-bar class="bar bar-light">
+		<div class="row button-foot">
+			<div class="col col-light" ng-click="chat('p2p-'+vm.demandList.demand_user_id,'p2p',vm.demandList.user_role,vm.demandList.user_name)">
+				立即沟通
+			</div>
+			<div class="col col-50 col-red" ng-if="!vm.wait" ng-click="vm.goOfferOrder()">
+				立即接单
+			</div>
+			<div class="col col-50 col-red" ng-if="vm.wait">
+				已结束<!--等待派货-->
+			</div>
+		</div>
+	</ion-footer-bar>
+</ion-view>

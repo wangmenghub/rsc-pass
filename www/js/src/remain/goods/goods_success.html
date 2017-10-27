@@ -1,0 +1,63 @@
+<!--<ion-view hide-back-button="true">-->
+<!--<ion-nav-title>-->
+<!--<div class="bar bar-positive">-->
+<!--<h1 class="title">抢单完成</h1>-->
+<!--</div>-->
+<!--</ion-nav-title>-->
+<!--<ion-nav-buttons side="left">-->
+<!--<i menu-close nav-direction="enter" nav-transition="back" class="icon ion-ios-arrow-back" ui-sref="rsc.center_goods"></i>-->
+<!--&lt;!&ndash;<i class="icon ion-ios-arrow-back" ng-click="rootGoBack()"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;<i class="icon ion-ios-arrow-back" ng-click="vm.goOrderList()"></i>&ndash;&gt;-->
+<!--</ion-nav-buttons>-->
+<!--<ion-content>-->
+<!--<div class="text-center">-->
+<!--<img src="./img/common/invite-icon.png" class="invite-icon">-->
+<!--<h1 class="text-purple">抢单成功</h1>-->
+<!--<div class="gap-20"></div>-->
+<!--<button class="col col-offset-25 col-50 button button-royal button-block" ng-click="vm.orderDetail()">-->
+<!--查看订单详情-->
+<!--</button>-->
+<!--</div>-->
+<!--</ion-content>-->
+<!--</ion-view>-->
+<ion-modal-view class="bg-blur">
+    <ion-header-bar class="bar bar-nocolor">
+        <h1 class="title">接单成功</h1>
+        <button class="button button-clear button-primary" ng-click='vm.closeModal_assign()'>关闭</button>
+    </ion-header-bar>
+    <ion-content>
+        <div class="text-center success-bg gap-20">
+            <div style="height: 120px; margin: auto">
+                <ion-spinner class="spinner-modal" icon="ripple"></ion-spinner>
+            </div>
+            <!--<img src="./img/common/invite-icon.png" class="invite-icon">-->
+            <h1 class="text-gray1">正在通知{{vm.demandUserInfo[0].company_name}}</h1>
+            <h1 class="text-gray1">{{vm.demandUserInfo[0].user_name}}</h1>
+            <h6 class="text-gray gap-20">他们将马上收到接单通知！</h6>
+            <h6 class="text-gray gap-5">他们可在运输-指派中看到您的最新接单</h6>
+            <div class="gap-20"></div>
+            <div>
+                <button class="button-inline button-dark button-round" ng-click='vm.goRoute("look")'>
+					查看详情
+				</button>
+                <button class="button-inline button-stabled button-round" ng-click='vm.goRoute("continue")'>
+					更多指派
+				</button>
+            </div>
+
+            <style>
+                .myul {
+                    padding: 0 10px;
+                    overflow: hidden;
+                    margin: auto;
+                    margin-top: 10px;
+                }
+            </style>
+            <ul class="visitor-list myul">
+                <li class="slide-right myli" ng-repeat="i in vm.demandUserInfo">
+                    <img ng-src="{{i.user_photo}}" image404="./img/common/infor-face.png" class="img-face img-circle">
+                </li>
+            </ul>
+        </div>
+    </ion-content>
+</ion-modal-view>

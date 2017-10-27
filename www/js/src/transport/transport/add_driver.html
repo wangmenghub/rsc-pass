@@ -1,0 +1,131 @@
+<ion-view view-title="添加司机" hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <span  menu-close nav-transition='ios' nav-direction="back" ng-click="rootGoBack()">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons>
+    <ng-form name="myForm" novalidate>
+        <ion-content class="bg-gray" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+            <div class="bg-white">
+                <div class="list list-item list-type-input">
+                    <li class="item item-input list-input list-input-standard">
+                        <span class="input-label">车牌号</span>
+                        <input placeholder="请输入" class="text-right" name="_carNumber" car-number-check-for-order  ng-model="vm.newCar.number" ng-pattern="/^[\u4e00-\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}$/i"
+                            maxlength="7" required type="text">
+                    </li>
+                    <div class="form-error" ng-messages="myForm._carNumber.$dirty&&myForm._carNumber.$error">
+                        <div ng-message="pattern">车牌号格式错误</div>
+                        <div ng-message="required">车牌号不能为空</div>
+                        <div ng-message="carNumber">提示:该车辆已存在系统中,请直接添加</div>
+                    </div>
+                    <form name="hasCarForm" ng-if="hasCar" class="list">
+                        <li class="item item-input list-input list-input-standard">
+                            <span class="input-label">手机号</span>
+                            <input placeholder="请输入" class="text-right" name="_phone"  phone-check ng-model="vm.newCar.phone" required type="tel" maxlength="11"
+                                ng-disabled="hasCarForm._carNumber.$invalid||hasCar" ng-pattern="/(^13[0-9]{9}$)|(^15[0-9]{9}$)|(^17[0-9]{9}$)|(^18[012356789][0-9]{8}$)/">
+                        </li>
+                        <div class="form-error" ng-messages="hasCarForm._phone.$dirty&&hasCarForm._phone.$error">
+                            <div ng-message="pattern">手机号格式错误</div>
+                            <div ng-message="required">手机号不能为空</div>
+                            <div ng-message="phone">手机号已被注册</div>
+                        </div>
+                        <li class="item item-input list-input list-input-standard">
+                            <span class="input-label">姓名</span>
+                            <input class="text-right" name="_real_name" ng-model="vm.newCar.name" ng-disabled="hasCarForm._phone.$invalid||hasCar" placeholder="输入您的真实姓名"
+                                type="text" maxlength="10" ng-pattern="/^[(\u4e00-\u9fa5)+A-Za-z]{1,10}[^`~!@$%^&()+=|\\\][\]\{\}:;'\,.<>?\d]$/">
+                        </li>
+                        <div class="form-error" ng-messages="hasCarForm._real_name.$error&&hasCarForm._real_name.$invalid">
+                            <div ng-message="pattern">姓名格式错误</div>
+                            <!--<div ng-message="required">姓名不能为空</div>-->
+                        </div>
+                        <li class="item item-input list-input list-input-standard item-select">
+                            <div class="input-label">
+                                车辆类型
+                            </div>
+                            <select ng-disabled="hasCar" ng-model="vm.newCar.type" ng-options="item.chn  for item in vm.select.carType track by item.eng">
+                                <option value="" selected hidden></option>
+                            </select>
+                        </li>
+
+                        <li class="item item-input list-input list-input-standard">
+                            <div class="input-label">
+                                车辆长度
+                            </div>
+                            <input type="number" placeholder="请输入" class="text-right" name="long" ng-model="vm.newCar.long"
+                                   mixlength="2">
+                            <!--<select ng-disabled="hasCar" ng-model="vm.newCar.long" ng-options="item.chn for item in vm.select.carLong track by item.eng ">-->
+														<!--</select>-->
+                        </li>
+                        <div class="form-error" ng-messages="hasCarForm.long.$error&&hasCarForm.long.$invalid">
+                            <!--<div ng-message="required">车辆长度不能为空</div>-->
+                        </div>
+                        <li class="item item-input list-input list-input-standard">
+                            <span class="input-label">载重量</span>
+                            <input type="tel" class="text-right" placeholder="请输入" name="weight" ng-model="vm.newCar.weight" required type="number"
+                                mixlength="2" ng-disabled="hasCarForm.weight.$invalid||hasCar">
+                        </li>
+                        <div class="text-red1" ng-messages="hasCarForm.weight.$error&&myForm.weight.$invalid">
+                            <div ng-message="required">不能为空</div>
+                        </div>
+                    </form>
+                    <form name="noCarForm" ng-if="!hasCar" class="list">
+                        <li class="item item-input list-input list-input-standard">
+                            <span class="input-label">手机号</span>
+                            <input placeholder="请输入" class="text-right" name="_phone1"  phone-check  ng-model="vm.newCar.phone" required  type="tel" maxlength="11"
+                                ng-disabled="noCarForm._carNumber.$invalid" ng-pattern="/(^13[0-9]{9}$)|(^15[0-9]{9}$)|(^17[0-9]{9}$)|(^18[012356789][0-9]{8}$)/">
+                        </li>
+                        <div class="form-error" ng-messages="noCarForm._phone1.$dirty&&noCarForm._phone1.$error">
+                            <div ng-message="pattern">手机号格式错误</div>
+                            <div ng-message="required">手机号不能为空</div>
+                            <div ng-message="phone">手机号已被注册</div>
+                        </div>
+
+                        <li class="item item-input list-input list-input-standard">
+                            <span class="input-label">姓名</span>
+                            <input class="text-right" name="_real_name" ng-model="vm.newCar.name" ng-disabled="myForm._phone.$invalid"
+                                placeholder="输入您的真实姓名" type="text" maxlength="10" ng-pattern="/^[(\u4e00-\u9fa5)+A-Za-z]{1,10}[^`~!@$%^&()+=|\\\][\]\{\}:;'\,.<>?\d]$/">
+                        </li>
+                        <div class="form-error" ng-messages="noCarForm._real_name.$error&&noCarForm._real_name.$invalid">
+                            <div ng-message="pattern">姓名格式错误</div>
+                            <!--<div ng-message="required">姓名不能为空</div>-->
+                        </div>
+                        <li class="item item-input list-input list-input-standard item-select">
+                            <div class="input-label">
+                                车辆类型
+                            </div>
+                            <select ng-model="vm.newCar.type" ng-options="item.chn  for item in vm.select.carType track by item.eng">
+                                <option value="" selected hidden></option>
+                            </select>
+                        </li>
+
+                        <li class="item item-input list-input list-input-standard">
+                            <div class="input-label">
+                                车辆长度
+                            </div>
+                            <input type="number" placeholder="请输入" class="text-right" name="long" ng-model="vm.newCar.long"
+                                   mixlength="2">
+                            <!--<select ng-disabled="hasCar" ng-model="vm.newCar.long" ng-options="item.chn for item in vm.select.carLong track by item.eng ">-->
+														<!--</select>-->
+                        </li>
+                        <!--<div class="form-error" ng-messages="noCarForm.long.$error&&noCarForm.long.$invalid">-->
+                            <!--<div ng-message="required">车辆长度不能为空</div>-->
+                        <!--</div>-->
+
+                        <li class="item item-input list-input list-input-standard">
+                            <span class="input-label">载重量</span>
+                            <input  placeholder="请输入" class="text-right" name="weight" ng-model="vm.newCar.weight" required type="tel"
+                                mixlength="2">
+                        </li>
+                        <div class="form-error" ng-messages="noCarForm.weight.$error&&noCarForm.weight.$invalid">
+                            <div ng-message="required">载重量不能为空</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </ion-content>
+        <ion-footer-bar ng-class="myForm.$invalid ?'bar bar-dark':'bar bar-stable'">
+            <h1 class="title" ng-click="vm.addCarConfirm()">确认添加</h1>
+        </ion-footer-bar>
+    </ng-form>
+</ion-view>

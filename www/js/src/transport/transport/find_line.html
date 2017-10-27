@@ -1,0 +1,157 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <!--<div class="title nav-bar">
+                <a menu-close class="num-fixed"  nav-transition='none' ui-sref="rsc.trans_grab">待运输</a>
+                <a menu-close class="num-fixed " nav-transition='none' ui-sref='rsc.trans_order_doing' >发抢单</a>
+                <a menu-close class="num-fixed active"  nav-transition='none' ui-sref="rsc.find_line">找线路</a>
+            </div>-->
+            <div style="dispaly:block; margin:0 auto; width:230px;">
+                <div class="button-bar button-navbar">
+                    <a menu-close class="num-fixed button" nav-transition='none' ui-sref="rsc.trans_grab">待运输</a>
+                    <a menu-close class="num-fixed button" nav-transition='none' ui-sref='rsc.trans_order_doing'>发抢单</a>
+                    <a menu-close class="num-fixed active button" nav-transition='none' ui-sref="rsc.find_line">找线路</a>
+                </div>
+            </div>
+        </div>
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ng-click="vm.addCar()">+司机</button>
+    </ion-nav-buttons>
+    <!--<rsc-sub-header active=1 config-name="rsc.center_goods" msg="msgData"></rsc-sub-header>-->
+    <!--<div class="tabs-striped tabs-top tabs-background-positive tabs-color-light ">
+        <div class="tabs">
+            <a class="tab-item num-fixed active" > 线路行情</a>
+            <a class="tab-item num-fixed " > 待司机确认</a>
+            <a class="tab-item num-fixed " > 已失效</a>
+        </div>
+    </div>-->
+    <ion-content class="bg-gray" ng-class="{'has-footer':$root.rscPlatform == 'isapp'}">
+        <ion-refresher spinner="spiral" on-refresh="vm.doRefresh(activeStatus)"></ion-refresher>
+        <!--认证货源-->
+        <div class="gap-15">
+            <rsc-carousel tab="trade"></rsc-carousel>
+            <!--<ion-slide-box class="slider-radius slider-gap gap-15" on-slide-changed="slideHasChanged($index)" auto-play="true" does-continue="true"
+                slide-interval=3000 show-pager="false">
+                <ion-slide>
+                    <a>
+                        <div class="banner-bg"></div>
+                    </a>
+                </ion-slide>
+                <ion-slide>
+                    <img src="{{carousel_img[0].url}}" class="img-responsive img-radius" ng-click="vm.aboutUs(0)">
+                </ion-slide>
+                <ion-slide>
+                    <img src="{{carousel_img[1].url}}" class="img-responsive img-radius" ng-click="vm.aboutUs(1)">
+                </ion-slide>
+                <ion-slide>
+                    <a href="tel:{{carousel_img[2].text}}">
+                                <img src="{{carousel_img[2].url}}" class="img-responsive">
+                            </a>
+                </ion-slide>
+            </ion-slide-box>
+            <div>-->
+                <ion-scroll zooming="false" direction="x" style="width:auto;overflow-x: hidden;" scrollbar-x="false">
+                    <ul class="trade-company">
+                        <li ng-click="vm.listDetail()" class="{{vm.allDemands?'active':''}}">
+                            <span class="img-circle img-size1"><i class="ion-android-checkbox-outline-blank lightbulb"></i></span>
+                            <h6 class="text-gray">司机圈</h6>
+                        </li>
+                        <li ng-repeat="i in vm.Certification" ng-click="vm.listDetail(i._id)" class="{{vm.activeId ==i._id ?'active':''}}">
+                            <img ng-src="{{i.photo_url}}" image-404="./img/common/logo-icon.png" class="img-circle img-size1 num-fixed">
+                            <h6 class="text-gray">{{i.real_name}}</h6>
+                            <!--<i class="ion-arrow-up-b"></i>-->
+                            <i class="label-num label-new" ng-if="(i._id | getGoodInfCountFilter:msgCout.pass_demand_info)>0">{{i._id |
+                                    getGoodInfCountFilter:msgCout.pass_demand_info}}</i>
+                            <!--<i ng-if="i.is_new > 0" class="label-num label-new"></i>-->
+                        </li>
+                        <li ui-sref="rsc.invite">
+                            <img src="./img/158/img-plus.png" class="img-circle img-size1 img-circle-no">
+                            <h6 class="text-gray">邀请</h6>
+                        </li>
+                        <ion-infinite-scroll ng-if="vm.hasMore" icon="ion-loading-c" on-infinite="vm.swipeLeft()"></ion-infinite-scroll>
+                    </ul>
+                </ion-scroll>
+                <div ng-if="!vm.recommends">
+                    <div ng-if="vm.activeId&&(vm.newCount>0||vm.recommendOrders.length>0)">
+                        <h5 class="text-gray text-center gap-10">
+                            合作企业更新了{{vm.newCount}}条，累计{{vm.recommendOrders.length}}条行情
+                        </h5>
+                    </div>
+                    <div ng-if="!vm.activeId&&(vm.newCount>0||vm.recommendOrders.length>0)">
+                        <h5 class="text-gray text-center gap-10">
+                            我的好友更新了{{vm.newCount}}条，累计{{vm.recommendOrders.length}}条行情
+                        </h5>
+                    </div>
+                </div>
+                <!--认证货主无需求单提示-->
+                <div ng-if="vm.driverLines == 0 && !vm.driverLines" class="text-center gap-70">
+                    <!--<div ng-if="true" class="text-center gap-60">-->
+                    <h4 class="text-gray">暂无司机动态</h4>
+                    <!--<h4 class="text-gray gap-5">您可以邀请企业发布最新行情</h4>-->
+                    <!--<button class="gap-20 button-circle" ui-sref="rsc.traffic_invite">立即邀请</button>-->
+                    <div class="gap-100"></div>
+                    <div class="clearfix"></div>
+                </div>
+                <!--找线路-->
+                <div ng-class="{'row row-wrap row-wrap-list gap-5':$root.rscPlatform == 'isweb'}">
+                    <div class="list-card slide-top gap-15" ng-class="{'col col-50':$root.rscPlatform == 'isweb'}" ng-repeat="driverLine in vm.driverLines"
+                        ng-if="vm.driverLines.length>0" ng-click="rootGoDetail(driverLine.role,driverLine.user_id)">
+                        <div class="item item-avatar item-pass">
+                            <!--<img src="./img/common/infor-face.png">-->
+                            <img src="{{driverLine.user_photo}}">
+                            <h3 class="text-black">{{driverLine.user_name}}</h3>
+                            <p>{{driverLine.time_creation | rscOfferUpDateTime}}</p>
+                        </div>
+                        <div class="list-inset gap-3">
+                            <div class="row">
+                                <div class="col text-left">
+                                    <img src="./img/pass/line-icon.png" class="line-icon pull-left">
+                                    <div class="pull-left">
+                                        <h4 class="bold gap-3">{{driverLine.start_province}}</h4>
+                                        <h5 class="text-gray1 gap-10">{{driverLine.start_city}}</h5>
+                                    </div>
+                                </div>
+                                <div class="col text-center gap-3">
+                                    <h5 class="text-orange">去：￥{{driverLine.money}}元/吨</h5>
+                                    <h5 class="status-bg text-orange">回：￥{{driverLine.unmoney}}元/吨</h5>
+                                </div>
+                                <div class="col text-right">
+                                    <h4 class="bold gap-3">{{driverLine.end_province}}</h4>
+                                    <h5 class="text-gray1 gap-10">{{driverLine.end_city}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--<div ng-class="{'row row-wrap row-wrap-list gap-5':$root.rscPlatform == 'isweb'}">-->
+                <!--<div ng-if="!vm.recommends" ng-class="{'col col-50':$root.rscPlatform == 'isweb'}" class="gap-10 slide-top" ng-repeat="item in vm.recommendOrders">-->
+                <!--<pass-demand-list data="item" go-detail="vm.recommendDetail(data)">-->
+                <!--</pass-demand-list>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--商业智能列表-->
+                <!--<div ng-class="{'row row-wrap row-wrap-list gap-5':$root.rscPlatform == 'isweb'}">-->
+                <!--<div ng-if="vm.recommends" class="gap-10 slide-top" ng-class="{'col col-50':$root.rscPlatform == 'isweb'}" ng-repeat="item in vm.recommendOrders">-->
+                <!--<div class="recommend-bg text-center gap-row">-->
+                <!--<h4 class="bold site-title">智能匹配</h4>-->
+                <!--<h5 class="gap-5 site-title">共计 {{vm.recommendOrders.length}}条 行情</h5>-->
+                <!--</div>-->
+                <!--<pass-demand-list data="item" go-detail="vm.recommendDetail(data)">-->
+                <!--</pass-demand-list>-->
+                <!--</div>-->
+                <!--</div>-->
+                <h6 class="text-gray text-center gap-80">
+                    由日计算提供技术和服务支持！
+                </h6>
+                <div class="gap-60"></div>
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+        <ion-infinite-scroll immediate-check="false" ng-if="vm.listhasMore" icon="ion-loading-c" on-infinite="vm.loadMore()" distance="10%">
+        </ion-infinite-scroll>
+    </ion-content>
+    <rsc-tabs active=2 config-name="rsc.center_goods"></rsc-tabs>
+</ion-view>

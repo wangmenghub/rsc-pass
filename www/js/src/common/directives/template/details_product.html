@@ -1,0 +1,20 @@
+<div>
+    <div class="bg-white" ng-repeat="product in products">
+        <div class="item item-offer item-offer-border-top">
+            <h2>
+                <img src="./img/158/label-goodsicon.png" class="label-icon-trade">
+                {{product.layer_1_chn}} {{product.layer_2_chn}} {{product.layer_3_chn}} {{product.layer_4_chn}}
+            </h2>
+            <div class="clearfix gap-10"></div>
+            <div ng-repeat="items in product.product_name track by $index">
+                <order-names  model='items'></order-names>
+                <div class="clearfix"></div>
+                <h5 class="text-gray gap-10">
+                    {{items.price_remember>0?"理计价":''}} <span class="text-orange h4" ng-if='items.price_remember>0'>{{items.price_remember | currency:'￥'}}</span>
+                    {{items.price_weight>0?"过磅价":''}} <span class="text-orange h4" ng-if='items.price_weight>0'>{{items.price_weight | currency:'￥'}}</span>
+                </h5>
+            </div>
+        </div>
+    </div>
+</div>
+

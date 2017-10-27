@@ -1,0 +1,160 @@
+<ion-view ng-init="vm.init(vm)">
+    <ion-nav-title>
+        <div class="bar">
+            <h1 class="title">新消息</h1>
+        </div>
+    </ion-nav-title>
+    <ion-content ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div class="bg-white">
+            <div class="list list-driver" ng-repeat="item in vm.data">
+
+                <!--公司创建-->
+                <li class="item item-avatar item-driver item-icon-right" ng-if="item.dynamic.type == 'company_verify'">
+                    <img ng-src="{{item.user.photo_url}}" class="infor-icon" image-404="./img/common/infor-face.png" ng-click="rootGoDetail(list.user.role,list.user._id)">
+                    <h4>
+                        {{item.user.real_name}}-
+                        <span ng-if="item.user.post != ''">{{item.user.post}}</span>
+                        <span ng-if="item.user.post == ''">{{item.user.role|rolefilter}}</span>
+                    </h4>
+                    <h5 class="ion-android-favorite-outline text-blue"></h5>
+                    <h6>{{item.time_long}}</h6>
+                    <div class="icon">
+                        <div class="info-detail-first">
+                            <h6 class="text-gray">成功创建{{item.dynamic.data.nick_name}}，并已通过平台认证</h6>
+                            <h6 class="text-gray">{{item.dynamic.data.des}}</h6>
+                        </div>
+                    </div>
+                </li>
+
+                <!--公司动态相关-->
+                <li class="item item-avatar item-driver item-icon-right" ng-if="item.dynamic.type == 'company_des'">
+                    <img ng-src="{{item.user.photo_url}}" image-404="./img/common/infor-face.png" class="driver-face">
+                    <h4>{{item.user.real_name}}-
+                        <span ng-if="item.user.post!=''">{{item.user.post}}</span>
+                        <span ng-if="item.user.post==''">{{item.user.role|rolefilter}}</span>
+                    </h4>
+                    <h5 class="ion-android-favorite-outline text-blue"></h5>
+                    <h6>{{item.time_long}}</h6>
+                    <div class="icon">
+                        <div class="info-detail-first">
+                            <h6 class="text-gray">设置公司简介</h6>
+                            <h6 class="text-gray">{{item.data.msg}}</h6>
+                        </div>
+                    </div>
+                </li>
+
+
+                <!-- 物流订单 -->
+                <li class="item item-avatar item-driver item-icon-right" ng-if="item.dynamic.type=='traffic_assign'">
+                    <img ng-src="{{item.user.photo_url}}" image-404="./img/common/infor-face.png" class="driver-face">
+                    <h4>{{item.user.real_name}}-
+                        <span ng-if="item.user.post!=''">{{item.user.post}}</span>
+                        <span ng-if="item.user.post==''">{{item.user.role|rolefilter}}</span>
+                    </h4>
+                    <h5 class="ion-android-favorite-outline text-blue"></h5>
+                    <h6>{{item.time_long}}</h6>
+                    <i class="icon">
+                      <div class="info-detail">
+                        <img src="./img/common/label-icon-purple1.png" class="label-icon1 pull-left">
+                        <div class="pull-left text-center">
+                            <div class="pull-left">
+                                <h6>{{item.dynamic.data.send_city}}</h6>
+                                <h6 class="text-gray"><small>{{item.dynamic.data.send_district}}</small></h6>
+                            </div>
+                            <h6 class="pull-left route">&nbsp;->&nbsp;</h6>
+                            <div class="pull-left">
+                                <h6>{{item.dynamic.data.receive_city}}</h6>
+                                <h6 class="text-gray"><small>{{item.dynamic.data.receive_district}}</small></h6>
+                            </div>
+                        </div>
+                      </div>
+                    </i>
+                </li>
+
+                <!--driver_assign 司机抢单 空心运输 -->
+                <li class="item item-avatar item-driver item-icon-right" ng-if="item.dynamic.type == 'driver_assign'">
+                    <img ng-src="{{item.user.photo_url}}" image-404="./img/common/infor-face.png" class="driver-face">
+                    <h4>{{item.user.real_name}}-
+                        <span ng-if="item.user.post != ''">{{item.user.post}}</span>
+                        <span ng-if="item.user.post == ''">{{item.user.role|rolefilter}}</span>
+                    </h4>
+                    <h5 class="ion-android-favorite-outline text-blue"></h5>
+                    <h6>{{item.time_long}}</h6>
+                    <i class="icon"></i>
+                    <div class="info-detail">
+                        <img src="./img/common/label-icon-purple.png" class="label-icon1 pull-left">
+                        <div class="pull-left text-center">
+                            <h4 class="bold">{{item.dynamic.data.send_city}}</h4>
+                            <h5 class="text-gray">{{item.dynamic.data.send_district}}</h5>
+                        </div>
+                        <span class="pull-left route">-></span>
+                        <div class="pull-left text-center">
+                            <h4 class="bold">{{item.dynamic.data.receive_city}}</h4>
+                            <h5 class="text-gray">{{item.dynamic.data.receive_district}}</h5>
+                        </div>
+                        <!--<img src="./img/common/line.png" class="pull-left master-line">-->
+                        <div class="pull-right text-center">
+                            <h4 class="text-gray1">{{item.dynamic.data.amount}}吨</h4>
+                            <h5 class="text-gray">{{item.dynamic.data.material|paymentChoice}}</h5>
+                        </div>
+                    </div>
+                </li>
+
+                <!--traffic_assign 物流需求 空心货源-->
+                <li class="item item-avatar item-driver item-icon-right" ng-if="item.dynamic.type == 'traffic_assign'">
+                    <img ng-src="{{item.user.photo_url}}" image-404="./img/common/infor-face.png" class="driver-face">
+                    <h4>{{item.user.real_name}}-
+                        <span ng-if="item.user.post != ''">{{item.user.post}}</span>
+                        <span ng-if="item.user.post == ''">{{item.user.role|rolefilter}}</span>
+                    </h4>
+                    <h5 class="ion-android-favorite-outline text-blue"></h5>
+                    <h6>{{item.time_long}}</h6>
+                    <i class="icon"></i>
+                    <div class="info-detail">
+                        <img src="./img/common/label-icon-purple1.png" class="label-icon1 pull-left">
+                        <div class="pull-left text-center">
+                            <h4 class="bold">{{item.dynamic.data.send_city}}</h4>
+                            <h5 class="text-gray">{{item.dynamic.data.send_district}}</h5>
+                        </div>
+                        <span class="pull-left route">-></span>
+                        <div class="pull-left text-center">
+                            <h4 class="bold">{{item.dynamic.data.receive_city}}</h4>
+                            <h5 class="text-gray">{{item.dynamic.data.receive_district}}</h5>
+                        </div>
+                        <!--<img src="./img/common/line.png" class="pull-left master-line">-->
+                        <div class="pull-left text-center">
+                            <h4 class="text-blue">{{item.dynamic.data.amount}}吨</h4>
+                            <h5 class="text-gray">{{item.dynamic.data.material|paymentChoice}}</h5>
+                        </div>
+                    </div>
+                </li>
+
+                <!--traffic_order_confirm 货源 实心运输-->
+                <li class="item item-avatar item-driver item-icon-right" ng-if="item.dynamic.type == 'traffic_order_confirm' ">
+                    <img ng-src="{{item.user.photo_url}}" image-404="./img/common/infor-face.png" class="driver-face">
+                    <h4>{{item.user.real_name}}-
+                        <span ng-if="item.user.post != ''">{{item.user.post}}</span>
+                        <span ng-if="item.user.post == ''">{{item.user.role|rolefilter}}</span>
+                    </h4>
+                    <h5 class="ion-android-favorite-outline text-blue"></h5>
+                    <h6>{{item.time_long}}</h6>
+                    <i class="icon"></i>
+                    <div class="info-detail">
+                        <img src="./img/common/label-icon-purple2.png" class="label-icon1 pull-left">
+                        <div class="pull-left text-center">
+                            <h4 class="bold">{{item.dynamic.data.send_city}}</h4>
+                            <h5 class="text-gray">{{item.dynamic.data.send_district}}</h5>
+                        </div>
+                        <span class="pull-left route">-></span>
+                        <div class="pull-left text-center">
+                            <h4 class="bold">{{item.dynamic.data.receive_city}}</h4>
+                            <h5 class="text-gray">{{item.dynamic.data.receive_district}}</h5>
+                        </div>
+                    </div>
+                </li>
+
+
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

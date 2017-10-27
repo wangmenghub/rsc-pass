@@ -1,0 +1,77 @@
+<ion-view>
+    <!-- <ion-nav-buttons side="left">
+        <span menu-close nav-transition='ios' nav-direction="back" ng-click="goMenuClose(vm.state)" ng-if="vm.enter">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons> -->
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">个人设置</h1>
+        </div>
+    </ion-nav-title>
+    <ion-content class="bg-gray" ng-init="vm.getUserInfo()" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div class="" ng-class="{'bg-white gap-20':$root.rscPlatform == 'isweb'}">
+            <div class="" ng-class="{'login-width content-maxwidth':$root.rscPlatform == 'isweb'}">
+        <div class="bg-white gap-10">
+            <div class="list list-item list-type-input">
+                <li class="item item-type item-icon-left item-icon-right" ng-click="vm.modify_user_info('user_img')">
+                    <span class="icon icon-left">个人头像</span>
+                    <img ng-src="{{vm.user.photo_url}}" class="pull-right face img-circle" image-404="./img/common/infor-face.png"></img>
+                    <i class="icon ion-ios-arrow-right text-gray"></i>
+                </li>
+                <li class="item item-type item-icon-right" ng-click="vm.modify_user_info()('real_name','个人姓名')">
+                    个人姓名
+                    <span class="pull-right text-gray">{{vm.user.real_name}}</span>
+                    <i class="icon ion-ios-arrow-right text-gray"></i>
+                </li>
+                <li class="item item-type item-icon-right" ng-click="vm.modify_user_info()('phone','修改手机号')">
+                    手机号
+                    <span class="pull-right text-gray">{{vm.user.phone}}</span>
+                    <i class="icon ion-ios-arrow-right text-gray"></i>
+                </li>
+                <li class="item item-type item-icon-right" ng-click="vm.modify_user_info('user_gender')">
+                    性别
+                    <span class="pull-right text-gray">{{vm.user.gender|paymentChoice}}</span>
+                    <i class="icon ion-ios-arrow-right text-gray"></i>
+                </li>
+                <li class="item item-type item-icon-right" ng-click="vm.modify_user_info()('post','职务')">
+                    职务
+                    <span class="pull-right text-gray">{{vm.user.post}}</span>
+                    <i class="icon ion-ios-arrow-right text-gray"></i>
+                </li>
+            </div>
+        </div>
+        <div class="bg-white gap-10">
+            <div class="list list-item list-type-input">
+                <li class="item item-type">
+                    角色
+                    <span class="pull-right text-black bold">{{vm.user.role|rolefilter}}</span>
+                </li>
+            </div>
+        </div>
+        <!--<div class="bg-white gap-10">-->
+        <!--<div class="list list-item list-type-input">-->
+        <!--<li class="item item-type item-icon-right" ui-sref="src.traffic_address_manage">-->
+        <!--地址管理-->
+        <!--<i class="icon ion-ios-arrow-right"></i>-->
+        <!--</li>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="bg-white gap-10">-->
+        <!--<div class="list list-item list-type-input">-->
+        <!--<li class="item item-type item-icon-right">-->
+        <!--意见反馈-->
+        <!--</li>-->
+        <!--<li class="item item-type item-icon-right">-->
+        <!--关于我们-->
+        <!--</li>-->
+        <!--</div>-->
+        <!--</div>-->
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar bar-light bar-footer" ng-click="vm.logOut()">
+        <h1 class="title">退出登录</h1>
+    </ion-footer-bar>
+</ion-view>

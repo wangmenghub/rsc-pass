@@ -1,0 +1,11 @@
+<div class="tabs-striped tabs-top tabs-background-positive tabs-color-light" ng-init="vm.init()">
+    <div class="tabs">
+        <a ng-repeat="tab in vm.tabs" class="tab-item num-fixed" nav-clear menu-close nav-transition="none" nav-direction="enter" ui-sref="{{tab.link}}" ng-class="{'active':tab.active}" ng-click="init()">
+			{{tab.text}}{{orderDemaindRemind}}
+			<span class="trade-num label-num" ng-if="tab.count>0">{{tab.count}}</span>
+            <span class="trade-num label-num" ng-if="tab.link=='trade.finance_supply' && $root.orderSupplyRemind.all>0">{{$root.orderSupplyRemind.all}}</span>
+            <span  class="trade-num label-num" ng-if="tab.link=='trade.finance_purchase' && $root.orderDemaindRemind.all>0">{{$root.orderDemaindRemind.all}}</span>
+
+		</a>
+    </div>
+</div>

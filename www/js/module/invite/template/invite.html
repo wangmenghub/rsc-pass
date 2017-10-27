@@ -1,0 +1,37 @@
+<ion-view>
+    <!-- <ion-nav-buttons side="left">
+        <span menu-close nav-transition='ios' nav-direction="back" ng-click="goMenuClose(vm.state)" ng-if="vm.enter">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons> -->
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">立即邀请</h1>
+        </div>
+    </ion-nav-title>
+    <ion-content class="bg-gray" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <form name="myform" novalidate>
+            <ion-list ng-repeat="list in vm.roleArr">
+                <div class="gap-10"></div>
+                <ion-radio ng-repeat="item in list|orderBy:['value.charAt(6)']:true" ng-model="selected" ng-change="vm.change(item)" ng-value="item.tips">
+                    {{item.tips}}
+                </ion-radio>
+            </ion-list>
+        </form>
+        <div class="text-center gap-50" ui-sref="rsc.slide" ng-if="!vm.vip&&!!vm.user.company._id">
+            <h5 class="text-gray">还可邀请{{(20-vm.count.colleague_count)||0}}个同事(免费版支持20人使用)</h5>
+            <h5 class="text-gray gap-5">开通企业版获得更多名额 ></h5>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar bar-light bar-footer">
+        <div class="row button-foot">
+            <div class="col col-50 text-gray" ng-disabled="myform.$invalid" ng-click='vm.go( "rsc.invite_phone")'>
+                输入手机号邀请
+            </div>
+            <div class="col" ng-disabled="myform.$invalid" ng-click='vm.go( "rsc.invite_contact")'>
+                通讯录批量邀请
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

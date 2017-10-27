@@ -1,0 +1,26 @@
+<ion-modal-view class="bg-blur">
+    <ion-header-bar class="bar bar-nocolor">
+        <h1 class="title">开通行业</h1>
+        <button class="button button-clear button-primary" ng-click='vm.closeIndustryModal()'>关闭</button>
+    </ion-header-bar>
+    <ion-content class="has-footer" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div class="item item-type item-type-border item-icon-right gap-10" ng-click="vm.getTransport()">
+            选择常运货物
+        </div>
+        <ul class="list list-buytype">
+            <li class="item item-checkbox {{item.selected?'active':''}}" ng-repeat="item in vm.TransportList track by $index">
+                <label class="checkbox">
+                        <input type="checkbox" ng-checked="item.selected" value="item.chn" ng-click="vm.itemSelected($event,item)">
+                    </label>
+                <img src={{item.file}} class="pull-left img-size">
+                <h2 class="pull-left">
+                    {{item.chn}}
+                    <br/> {{item.eng}}
+                </h2>
+            </li>
+        </ul>
+    </ion-content>
+    <ion-footer-bar class="bar bar-light">
+        <h1 class="title text-brown" ng-click='vm.saveIndustryModal()'>保存</h1>
+    </ion-footer-bar>
+</ion-modal-view>

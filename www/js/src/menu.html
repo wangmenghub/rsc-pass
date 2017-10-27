@@ -1,0 +1,194 @@
+<ion-side-menus enable-menu-with-back-views="false">
+    <ion-side-menu-content edge-drag-threshold="true" drag-content="false" ng-if="$root.rscPlatform == 'isapp'">
+        <ion-nav-bar class="bar-stable">
+            <ion-nav-back-button class="button-clear">
+                <i class="icon ion-ios-arrow-back"></i><span class="default-title">返回</span>
+            </ion-nav-back-button>
+            <!-- <ion-nav-buttons side="left">
+                <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+                </button>
+            </ion-nav-buttons> -->
+        </ion-nav-bar>
+
+        <ion-nav-view name="center-content"></ion-nav-view>
+
+    </ion-side-menu-content>
+    <ion-side-menu-content edge-drag-threshold="true" drag-content="true" ng-if="$root.rscPlatform != 'isapp'">
+        <ion-nav-bar class="bar-stable">
+            <ion-nav-back-button class="button-clear">
+                <i class="icon ion-ios-arrow-back"></i><span class="default-title">返回</span>
+            </ion-nav-back-button>
+        </ion-nav-bar>
+
+        <ion-nav-view name="center-content"></ion-nav-view>
+
+    </ion-side-menu-content>
+
+    <!--app-->
+
+    <ion-side-menu side="left" width="258" class="bg-gray" ng-if="$root.rscPlatform == 'isapp'">
+        <ion-header-bar class="bar-lightdark">
+            <h1 class="title">个人中心</h1>
+        </ion-header-bar>
+        <ion-content ng-init="vm.init()">
+            <div class="num-fixed">
+                <div class="text-center">
+                    <a menu-toggle="left" nav-transition="ios" nav-direction="enter" ui-sref="rsc.person_page">
+                    <img ng-src="{{vm.user.photo_url}}" class="img-size img-circle gap-30" image-404="./img/common/infor-face.png">
+                    <h3 class="text-black gap-10">
+                        {{vm.user.real_name}}
+                    </h3>
+                    <h4 ng-if="vm.user.post&&vm.user.post != ''">
+                        {{vm.user.post}}
+                    </h4>
+                    <h4  ng-if="!vm.user.post||vm.user.post == ''">
+                        {{vm.user.role|passRolefilter}}
+                    </h4>
+                    <h5 class="text-gray gap-10">
+                        运输： <span ng-if="vm.user.transport.length==0">无</span>
+                        <span ng-repeat="item in vm.user.transport track by $index">
+                            <span ng-if="item">{{item|categoryFilter}}&nbsp;</span>
+                        </span>
+                    </h5>
+                </a>
+                </div>
+                <ion-list class="item-menu">
+                    <ion-item menu-toggle="left">
+                        <div class="item item-icon-left" ng-click="vm.goHome()">
+                            <i class="icon ion-ios-home"></i> 首页
+                        </div>
+                    </ion-item>
+                    <ion-item menu-toggle="left">
+                        <div class="item item-icon-left" ng-click="vm.openModalCode()">
+                            <i class="icon ion-ios-barcode-outline"></i> 我的二维码
+                        </div>
+                    </ion-item>
+                    <ion-item menu-toggle="left" ng-click="vm.scanStart()">
+                        <div class="item item-icon-left">
+                            <i class="icon ion-qr-scanner"></i> 扫一扫
+                        </div>
+                    </ion-item>
+                    <ion-item menu-toggle="left">
+                        <div class="item item-icon-left" ui-sref="rsc.invite">
+                            <i class="icon ion-arrow-swap"></i> 邀请伙伴
+                        </div>
+                    </ion-item>
+                    <ion-item menu-toggle="left" ui-sref="rsc.traffic_address_manage">
+                        <div class="item item-icon-left">
+                            <i class="icon ion-location"></i> 地址管理
+                        </div>
+                    </ion-item>
+                    <ion-item menu-toggle="left" class="text-center" ng-click="vm.phone()">
+                        <a>
+                            <div class="menu-info">
+                                <img src="./img/common/infor-face2.png" class="img-circle">
+                                <h3>小燕</h3>
+                                <h4 class="text-black">在线秘书</h4>
+                                <i class="ion-ios-telephone text-black"></i>
+                            </div>
+                        </a>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </ion-content>
+        <ion-footer-bar class="bar bar-lightdark">
+            <div class="row button-foot">
+                <div class="col col-50 text-gray" menu-toggle="left" ui-sref="rsc.traffic_person_setting">
+                    个人设置
+                </div>
+                <div class="col text-gray" ng-click="vm.aboutUs()">
+                    关于我们
+                </div>
+            </div>
+        </ion-footer-bar>
+    </ion-side-menu>
+
+    <!--web-->
+
+    <ion-side-menu side="left" expose-aside-when="large" class="bg-gray" ng-if="$root.rscPlatform != 'isapp'">
+        <ion-header-bar class="bar-stable">
+            <h1 class="title">
+                <a href="http://steel.e-wto.com/" target="blank">
+                    e-WTO
+                </a>
+            </h1>
+        </ion-header-bar>
+        <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+            <div class="tabs">
+                &nbsp;
+            </div>
+        </div>
+        <ion-content class="has-subheader has-footer">
+            <div class="text-center">
+                <img ui-sref="rsc.company_page({sidebar:true})" class="img-size img-circle gap-30" ng-src="{{vm.company.url_logo}}" image-404="./img/common/logo-icon.png">
+                <h3 class="text-black gap-10">
+                    {{vm.company.nick_name}}
+                </h3>
+                <h5 class="gap-10">
+                    <img ng-if="vm.company.verify_phase=='SUCCESS'" src="./img/158/label-v.png" class="label-v">
+                </h5>
+                <ion-list class="item-leftmenu">
+                    <ion-item menu-close ng-repeat="tab in vm.menuTabs track by $index" ui-sref="{{tab.link}}" class="tab-item item-icon-right"
+                        ng-class="{'tab-item-active':tab.active}" ng-click="vm.menuChange($index)">
+                        <span class="tab-title">
+                            {{tab.text}}
+                                <span ng-if="$root.unreadMsg != 0">
+                                    <span class="label-num tab-num" ng-if="tab.link== 'trade.message'||tab.link== 'pass.message'"></span>
+                        </span>
+                        </span>
+                        {{tab.typeActive}}
+                        <span ng-class="{'icon ion-arrow-right-c':tab.active}"></span>
+                    </ion-item>
+                    <ion-list>
+            </div>
+        </ion-content>
+        <ion-footer-bar class="bar bar-lightdark">
+            <div class="row button-foot">
+                <div class="col col-50 text-gray">
+                    下载APP
+                </div>
+                <div class="col text-gray">
+                    <a href="" target="blank" class="text-gray">
+                        关于我们
+                    </a>
+                </div>
+            </div>
+        </ion-footer-bar>
+    </ion-side-menu>
+    <ion-side-menu side="right" expose-aside-when="large" class="bg-gray" ng-if="$root.rscPlatform != 'isapp'">
+        <ion-header-bar class="bar-stable">
+            <h5 class="title title-size">
+                <span menu-close ui-sref="rsc.invite({enter:true})">邀请</span>
+                <span menu-close ng-click="vm.openModalCode()">二维码</span>
+                <span menu-close ui-sref="rsc.traffic_address_manage({enter:true})">地址</span>
+                <span menu-close ui-sref="rsc.traffic_person_setting({enter:true})">设置</span>
+            </h5>
+        </ion-header-bar>
+        <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+            <div class="tabs">
+                &nbsp;
+            </div>
+        </div>
+        <ion-content class="has-subheader" ng-init="vm.init()">
+            <div class="list">
+                <div class="item item-avatar bg-gray gap-10">
+                    <img ng-src="{{vm.user.photo_url}}" class="img-circle" image-404="./img/common/infor-face.png" style="top:12px;">
+                    <h3 class="text-black">
+                        {{vm.user.real_name}}
+                        <span ng-if="vm.user.post&&vm.user.post != ''">{{vm.user.post}}</span>
+                        <span ng-if="!vm.user.post||vm.user.post == ''">
+                            {{vm.user.role|passRolefilter}}
+                        </span>
+                    </h3>
+                    <h5 class="text-gray gap-10">
+                        运输： <span ng-if="vm.user.transport.length==0">无</span>
+                        <span ng-repeat="item in vm.user.transport track by $index">
+                            <span ng-if="item">{{item|categoryFilter}}&nbsp</span>
+                        </span>
+                    </h5>
+                </div>
+            </div>
+        </ion-content>
+        <img src="./img/common/menu-img1.png" class="menu-img1">
+    </ion-side-menu>
+</ion-side-menus>

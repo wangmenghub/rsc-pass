@@ -1,0 +1,47 @@
+<ion-view hide-back-button="vm.enter">
+    <!-- <ion-nav-buttons side="left">
+        <span  menu-close nav-transition='ios' nav-direction="back" ng-click="goMenuClose(vm.state)" ng-if="vm.enter">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons> -->
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">地址管理</h1>
+        </div>
+    </ion-nav-title>
+    <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+        <div class="tabs">
+            <a class="tab-item {{vm.isRed==x.eng?'active':''}}" ng-click="vm.changeState(x)" ng-repeat=" x in [{eng:'Pick_up_the_goods',chn:'提货地址'},
+				{eng:'Delivery_of_the_goods',chn:'交货地址'}]">
+				{{x.chn}}
+			</a>
+        </div>
+    </div>
+    <ion-content class="bg-gray has-subheader has-footer">
+        <div class="bg-white gap-10" ng-repeat="item in vm.address_data">
+            <div class="list list-address">
+                <li class="item item-avatar item-address-master">
+                    <img src="./img/158/landmark.png"  class="landmark {{item._id==vm.data?'img_opacity_all':'img_opacity'}}">
+                    <h2 class="text-gray1">{{item.province}}{{item.city}}{{item.district}}{{item.addr}}</h2>
+                    <p>联系人：{{item.prin_name}} &nbsp;&nbsp;&nbsp;&nbsp;<span>手机号：{{item.prin_phone}}&nbsp&nbsp</span></p>
+                </li>
+                <li class="item  item-address-master item-icon-right" style="padding: 0">
+                    <label class="checkbox" style="vertical-align: middle">
+						<input type="radio" name="radio" ng-model="vm.data" ng-value='item._id'
+							   ng-click="vm.radio(item.differentiate,item._id)">
+					</label>
+                    <span class="text-gray">默认地址</span>
+                    <i class="icon">
+						<span class="h5 text-gray" ng-click="vm.editAddress(item._id,item.differentiate)">编辑</span>
+						<span class="h5 text-gray" ng-click="vm.delAddress(item._id,item.differentiate)">删除</span>
+					</i>
+                </li>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar bar-light bar-footer">
+        <h1 class="title text-red" ng-if="vm.flag1" ng-click="vm.addAddress('Pick_up_the_goods')">+ 新增地址</h1>
+        <h1 class="title text-red" ng-if="vm.flag2" ng-click="vm.addAddress('Delivery_of_the_goods')">+ 新增地址</h1>
+    </ion-footer-bar>
+</ion-view>

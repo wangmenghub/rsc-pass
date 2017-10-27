@@ -1,0 +1,32 @@
+<div class="list" ng-click="goDetail()">
+    <div class="item item-offer item-icon-right">
+      <img src="./img/pass/pass-icon.png" class="label-icon1 pull-left">
+      <div class="pull-left text-center">
+        <h4 class="bold">{{order.send_city|rscLimit:5}}</h4>
+        <h6 class="text-gray">{{order.send_district|rscLimit:5}}</h6>
+      </div>
+      <span class="pull-left route">-></span>
+      <div class="pull-left text-center">
+        <h4 class="bold">{{order.receive_city|rscLimit:5}}</h4>
+        <h6 class="text-gray">{{order.receive_district|rscLimit:5}}</h6>
+      </div>
+      <img src="./img/common/line.png" class="pull-left master-line">
+      <div class="pull-left text-center">
+        <h4 class="text-blue">{{order.amount}}吨</h4>
+        <h6 class="text-gray">{{order.category_chn?order.category_chn:order.products[0].type == 'steel'?'钢铁':'煤炭'}}</h6>
+      </div>
+      <div class="clear"></div>
+      <!--<p class="gap-5">-->
+        <!--<span class="text-red">{{order.payment_method|typeName}}</span>-->
+        <!--<span ng-if="source=='grab'" class="pull-right text-gray1">倒计时：<timer end-time="order.time_validity" ng-if="!timeOut" finish-callback="finsh()">{{hours?hours+'小时':''}}{{minutes}}分{{seconds}}秒</timer></span>-->
+      <!--</p>-->
+      <!--<p>总运费： <span class="text-red">￥{{order.price_total}}</span> <span class="pull-right text-gray">已指派 <i class="text-red">{{order.verify_driver.length}}</i> 个车辆</span></p>-->
+    <!---->
+      <p class="gap-5">
+        <span class="pull-left text-gray">已有{{order.unoffer_list.length}}辆车抢单</span>
+        <span ng-if="source =='grab'" class="pull-right text-gray">距结束：<timer end-time="order.time_validity" ng-if="!timeOut" finish-callback="finsh()">{{hhours}}:{{mminutes}}:{{sseconds}}</timer></span>
+        <span ng-if="source =='ineffective'" class="pull-right text-gray">已过期</span>
+        <span ng-if="source =='cancle'" class="pull-right text-gray">已取消</span>
+      </p>
+    </div>
+</div>

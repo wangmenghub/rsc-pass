@@ -1,0 +1,127 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <!--<div class="title nav-bar">
+                <a menu-close class="active num-fixed" ui-sref="rsc.center_goods">看指派</a>
+                <a menu-close class="num-fixed" ui-sref='rsc.line' nav-transition='none' ion-direction='enter'>发线路</a>
+            </div>-->
+            <div style="dispaly:block; margin:0 auto; width:160px;">
+                <div class="button-bar button-navbar">
+                    <a menu-close class="button active num-fixed" ui-sref="rsc.center_goods">看指派</a>
+                    <a menu-close class="button num-fixed" ui-sref='rsc.line' nav-transition='none' ion-direction='enter'>发线路</a>
+                </div>
+            </div>
+        </div>
+    </ion-nav-title>
+    <rsc-sub-header active=1 config-name="rsc.center_goods" msg="msgData"></rsc-sub-header>
+    <ion-content class="bg-gray has-subheader" ng-class="{'has-footer':$root.rscPlatform == 'isapp'}">
+        <!--<ion-refresher spinner="spiral" on-refresh="vm.doRefresh(activeStatus)"></ion-refresher>-->
+        <ion-refresher spinner="spiral" on-refresh="vm.doRefresh(activeStatus)"></ion-refresher>
+        <div ng-init="vm.init()">
+            <!--认证货源-->
+            <div>
+                <rsc-carousel tab="trade"></rsc-carousel>
+                <!--<ion-slide-box class="slider-radius slider-gap" on-slide-changed="slideHasChanged($index)" auto-play="true" does-continue="true"
+                    slide-interval=3000 show-pager="false">
+                    <ion-slide>
+                        <a>
+                            <div class="banner-bg"></div>
+                        </a>
+                    </ion-slide>
+                    <ion-slide>
+                        <img src="{{carousel_img[0].url}}" class="img-responsive img-radius" ng-click="vm.aboutUs(0)">
+                    </ion-slide>
+                    <ion-slide>
+                        <img src="{{carousel_img[1].url}}" class="img-responsive img-radius" ng-click="vm.aboutUs(1)">
+                    </ion-slide>
+                    <ion-slide>
+                        <a href="tel:{{carousel_img[2].text}}">
+															<img src="{{carousel_img[2].url}}" class="img-responsive img-radius">
+														</a>
+                    </ion-slide>
+                </ion-slide-box>-->
+                <div>
+                    <ion-scroll zooming="false" direction="x" style="width:auto;overflow-x: hidden;" scrollbar-x="false">
+                        <ul class="trade-company">
+                            <li ng-click="vm.listDetail()" class="{{vm.allDemands?'active':''}}">
+                                <span class="img-circle img-size1"><i class="ion-android-checkbox-outline-blank lightbulb"></i></span>
+                                <h6 class="text-gray">生意圈</h6>
+                            </li>
+                            <li ng-repeat="i in vm.Certification" ng-click="vm.listDetail(i._id)" class="{{vm.activeId ==i._id ?'active':''}}">
+                                <img ng-src="{{i.url_logo}}" image-404="./img/common/logo-icon.png" class="img-circle img-size1 num-fixed">
+                                <h6 class="text-gray">{{i.nick_name}}</h6>
+                                <!--<i class="ion-arrow-up-b"></i>-->
+                                <i class="label-num label-new" ng-if="(i._id | getGoodInfCountFilter:msgCout.pass_demand_info)>0">{{i._id |
+									getGoodInfCountFilter:msgCout.pass_demand_info}}</i>
+                                <!--<i ng-if="i.is_new > 0" class="label-num label-new"></i>-->
+                            </li>
+                            <li ui-sref="rsc.invite">
+                                <img src="./img/158/img-plus.png" class="img-circle img-size1 img-circle-no">
+                                <h6 class="text-gray">邀请</h6>
+                            </li>
+                            <ion-infinite-scroll ng-if="vm.hasMore" icon="ion-loading-c" on-infinite="vm.swipeLeft()"></ion-infinite-scroll>
+                        </ul>
+                    </ion-scroll>
+                    <div ng-if="!vm.recommends">
+                        <div ng-if="vm.activeId&&(vm.newCount>0||vm.recommendOrders.length>0)">
+                            <h5 class="text-gray text-center gap-10">
+                                合作企业更新了{{vm.newCount}}条，累计{{vm.recommendOrders.length}}条行情
+                            </h5>
+                        </div>
+                        <div ng-if="!vm.activeId&&(vm.newCount>0||vm.recommendOrders.length>0)">
+                            <h5 class="text-gray text-center gap-10">
+                                我的好友更新了{{vm.newCount}}条，累计{{vm.recommendOrders.length}}条行情
+                            </h5>
+                        </div>
+                    </div>
+                    <!--无认证货主提示-->
+                    <!--<div ng-if="vm.Certification.length == 0" class="text-center gap-70">-->
+                    <!--&lt;!&ndash;<div ng-if="true" class="text-center gap-60">&ndash;&gt;-->
+                    <!--<h4 class="text-gray">邀请我的货主上线"互联网+"</h4>-->
+                    <!--<h4 class="text-gray gap-5">发布货源信息</h4>-->
+                    <!--<button class="gap-20 button-circle" ui-sref="rsc.traffic_invite">立即邀请</button>-->
+                    <!--<div class="gap-100"></div>-->
+                    <!--<div class="clearfix"></div>-->
+                    <!--</div>-->
+                    <!--认证货主无需求单提示-->
+                    <div ng-if="vm.recommendOrders.length == 0 && !vm.recommends" class="text-center gap-70">
+                        <!--<div ng-if="true" class="text-center gap-60">-->
+                        <h4 class="text-gray">暂无企业动态</h4>
+                        <!--<h4 class="text-gray gap-5">您可以邀请企业发布最新行情</h4>-->
+                        <!--<button class="gap-20 button-circle" ui-sref="rsc.traffic_invite">立即邀请</button>-->
+                        <div class="gap-100"></div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!--生意圈、认证货主列表-->
+                    <div ng-class="{'row row-wrap row-wrap-list gap-5':$root.rscPlatform == 'isweb'}">
+                        <div ng-if="!vm.recommends" ng-class="{'col col-50':$root.rscPlatform == 'isweb'}" class="gap-10 slide-top bg-white list-card"
+                            ng-repeat="item in vm.recommendOrders">
+                            <pass-demand-list data="item" go-detail="vm.recommendDetail(data)">
+                            </pass-demand-list>
+                        </div>
+                    </div>
+                    <!--商业智能列表-->
+                    <div ng-class="{'row row-wrap row-wrap-list gap-5':$root.rscPlatform == 'isweb'}">
+                        <div ng-if="vm.recommends" class="gap-10 slide-top" ng-class="{'col col-50':$root.rscPlatform == 'isweb'}" ng-repeat="item in vm.recommendOrders">
+                            <div class="recommend-bg text-center gap-row">
+                                <h4 class="bold site-title">智能匹配</h4>
+                                <h5 class="gap-5 site-title">共计 {{vm.recommendOrders.length}}条 行情</h5>
+                            </div>
+                            <pass-demand-list data="item" go-detail="vm.recommendDetail(data)">
+                            </pass-demand-list>
+                        </div>
+                    </div>
+                    <h6 class="text-gray text-center gap-80">
+                        由日计算提供技术和服务支持！
+                    </h6>
+                    <div class="gap-60"></div>
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+        </div>
+        <ion-infinite-scroll immediate-check="false" ng-if="vm.hasMore" icon="ion-loading-c" on-infinite="vm.loadMore()" distance="15%">
+        </ion-infinite-scroll>
+    </ion-content>
+    <rsc-tabs active=1 config-name="rsc.center_goods"></rsc-tabs>
+</ion-view>

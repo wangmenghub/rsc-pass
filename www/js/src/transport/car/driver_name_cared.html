@@ -1,0 +1,119 @@
+<ion-view view-title="司机车辆详情">
+    <ion-nav-buttons side="left">
+        <span menu-close nav-transition='ios' nav-direction="back" ng-if="!!vm.sidebar||!changeType()" ng-click="goMenuClose(vm.state)">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons>
+
+    <ion-content class="bg-gray" ng-init="vm.init()" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div class="list">
+            <div class="item item-avatar item-homepage gap-20">
+                <img ng-src="{{vm.userInfo.user.photo_url}}" class="homepage-face passhomepage-face" image-404="./img/common/infor-face.png">
+                <h2 class="text-black">
+                    <span> 
+                    {{vm.userInfo.user.real_name}} 
+                </span>
+                </h2>
+                <div class="clearfix gap-5"></div>
+                <h5 class="text-gray">
+                    运输：
+                    <span ng-if="vm.userInfo.user.transport.length != 0" ng-repeat="i in vm.userInfo.user.transport">{{i|categoryFilter}}&nbsp</span>
+                    <span ng-if="vm.userInfo.user.transport.length == 0">无</span>
+                </h5>
+            </div>
+        </div>
+        <div class="gap-row bg-white gap-20">
+            <div class="row text-center text-gray">
+                <div class="col col-25">
+                    <h4><img src="./img/common/driver-car.png" class="driverdetail-car"></h4>
+                    <h4 class="gap-5 text-blue">{{vm.userInfo.truck.number}}</h4>
+                </div>
+                <div class="col col-25">
+                    <h4>
+                        <span ng-if="vm.userInfo.truck&&vm.userInfo.truck.type">{{vm.userInfo.truck.type|carType}}</span>
+                        <span ng-if="!vm.userInfo.truck||!vm.userInfo.truck.type">车辆类型</span>
+                    </h4>
+                    <h4 class="gap-5">载重{{vm.userInfo.truck.weight||0}}吨</h4>
+                </div>
+                <div class="col col-25">
+                    <h4>长度</h4>
+                    <h4 class="gap-5">{{vm.userInfo.truck.long||0}}米</h4>
+                </div>
+                <div class="col col-25">
+                    <h4>路线</h4>
+                    <h4 class="gap-5">{{vm.userInfo.count.DRIVER_LINE||0}}</h4>
+                </div>
+            </div>
+        </div>
+        <!--<div class="bg-personhome text-center">
+            <img ng-src="{{vm.userInfo.user.photo_url}}" class="companyhome-icon" image-404="./img/common/infor-face.png">
+            <h3 class="text-black">
+                <span> 
+                    {{vm.userInfo.user.real_name}} 
+                </span>
+            </h3>
+            <h5 class="text-gray gap-10">
+                运输：
+                <span ng-if="vm.userInfo.user.transport.length != 0" ng-repeat="i in vm.userInfo.user.transport">{{i|categoryFilter}}&nbsp</span>
+                <span ng-if="vm.userInfo.user.transport.length == 0">无</span>
+            </h5>
+            <div class="clear gap-20"></div>
+            <div class="row-companyhome-border"></div>
+
+            <div class="row text-center text-gray gap-20">
+                <div class="col col-25">
+                    <h4><img src="./img/common/driver-car.png" class="driverdetail-car"></h4>
+                    <h4 class="gap-5 text-blue">{{vm.userInfo.truck.number}}</h4>
+                </div>
+                <div class="col col-25">
+                    <h4>
+                        <span ng-if="vm.userInfo.truck&&vm.userInfo.truck.type">{{vm.userInfo.truck.type|carType}}</span>
+                        <span ng-if="!vm.userInfo.truck||!vm.userInfo.truck.type">车辆类型</span>
+                    </h4>
+                    <h4 class="gap-5">载重{{vm.userInfo.truck.weight||0}}吨</h4>
+                </div>
+                <div class="col col-25">
+                    <h4>长度</h4>
+                    <h4 class="gap-5">{{vm.userInfo.truck.long||0}}米</h4>
+                </div>
+                <div class="col col-25">
+                    <h4>路线</h4>
+                    <h4 class="gap-5">{{vm.userInfo.count.DRIVER_LINE||0}}</h4>
+                </div>
+            </div>
+        </div>-->
+        <div class="gap-row bg-white gap-20">
+            <div class="list-inset text-center">
+                <img ng-src="{{vm.userInfo.truck.che_tou_zhao_url}}" image-404="./img/common/car-img.png" class="car-img">
+            </div>
+        </div>
+
+        <div class="list-inset gap-20">
+            <button class="button button-balanced button-block" ng-click="vm.chat()">发消息</button>
+        </div>
+
+        <div class="list-inset" ng-if="!vm.operate">
+            <button class="button button-balanced button-block" ng-click="vm.callPhone(vm.userInfo.user.phone)">打电话</button>
+        </div>
+
+        <div class="list-inset">
+            <div ng-if="vm.status!='TRAFFIC_DRIVER'&&vm.userInfo.friend">
+                <button class="button button-block button-light" ng-click="vm.addRelation(vm.userInfo.friend, vm.status)">
+                    <span>加好友</span>
+                </button>
+            </div>
+
+            <div ng-if="vm.status=='TRAFFIC_DRIVER'">
+                <button class="button button-block button-light" ng-click="vm.addRelation(vm.userInfo.friend, vm.status)">
+                    <span ng-if="!vm.userInfo.friend">添加挂靠车辆</span>
+                    <span ng-if="vm.userInfo.friend">加好友，并添加挂靠车辆</span>
+                </button>
+            </div>
+
+            <div class="text-center gap-50" ng-if="$root.rscPlatform == 'isapp'">
+                <a class="text-gray" ng-click="vm.shareAction()">分享名片</a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

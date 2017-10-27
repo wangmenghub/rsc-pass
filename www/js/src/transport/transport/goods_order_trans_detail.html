@@ -1,0 +1,79 @@
+<ion-view hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <span menu-close nav-transition='ios' nav-direction="back" ng-click="rootGoBack()">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <div class="title nav-bar">
+                <a class="" nav-transition="ios" nav-direction="enter" ui-sref="rsc.goods_order_goods_detail({order_id:vm.order_id})">货源</a>
+                <a class="active">运输详情</a>
+            </div>
+        </div>
+    </ion-nav-title>
+    <ion-nav-buttons side="secondary">
+        <button class="button button-clear" ui-sref="rsc.map({order_id:vm.order_id})">地图</button>
+    </ion-nav-buttons>
+    <ion-content class="bg-gray" ng-init="vm.init()" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div class="" ng-class="{'bg-white gap-20':$root.rscPlatform == 'isweb'}">
+            <div class="" ng-class="{'login-width content-maxwidth':$root.rscPlatform == 'isweb'}">
+        <div class="text-center bg-white gap-row">
+            <div class="antcar-bg"></div>
+            <h5 class="text-purple">
+                运输中 {{vm.driverOrder.driver_status.effective}}，已完成 {{vm.driverOrder.driver_status.complete}}
+            </h5>
+        </div>
+        <div ng-if="!vm.driverOrderDetail||vm.driverOrderDetail.length==0">
+            <div class="text-center gap-70">
+                <h4 class="text-gray">当前暂无运输车辆</h4>
+                <h4 class="text-gray gap-5">您可以先指派抢单</h4>
+            </div>
+        </div>
+        <div class="list" ng-repeat="item in vm.driverOrderDetail">
+            <progress value="{{(1-(item.amount_remain/item.amount))*100 | number:0}}" max="100"></progress>
+            <div class="item item-transdetail">
+                <h3 class="text-black bold">{{item.demand_company_name}}，
+                    <span class="text-gray">{{(1-(item.amount_remain/item.amount))*100 | number:0}}{{item.amount_remain?'%':''}}</span>
+                    <span class="pull-right">{{item.amount}}吨</span>
+                </h3>
+                <div class="transdetail" ng-repeat="orderList in item.orderList">
+                    <p>
+                        <img src="./img/common/driver-car.png" class="transdetail-car"> {{orderList.truck_num}},运输{{orderList.amount}}吨
+                        <span ui-sref="rsc.dirver_detail({user_id:orderList.user_id,demand_id:item.orderList._id,status:orderList.status,order_id:orderList._id})"
+                            class="pull-right text-blue">{{orderList.status =='effective'?' 进行中':orderList.status =='ineffective'?'待接单':'已完成'}}&gt;</span>
+                    </p>
+                </div>
+                <h4 class="text-gray1">运输单价(元/吨)：
+                    <span class="pull-right text-orange h4" ng-repeat="pro in vm.driverOrder.product_categories">{{pro.layer_1_chn}}{{pro.pass_price| currency: '￥'}} </span>
+                    <span class="text-orange" ng-repeat="pro in vm.driverOrder.products_replenish">{{pro.layer_1_chn}}{{pro.pass_price| currency: '￥'}}（补货）</span>
+                </h4>
+                <h4 class="text-gray1">运输费用：<span class="pull-right text-orange h4">{{vm.driverOrder.price_total | currency: '￥'}}</span></h4>
+            </div>
+        </div>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar ng-if="vm.driverOrder.status == 'effective'&&vm.order.step == '3'" class="bar-footer bar bar-royal" ui-sref="rsc.assign_driver_start({order_id:vm.order_id})">
+        <h1 class="title">开始指派司机抢单</h1>
+    </ion-footer-bar>
+    <ion-footer-bar ng-if="vm.order.status == 'effective'&&vm.order.step == '3.5'" class="bar bar-royal" ui-sref="rsc.assign_driver_start({order_id:vm.order_id})">
+        <div class="title title-second">
+            <h4 class="text-white">继续指派司机抢单</h4>
+            <h5 class="text-white1">已运输{{vm.order.amount-vm.order.amount_remain}}吨，未运输{{vm.order.amount_remain}}吨</h5>
+        </div>
+    </ion-footer-bar>
+    <ion-footer-bar ng-if="vm.driverOrder.status == 'effective'&&vm.order.step == '4'" class="bar-footer bar bar-royal">
+        <h1 class="title">已指派，等待司机接单</h1>
+    </ion-footer-bar>
+    <ion-footer-bar ng-if="vm.driverOrder.status == 'complete'" class="bar-footer bar bar-light">
+        <h1 class="title">订单已完成</h1>
+    </ion-footer-bar>
+    <ion-footer-bar ng-if="vm.driverOrder.status == 'cancelled'" class="bar-footer bar bar-light">
+        <h1 class="title">订单已取消</h1>
+    </ion-footer-bar>
+</ion-view>
+<!--<ion-footer-bar class="bar bar-light">-->
+<!--<h1 class="title">等待运输完成</h1>-->
+<!--</ion-footer-bar>-->

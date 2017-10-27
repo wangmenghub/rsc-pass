@@ -1,0 +1,68 @@
+﻿<ion-view hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <span menu-close nav-transition='ios' nav-direction="back" ng-click="rootGoBack()">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">发布线路</h1>
+        </div>
+    </ion-nav-title>
+    <ion-nav-buttons side="secondary">
+        <!--<span ng-if="!editType" ui-sref="rsc_tabs.pass_my_price_offer">我的报价</span>-->
+    </ion-nav-buttons>
+    <ion-content class="bg-gray" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div ng-class="{'bg-white gap-20':$root.rscPlatform == 'isweb'}">
+            <div ng-class="{'login-width content-maxwidth':$root.rscPlatform == 'isweb'}">
+                <form name="myform" class="gap-20">
+                    <div class="list list-addline">
+                        <city-picker options="vm.pickCityPickDataBegin"></city-picker>
+                        <city-picker options="vm.pickCityPickDataEnd"></city-picker>
+                    </div>
+                    <div class="list list-addline list-addline-last">
+                        <li class="item item-input list-input gap-20">
+                            <span class="input-label">线路报价(元/吨)</span>
+                            <input type="tel" placeholder="请输入" name="percent_advance" min=0 ng-model="vm.address.price" class="text-right" required
+                                ng-pattern="/^[0-9]{0,99}$/" />
+                        </li>
+                        <li class="item item-input list-input">
+                            <span class="input-label">回程报价(元/吨)</span>
+                            <input type="tel" placeholder="请输入" name="percent_advance" min=0 ng-model="vm.address.unmoney" class="text-right" required
+                                ng-pattern="/^[0-9]{0,99}$/" />
+                        </li>
+                        <div class="form-error form-error-line" ng-messages="myform.percent_advance.$dirty&&myform.percent_advance.$error">
+                            <div ng-message="required">价格不能为空</div>
+                            <div ng-message="pattern">最大不能超过11个字符</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white gap-20 gap-row-top">
+                        <div class="list-inset">
+                            <h4 class="text-black1">线路运输货物</h4>
+                            <div class="reg-radio row row-wrap">
+                                <div class="col col-50" ng-repeat="type in vm.types">
+                                    <label for="">
+                                        <input type="checkbox" name="type" ng-checked="type.checked" ng-click="vm.typeChange($index,$event,type)">
+                                        {{type.chn}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white gap-20">
+                        <div class="list list-item list-type-input">
+                            <label class="item item-input list-input">
+                        <textarea class="text-gray1" rows="3" wrap="soft" maxlength="200" placeholder="该线路的备注说明..." ng-model="vm.address.appendix"></textarea>
+                    </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar bar-royal">
+        <h1 class="title" ng-click="vm.add()">立即发布线路</h1>
+    </ion-footer-bar>
+</ion-view>

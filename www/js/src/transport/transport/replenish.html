@@ -1,0 +1,42 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">补货</h1>
+        </div>
+    </ion-nav-title>
+    <ion-content class="bg-gray has-footer">
+        <div class="bg-white gap-row">
+            <div ng-repeat="(index1,pc) in vm.result.products_replenish"  >
+                <h4 class="list-inset text-green bold">{{pc.layer.layer_1_chn}} {{pc.layer.layer_2_chn}} {{pc.layer.layer_3_chn}} {{pc.layer.layer_4_chn}} {{pc.layer.layer_5_chn}}
+                    <span class="pull-right text-gray h5">单位:{{pc.unit}}</span>
+                </h4>
+                <div>
+                    <!--<h4 class="list-inset text-green bold gap-5">9米</h4>-->
+                    <div class="row" ng-repeat="(index2,pcName) in pc.product_name">
+                        <h4 class="col col-10 gap-17 bold list-inset1">{{pcName.name}}</h4>
+                        <div class="col col-30 gap-17 text-center">
+                            <input class="h4 text-center" style="width:100%;height:15px" type="tel" placeholder="{{pcName.amount_unit==0?1:pcName.amount_unit}}吨/件">
+                        </div>
+                        <h4 class="col gap-17 text-center bold" ng-init="vm[index1][index2].rs='0'">{{vm[index1][index2].rs}}吨</h4>
+                        <div class="pull-right driver-input gap-10">
+                            <img src="./img/pass/minus.png" class="pull-left" ng-click="vm.jisuan('reduce',index1,index2)">
+                            <input type="tel" placeholder="0" class="pull-left" ng-init="pcName['count']=0" ng-model="pcName['count']"  ng-change="vm.jisuan('ipt',index1,index2)">
+                            <img src="./img/pass/plus.png" class="pull-left" ng-click="vm.jisuan('add',index1,index2)">
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="row-companyhome-border"></div>
+            <div class="pull-right list-inset gap-row text-right">
+                <h4 class="text-gray">总吨数：{{vm.totleNumber}}</h4>
+                <h4 class="text-gray gap-5">总金额：{{vm.totlePrice}}</h4>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </ion-content>
+    <ion-footer-bar class="bar bar-balanced">
+        <h1 class="title" ng-click="vm.sbmit()">确认补货</h1>
+    </ion-footer-bar>
+</ion-view>

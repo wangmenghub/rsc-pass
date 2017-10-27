@@ -1,0 +1,18 @@
+<ion-view view-title="平台公告">
+    <ion-content ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div class="bg-white">
+            <ion-slide-box on-slide-changed="slideHasChanged($index)" auto-play="true" does-continue="true" slide-interval=3000 show-pager="false">
+                <ion-slide>
+                    <a href="tel:010-57406666">
+                        <img src="./img/common/slide-img1.png" class="img-responsive">
+                    </a>
+                </ion-slide>
+                <ion-slide>
+                    <a href="tel:010-57406666">
+                        <img src="./img/common/slide-img.png" class="img-responsive">
+                    </a>
+                </ion-slide>
+            </ion-slide-box>
+        </div>
+    </ion-content>
+</ion-view>

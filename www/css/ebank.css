@@ -1,0 +1,79 @@
+/* Empty. Add your own CSS if you like */
+
+
+/*财页面*/
+
+.account-list {
+    padding: 25px 10px;
+}
+
+.order-title {
+    background: #f2f2f2;
+    padding: 2px 10px;
+    border-radius: 5px;
+    display: inline-block;
+    font-size: 11px;
+    color: #666;
+}
+
+.order-title-deep {
+    background: #d6d6d6;
+    color: #fff;
+    padding: 2px 10px;
+}
+
+.item-offer .label-icon1 {
+    margin-right: 10px;
+}
+
+.item-offer h4 {
+    font-size: 14px;
+}
+
+.item-offer h4 small {
+    font-size: 11px;
+}
+
+.list-offer {
+    margin: 0 15px;
+}
+
+.item-offer-border {
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.item-offer-border p {
+    margin-right: 0;
+}
+
+
+/*订单*/
+
+.item-offer-border .h6 {
+    padding-right: 0;
+}
+
+.item-offer-border h5 {
+    padding-right: 0;
+}
+.item-offer-border h5.h5 {
+    margin-bottom: 0;
+}
+.item-offer-border h2 span.pull-right {
+    padding-right: 0;
+}
+
+.item-offer-border .item-face {
+    right: 0;
+}
+
+.status-bg {
+    background: url("../img/common/route-bg.png") no-repeat top center;
+    background-size: 95px 4px;
+    margin-top: 6px;
+    padding-top: 10px;
+    font-size: 11px;
+}

@@ -1,0 +1,84 @@
+<ion-view hide-back-button="true">
+    <ion-nav-buttons side="left">
+       <span menu-close nav-transition='ios' nav-direction="back" ui-sref="rsc.company_manager">
+           <i class="icon ion-ios-arrow-back"></i>
+           <span class="default-title">返回</span>
+       </span>
+   </ion-nav-buttons>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <!--<div class="title nav-bar">
+               <a ng-if="vm.source!='companypage'" menu-close nav-transition="ios" nav-direction="enter" ui-sref="rsc.message">消息</a>
+                <a ng-if="vm.source!='companypage'" menu-close nav-transition="ios" nav-direction="enter" ui-sref="rsc.contact">好友</a>
+                <a menu-close nav-transition="ios" nav-direction="enter" class="active">管理</a>
+            </div>-->
+            <h1 class="title">管理</h1>
+        </div>
+    </ion-nav-title>
+    <ion-nav-buttons side="secondary" >
+        <button ng-if="$root.rscPlatform == 'isapp'"  class="button button-clear" ui-sref="rsc.invite">邀请</button>
+    </ion-nav-buttons>
+    <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+        <div class="tabs">
+            <a class="tab-item"  nav-transition="ios" nav-direction="enter" ui-sref="rsc.manage_colleague" ui-sref-active="active">
+        员工
+      </a>
+            <a class="tab-item"  nav-transition="ios" nav-direction="enter" ui-sref="rsc.manage_traffic({type:'PURCHASE',source:vm.source})"
+                ui-sref-active="active">
+        货主
+      </a>
+        </div>
+    </div>
+    <ion-content class="bg-gray has-subheader">
+    <div class="text-center gap-70" ng-if="vm.loading">
+        <h4 class="text-gray">正在加载...</h4>
+    </div>
+    <div ng-if="!vm.loading">
+        <div ng-repeat="i in vm.arr |orderBy:['sort']" ng-if="vm.show"> 
+            <div class="item item-divider">
+                {{i.key|rolefilter}}&nbsp
+                <!--{{i.value.length}}-->
+            </div>
+            <div class="bg-white">
+                <ion-list ng-repeat="item in i.value" can-swipe="item.role=='TRADE_ADMIN'">
+                    <div class="list-driver">
+                    <ion-item class="item item-avatar item-driver-slide item-icon-right" ng-if="!item.invitate" ng-click="rootGoDetail(item.role,item.id)">
+                        <img ng-src="{{item.photo_url}}" class="driver-face" image-404="./img/common/infor-face.png">
+                        <h3 class="title-center">{{item.name?item.name:'未知'}}</h3>
+                        <!-- <h5 class="text-gray">
+                            <span ng-if="item.role!='TRADE_SALE'">已采购{{item.count.PURCHASE}}单</span>
+                            <span ng-if="item.role!='TRADE_PURCHASE'">已销售{{item.count.SALE}}单</span>
+                        </h5> -->
+                        <!-- <ion-option-button ui-sref="rsc.replace_colleague({id:item.id,rename:item.name})" class="button-assertive">
+                            替换同事
+                        </ion-option-button> -->
+                    </ion-item>
+                    </div>
+                    <div class="list-driver">
+                        <ion-item class="item item-avatar item-driver item-remind item-icon-right" ng-if="item.invitate">
+                            <img ng-src="{{item.photo_url}}" class="driver-face" image-404="./img/common/infor-face.png">
+                            <h2>{{item.name?item.name:'未知'}}</h2>
+                            <h5 class="text-red">已邀请，等待上线</h5>
+                            <i class="icon">
+                            <button class="btn-remind" ng-click="vm.invite(item)">立即提醒</button>
+                        </i>
+                        </ion-item>
+                    </div>
+                </ion-list>
+            </div>
+        </div>
+        <div ng-if="!vm.show" class="text-center gap-70">
+            <h4 class="text-gray">
+                暂无同事
+            <!-- <h4 class="text-gray gap-5">
+                您可以邀请好友
+            </h4>
+            <button class="gap-20 button-circle" ui-sref="rsc.invite">
+                立即邀请
+            </button> -->
+            </h4>
+        </div>
+    </div>
+    </ion-content>
+    <!-- <rsc-tabs active=3 config-name="rsc.center_goods"></rsc-tabs> -->
+</ion-view>

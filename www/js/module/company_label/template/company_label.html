@@ -1,0 +1,79 @@
+<div class="bg-orange">
+    <div ng-if="!vm.company_info">
+        <div class="list">
+            <!--<div class="item item-avatar item-master item-icon-right" ng-style="{'background-image': !!vm.companyUrl?vm.companyUrl:'url(./img/me/bg-companymaster.png)'}"
+                        ng-click="vm.changeBackground()">-->
+            <div class="item item-avatar item-master item-icon-right" ng-click="search_company()">
+                <img ng-src="{{vm.company_info.url_logo}}" class="logo-icon" image-404="./img/common/logo-icon.png">
+                <h2>
+                    我是员工，加入企业
+                </h2>
+                <div class="clear"></div>
+                <h5 class="text-gray">
+                    搜索企业名称，查看是否已升级互联网+！
+                </h5>
+                <i class="icon ion-ios-arrow-right text-white"></i>
+            </div>
+        </div>
+
+    </div>
+    <div ng-if="vm.company_info">
+        <div class="list" ng-if="!vm.vip">
+            <li class="item item-avatar item-master item-icon-right" ui-sref="rsc.company_page">
+                <img ng-src="{{vm.company_info.url_logo}}" class="logo-icon" image-404="./img/common/logo-icon.png" ng-click="rootGoDetail(list.user.role,list.user._id)">
+                <h2>
+                    {{vm.company_info.nick_name}}
+                    <img ng-if="vm.company_info.verify_phase=='SUCCESS'" src="./img/158/label-v.png" class="label-v">
+                </h2>
+                <div class="clear"></div>
+                <h5 class="text-gray">
+                    <span class="text-hidden">
+                                    采购:
+                                    <span ng-repeat="item in vm.company_info.buy track by $index">
+                                        <span ng-if="item">{{item|categoryFilter}}&nbsp</span>
+                    <span ng-if="!item">无</span>
+                    </span>
+                    </span>
+                    <span class="text-hidden">
+                                    销售:
+                                    <span ng-repeat="item in vm.company_info.sell track by $index">
+                                        <span ng-if="item">{{item|categoryFilter}}&nbsp</span>
+                    <span ng-if="!item">无</span>
+                    </span>
+                    </span>
+                </h5>
+                <i class="icon ion-ios-arrow-right text-white"></i>
+            </li>
+        </div>
+
+        <div class="list" ng-if="vm.vip">
+            <!--<div class="item item-avatar item-master item-icon-right" ng-style="{'background-image': !!vm.companyUrl?vm.companyUrl:'url(./img/me/bg-companymaster.png)'}"
+            ng-click="vm.changeBackground()">-->
+            <div class="item item-avatar item-master item-icon-right" ui-sref="rsc.company_page">
+                <img ng-src="{{vm.company_info.url_logo}}" class="logo-icon" image-404="./img/common/logo-icon.png">
+                <h2>
+                    {{vm.company_info.nick_name}}
+                    <img ng-if="vm.company_info.verify_phase=='SUCCESS'" src="./img/158/label-v.png" class="label-v">
+                </h2>
+                <div class="clear"></div>
+                <h5 class="text-gray">
+                    <span class="text-hidden">
+                                采购:
+                                <span ng-repeat="item in vm.company_info.buy track by $index">
+                                    <span ng-if="item">{{item|categoryFilter}}&nbsp</span>
+                    <span ng-if="!item">无</span>
+                    </span>
+                    </span>
+                    <span class="text-hidden">
+                                销售:
+                                <span ng-repeat="item in vm.company_info.sell track by $index">
+                                    <span ng-if="item">{{item|categoryFilter}}&nbsp</span>
+                    <span ng-if="!item">无</span>
+                    </span>
+                    </span>
+                </h5>
+                <i class="icon ion-ios-arrow-right text-white"></i>
+            </div>
+        </div>
+    </div>
+</div>

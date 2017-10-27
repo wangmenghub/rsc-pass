@@ -1,0 +1,92 @@
+<ion-view>
+    <!-- <ion-nav-buttons side="left">
+        <span menu-close nav-transition='ios' nav-direction="back" ng-if="!!vm.sidebar||!changeType()" ng-click="goMenuClose(vm.state)">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons> -->
+    <ion-nav-bar class="bar bar-nocolor">
+        <ion-nav-buttons>
+            <button class="button button-clear icon ion-ios-arrow-back " ng-click="rootGoBack()">
+                返回
+                <!--<span menu-close nav-transition='ios' nav-direction="back">
+                    <i class="icon ion-ios-arrow-back"></i>-->
+                    <!--<span class="default-title">返回</span>-->
+                <!--</span>-->
+        </button>
+        </ion-nav-buttons>
+        <h1 class="title">个人主页</h1>
+        <ion-nav-buttons side="secondary">
+            <button ng-if="$root.rscPlatform == 'isapp'&&vm.operate" class="button button-clear" ui-sref="rsc.traffic_person_setting">设置</button>
+            <button ng-if="$root.rscPlatform == 'isapp'" class="button button-clear" ng-click="shareAction()">分享</button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <!--<ion-nav-buttons side="right">
+        <button ng-if="$root.rscPlatform == 'isapp'" class="button button-clear" ui-sref="src.traffic_person_setting" ng-if="vm.operate">设置</button>
+        <button ng-if="$root.rscPlatform == 'isapp'" class="button button-clear" ng-click="shareAction()">分享</button>
+    </ion-nav-buttons>-->
+    <ion-content class="has-header" ng-class="{'has-footer':!vm.operate}" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div class="text-center gap-20">
+            <img ng-src="{{vm.userInfo.user.photo_url}}" class="companyhome-icon" image-404="./img/common/infor-face.png">
+            <h3 class="text-black">
+                {{vm.userInfo.user.real_name}}&nbsp-
+                <span ng-if="vm.userInfo.user.post&&vm.userInfo.user.post != ''">
+                    {{vm.userInfo.user.post}}
+                </span>
+                <span ng-if="!vm.userInfo.user.post||vm.userInfo.user.post == ''">
+                    {{vm.userInfo.user.role|rolefilter}}
+                </span>
+            </h3>
+            <h5 class="text-gray gap-10">
+                <span>运输:
+                    <span ng-repeat="item in vm.companyInfo.transport track by $index">{{item|paymentChoice}}&nbsp</span>
+                    <span ng-if="vm.companyInfo.transport.length==0">无</span>
+                </span>
+            </h5>
+            <div ng-click="rootGoDetail(vm.comType,vm.userInfo.company._id)">
+                <h4 class="text-black gap-20">
+                    {{vm.userInfo.company.nick_name}}
+                </h4>
+                <h5 class="text-orange gap-10">
+                    <img src="./img/158/label-v.png" class="label-v" ng-if="vm.company_info.verify_phase=='SUCCESS'">
+                    <img src="./img/158/label-model.png" class="label-model" ng-if="!!vm.vip">
+                </h5>
+            </div>
+        </div>
+        <!-- <div class="row row-homepage text-center text-gray gap-20">
+            <div class="col" ng-if="vm.role != 'TRADE_PURCHASE'" ng-class='{"active":vm.type == "SALE"}' ng-click="vm.tabSwitch('SALE')">
+                <h5>销售</h5>
+                <h5 class="gap-5">{{vm.count.SALE||0}}</h5>
+            </div>
+
+            <div class="col" ng-if="vm.role != 'TRADE_SALE'" ng-class='{"active":vm.type == "PURCHASE"}' ng-click="vm.tabSwitch('PURCHASE')">
+                <h5>采购</h5>
+                <h5 class="gap-5">{{vm.count.PURCHASE||0}}</h5>
+            </div>
+
+            <div class="col" ng-class='{"active":vm.type == "TRAFFIC"}' ng-click="vm.tabSwitch('TRAFFIC')">
+                <h5>货源</h5>
+                <h5 class="gap-5">{{vm.count.TRAFFIC||0}}</h5>
+            </div>
+        </div> -->
+
+
+
+
+    </ion-content>
+
+
+    <ion-footer-bar class="bar bar-light" ng-if="!vm.operate">
+        <div class="row button-foot">
+            <div class="col col-light" ng-if="vm.userInfo.friend" ng-click="vm.addRelation('friend')">
+                加好友
+            </div>
+            <div class="col col-light" ng-if="!!vm.status" ng-click="vm.addRelation('supply')">
+                申请合作
+            </div>
+            <div class="col col-green" ng-if="!!vm.chatShow&&!vm.operate" ng-click="vm.chat()">
+                发消息
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

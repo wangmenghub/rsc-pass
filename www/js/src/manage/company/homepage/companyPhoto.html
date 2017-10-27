@@ -1,0 +1,35 @@
+<ion-view>
+    <ion-nav-bar class="bar bar-black">
+        <ion-nav-buttons>
+            <button class="button button-clear icon ion-ios-arrow-back " ng-click="rootGoBack()">
+                返回
+            </button>
+        </ion-nav-buttons>
+        <!--<h1 class="title">企业相册</h1>-->
+        <!--<ion-nav-title>
+            <div class="bar bar-black">
+                <h1 class="title">企业相册</h1>
+            </div>
+        </ion-nav-title>-->
+        <ion-nav-buttons side="secondary">
+            <button class="button button-clear" ng-click="vm.delete()">删除</button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <!--<ion-nav-title>
+        <div class="bar bar-positive">
+            <h1 class="title">企业相册</h1>
+        </div>
+    </ion-nav-title>
+    <ion-nav-buttons side="secondary">
+        <button class="button button-clear" ng-click="vm.delete()">删除</button>
+    </ion-nav-buttons>-->
+    <ion-content scroll="true" padding="true" class="bg-black" animation="slide-left-right-ios7" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <ion-slide-box on-slide-changed="vm.onSlideChanged($index)" show-pager="true" active-slide="vm.myActiveSlide">
+            <ion-slide ng-repeat="i in vm.list track by $index">
+                <div style="justify-content:center;flex-direction:column;display:flex;height:500px;">
+                    <img ng-src="{{i}}" image-404="./img/common/company-img.png" class="show-icon2 center-block">
+                </div>
+            </ion-slide>
+        </ion-slide-box>
+    </ion-content>
+</ion-view>

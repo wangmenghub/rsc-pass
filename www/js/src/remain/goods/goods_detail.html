@@ -1,0 +1,211 @@
+<ion-view hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <span menu-close nav-transition='ios' nav-direction="back" ng-if="!vm.wait" ng-click="rootGoBack()">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+        <span menu-close nav-transition='ios' nav-direction="back" ng-if="vm.wait && vm.isGoBack" ng-click="rootGoBack()">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+        <span menu-close nav-transition='ios' nav-direction="back" ng-if="vm.wait  &&  !vm.isGoBack" ui-sref="rsc.pk_processing">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">
+                指派详情
+            </h1>
+        </div>
+        <!--<div class="bar bar-positive">
+            <div class="title nav-bar">
+                <a class="active">指派</a>
+                <a class="" nav-transition="ios" nav-direction="enter" ui-sref="rsc.goods_rush_detail({demand_id:vm.data.demand_id,wait:vm.wait})">货源详情</a>
+            </div>
+        </div>-->
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ui-sref="rsc.goods_map({demand_id:vm.data.demand_id})">地图</button>
+    </ion-nav-buttons>
+    <ion-content class="bg-gray" ng-init="vm.init()" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div ng-class="{'bg-white gap-20':$root.rscPlatform == 'isweb'}">
+            <div ng-class="{'login-width content-maxwidth':$root.rscPlatform == 'isweb'}">
+                <ion-refresher spinner="spiral" on-refresh="doRefresh()"></ion-refresher>
+                <rsc-info data="vm.demandList.demand_user_id"></rsc-info>
+                <div class="gap-2">
+                    <rsc-detail-header list="vm.demandList"></rsc-detail-header>
+                </div>
+                <div class="bg-white">
+                    <product-detail  model="vm.demandList.product_categories" data=vm.demandList type="'categories'"></product-detail>
+                    <div ng-if="vm.demandList.replenish.length!=0">
+                        <div ng-repeat="replenish in vm.demandList.replenish">
+                            <product-detail model="replenish" data="vm.demandList" type="'replenish'"></product-detail>
+                        </div>
+                    </div>
+                </div>
+                <div class="gap-row bg-white gap-2">
+                    <div class="list-inset">
+                        <h4 class="bold">
+                            货物描述
+                        </h4>
+                        <h4 class="text-gray gap-10">
+                            {{vm.demandList.appendix?vm.demandList.appendix:'无特殊说明'}}
+                        </h4>
+                    </div>
+                </div>
+                <div class="bg-white gap-20">
+                    <div class="list list-item list-type-input">
+                        <li class="item item-type">
+                            <!--已接单比例 = （总量-剩余 )/总量-->
+                            <span class="bold">接单详情 <small class="normal" hidden>（已接单 {{(vm.demandList.amount- vm.demandList.amount_remain)/vm.demandList.amount*100|number:2}}%）</small></span>
+                            <span class="pull-right text-gray" ng-if="!vm.time_end">距结束
+						<timer finish-callback="vm.finished()" end-time="vm.demandList.time_validity" language="zh-CN">
+                                    {{days == 0?'':days+'天'}}{{hhours}}:{{mminutes}}:{{sseconds}}
+                    	</timer>
+					</span>
+                            <span class="pull-right text-gray" ng-if="vm.time_end">已结束</span>
+                        </li>
+                    </div>
+                </div>
+                <!---->
+                <div class="bg-white">
+                    <div class="list list-passdetail" ng-repeat="item in vm.demandOfferList track by $index" ng-if="item._id==vm.loc_company._id">
+                        <span class="orderby-num text-red bold" ng-class="{'gap-10':!$first}">{{$index+1}}</span>
+                        <li class="item item-avatar item-icon-right">
+                            <img src="{{item.url_logo}}" image404="./img/common/logo-icon.png">
+                            <h2 ng-if="item.user_name">
+                                {{item.user_name}}
+                            </h2>
+                            <h2 ng-if="!item.user_name">
+                                &nbsp;
+                            </h2>
+                            <p>
+                                {{item.nick_name}}
+                                <img src="./img/158/label-v.png" class="label-v" ng-if='item.verify_phase=="SUCCESS"'>
+                            </p>
+                            <i class="icon" ng-if="item.status=='wait_assign'">
+                                <button class="button button-small button-assertive">已接单</button>
+                            </i>
+                        </li>
+                        <li class="item item-passdetail" ng-if="item.status=='wait_assign'">
+                            接单时间
+                            <span class="pull-right">{{item.plan_time_creation | dynamicTime}}</span>
+                        </li>
+                        <!--<li class="item item-passdetail">-->
+                        <!--运输总费用-->
+                        <!--<span class="pull-right text-red">￥{{item.price}}</span>-->
+                        <!--</li>-->
+                    </div>
+                    <div class="list list-passdetail" ng-repeat="item in vm.demandOfferList track by $index" ng-if="item._id!=vm.loc_company._id">
+                        <span class="orderby-num text-red bold" ng-class="{'gap-10':!$first}">{{$index+1}}</span>
+                        <li class="item item-avatar item-icon-right">
+                            <!--<img src="{{item.url_logo}}" image404="./img/common/logo-icon.png" >--><img src="./img/common/logo-icon.png">
+                            <h2 ng-if="item.user_name">
+                                <!--{{item.user_name}}-->*******
+                            </h2>
+                            <h2 ng-if="!item.user_name">
+                                &nbsp;
+                            </h2>
+                            <p>
+                                <!--{{item.nick_name}}-->*******
+                                <img src="./img/158/label-v.png" class="label-v" ng-if='item.verify_phase=="SUCCESS"'>
+                            </p>
+                            <i class="icon" ng-if="item.status=='wait_assign'">
+                                <!--<button class="button button-small button-assertive">已接单</button>-->
+                                <button class="button button-small button-assertive">***</button>
+                            </i>
+                        </li>
+                        <li class="item item-passdetail" ng-if="item.status=='wait_assign'">
+                            接单时间
+                            <span class="pull-right">*******</span>
+                            <!--<span class="pull-right">{{item.plan_time_creation | dynamicTime}}</span>-->
+                        </li>
+                    </div>
+                </div>
+                <!---->
+                <div class="list">
+                    <div class="item item-avatar item-address gap-20 item-icon-right" ng-click="rootAddMap(vm.demandList.send_province,vm.demandList.send_city,vm.demandList.send_district,vm.demandList.send_addr)">
+                        <img src="./img/158/landmark.png" class="landmark">
+                        <h2 class="text-gray1">提货地址：{{vm.demandList.send_city}}{{vm.demandList.send_district}}{{vm.demandList.send_addr}}</h2>
+                        <p ng-if="vm.demandList.send_name">联系人：{{vm.demandList.send_name}} &nbsp;&nbsp;&nbsp;&nbsp;手机号：{{vm.demandList.send_phone}}
+                        </p>
+                        <p ng-if="!vm.demandList.send_name">&nbsp;</p>
+                        <i class="icon ion-ios-arrow-right text-gray"></i>
+                    </div>
+                    <div class="item item-avatar item-address item-address-border item-icon-right" ng-click="rootAddMap(vm.demandList.receive_province,vm.demandList.receive_city,vm.demandList.receive_district,vm.demandList.receive_addr)">
+                        <img src="./img/158/landmark-1.png" class="landmark">
+                        <h2 class="text-gray1">
+
+                            交货地址：{{vm.demandList.receive_city}}{{vm.demandList.receive_district}}{{vm.demandList.receive_addr}}</h2>
+                        <p ng-if="vm.demandList.receive_name">联系人：{{vm.demandList.receive_name}} &nbsp;&nbsp;&nbsp;&nbsp;手机号：{{vm.demandList.receive_phone}}</p>
+                        <p ng-if="!vm.demandList.receive_name">&nbsp;</p>
+                        <i class="icon ion-ios-arrow-right text-gray"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white gap-20">
+                    <div class="list list-item list-type-input">
+                        <li class="item item-type">
+                            <span class="bold">提货时间</span>
+                            <span class="pull-right text-orange">{{vm.demandList.time_depart|rsctime}}</span>
+                        </li>
+                        <li class="item item-type">
+                            <span class="bold">交货时间</span>
+                            <span class="pull-right text-orange">{{vm.demandList.time_arrival|rsctime}}</span>
+                        </li>
+                    </div>
+                </div>
+
+                <div class="bg-white gap-20">
+                    <div class="list list-item list-type-input">
+                        <li class="item item-type">
+                            <span class="bold">付款方式</span>
+                            <span class="pull-right text-orange">{{vm.demandList.payment_method|paymentChoice}}
+							<span ng-if="vm.demandList.payment_method=='partition'">首付款比例:{{vm.demandList.percentage_advance}}% 尾款支付起始日期:货到并完成质检日</span>                            {{vm.demandList | payDayDes}}
+                            </span>
+                            </span>
+                        </li>
+                        <li class="item item-type">
+                            <span class="bold">付款类型</span>
+                            <span class="pull-right text-orange">{{vm.demandList.payment_choice|paymentChoice}}</span>
+                        </li>
+                        <li class="item item-type">
+                            <span class="bold">物流结算</span>
+                            <span class="pull-right text-orange">{{vm.demandList.weigh_settlement_style=='get'?'按提货吨数结算':(vm.demandList.weigh_settlement_style=='fact'?'按到货吨数结算':'按实际路耗结算')}}</span>
+                        </li>
+                    </div>
+                </div>
+
+                <div class="recommend-bg text-center gap-row gap-10">
+                    <h4 class="text-gray">已成为合作企业</h4>
+                </div>
+                <person-card-new falg='true' user='vm.demandList.demand_user_id'></person-card-new>
+                <company-info-trade company-id="vm.demandList.demand_company_id"></company-info-trade>
+            </div>
+        </div>
+
+    </ion-content>
+    <ion-footer-bar class="bar bar-light">
+        <div class="row button-foot" ng-if="!vm.time_end">
+            <div class="col col-light" ng-click="chat('p2p-'+vm.demandList.demand_user_id,'p2p',vm.demandList.user_role,vm.demandList.user_name)">
+                立即沟通
+            </div>
+            <div class="col col-50 col-red" ng-if="!vm.wait" ng-click="vm.goOfferOrder()">
+                立即接单
+            </div>
+            <div class="col col-50 col-red" ng-if="vm.wait">
+                等待派货
+            </div>
+        </div>
+        <div class="row button-foot" ng-if="vm.time_end">
+            <div class="col col-light" ng-click="chat('p2p-'+vm.demandList.demand_user_id,'p2p',vm.demandList.user_role,vm.demandList.user_name)">
+                立即沟通
+            </div>
+            <div class="col col-50 col-red">
+                已结束
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

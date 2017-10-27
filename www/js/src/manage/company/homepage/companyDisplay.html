@@ -1,0 +1,36 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-positive">
+            <h1 class="title">企业相册</h1>
+        </div>
+    </ion-nav-title>
+    <ion-nav-buttons side="secondary">
+        <button class="button button-clear" ng-click="vm.edit()">{{vm.add?'编辑':'完成'}}</button>
+    </ion-nav-buttons>
+    <ion-content class="" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div ng-if="vm.add">
+            <div class="row row-wrap col-companyhome1">
+                <div class="col col-33" ng-repeat="item in vm.list track by $index" ng-if="item">
+                    <img ng-src="{{item}}" class="show-icon1" image-404="./img/common/company-img1.png">
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="!vm.add">
+            <div class="row row-wrap col-companyhome1">
+                <div class="col col-33" ng-repeat="item in vm.list track by $index" ng-if="item">
+                    <img ng-src="{{item}}" class="show-icon1" image-404="./img/common/company-img1.png">
+                    <label class="checkbox companyhome-checkbox">
+                        <input type="checkbox" name="checkbox" ng-click="vm.isSelect($index,isSelect)" ng-checked="isSelect" ng-model="isSelect">
+                    </label>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar bar-light bar-footer" ng-click="vm.upload()" ng-if="vm.add">
+        <h1 class="title">上传照片</h1>
+    </ion-footer-bar>
+    <ion-footer-bar class="bar bar-light bar-footer" ng-click="vm.delete()" ng-if="!vm.add">
+        <h1 class="title">删除</h1>
+    </ion-footer-bar>
+</ion-view>

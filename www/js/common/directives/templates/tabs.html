@@ -1,0 +1,45 @@
+<div>
+    <div class="tabs-positive tabs-bottom tabs-standard" ng-if="$root.rscPlatform == 'isapp'">
+        <div class="tab-nav tabs">
+            <a menu-close nav-direction="enter" ng-repeat="tab in vm.tabs" class="tab-item " ng-class="{'tab-item-active':tab.active}"
+               ui-sref="{{tab.link}}" ng-click="footbarclick(tab.text)">
+            <span class="tab-title ng-binding">
+                {{tab.text}}
+                <span class="label-num tab-num" ng-if="tab.count != 0">
+                    {{tab.count}}
+                </span>
+                <span ng-if="$root.unreadMsg&&$root.unreadMsg != 0">
+                    <span class="label-num tab-num" ng-if="tab.link== 'rsc.message'">{{$root.unreadMsg}}</span>
+                </span>
+                <span ng-if="tab.link=='trade.finance_supply'&&vm.user=='TRADE_ADMIN'">
+                    <span  class="label-num tab-num" ng-if="$root.orderSupplyRemind.all>0||$root.orderDemaindRemind.all>0">
+                        {{$root.orderSupplyRemind.all+$root.orderDemaindRemind.all}}
+                    </span>
+                </span>
+                 <span ng-if="tab.link=='trade.finance_supply'&&vm.user=='TRADE_SALE'">
+                    <span  class="label-num tab-num" ng-if="$root.orderSupplyRemind.all>0">
+                        {{$root.orderSupplyRemind.all}}
+                    </span>
+                </span>
+                 <span ng-if="tab.link=='trade.finance_supply'&&vm.user=='TRADE_PURCHASE'">
+                    <span  class="label-num tab-num" ng-if="$root.orderDemaindRemind.all>0">
+                        {{$root.orderDemaindRemind.all}}
+                    </span>
+                </span>
+            </span>
+            </a>
+            <!--<a menu-close nav-direction="enter" class="tab-item " href="#/pass_transport/sell_grab">
+						<span class="tab-title ng-binding">运输</span>
+					</a>
+			<a menu-close nav-direction="enter" class="tab-item" href="#/traffic_relation/message">
+						<span class="tab-title ng-binding">关系</span>
+					</a>
+			<a menu-close nav-direction="enter" class="tab-item" href="#/pass_tabs/pass_ebank">
+						<span class="tab-title ng-binding">财务</span>
+					</a>
+			<a menu-close nav-direction="enter" class="tab-item" href="#/traffic_me/company_dynamic">
+						<span class="tab-title ng-binding">管理</span>
+					</a>-->
+        </div>
+    </div>
+</div>

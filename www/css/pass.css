@@ -1,0 +1,1112 @@
+/* Empty. Add your own CSS if you like */
+
+
+/*//////////////////物流样式///////////////*/
+
+
+/*货源列表*/
+
+.item-avatar.item-pass img {
+    top: 0;
+}
+
+.item-pass {
+    position: relative;
+    padding: 2px 0 2px 70px;
+    border: none;
+    min-height: 50px;
+    margin: 0;
+}
+
+.item-pass .label-icon1 {
+    margin-right: 10px;
+}
+
+.item-pass h3 {
+    font-size: 14px;
+}
+
+.item-pass h4 {
+    font-size: 14px;
+    padding-right: 15px;
+}
+
+.item-pass p {
+    font-size: 11px;
+    margin-right: 15px;
+}
+
+.item-pass .item-face {
+    top: 5px;
+}
+
+
+/*货详详情*/
+
+.list-passdetail {
+    position: relative;
+    padding: 5px 0 5px 30px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+
+/*数字排名*/
+
+.orderby-num {
+    position: absolute;
+    left: 15px;
+    top: 20px;
+    font-size: 18px;
+    z-index: 99;
+}
+
+
+/*爆字图片*/
+
+.txt-img {
+    width: 29px;
+    height: 21px;
+    position: absolute;
+    left: 10px;
+    top: 32px;
+    z-index: 99;
+}
+
+
+/*不显示排名*/
+
+.orderby-num-no {
+    top: 5px;
+}
+
+
+/**/
+
+.list-passdetail .item {
+    border: none;
+    /*border-bottom: 1px solid #f0f0f0;*/
+}
+
+.list-passdetail .item-avatar {
+    min-height: 0;
+    padding: 10px 15px 10px 65px;
+}
+
+.list-passdetail .item-avatar h2 {
+    font-size: 14px;
+    overflow: visible;
+}
+
+.list-passdetail .item-avatar p {
+    font-size: 12px;
+}
+
+.list-passdetail .item-passdetail {
+    border: none;
+    padding: 5px 15px;
+}
+
+
+/*我的线路（删页面时删样式）*/
+
+.item-routelist {
+    border: none;
+}
+
+.item-routelist .label-icon1 {
+    margin-right: 10px;
+}
+
+.item-routelist .pull-right {
+    margin-top: 2px;
+}
+
+.item-routelist .icon {
+    color: #999;
+}
+
+.item-routelist .pull-right {
+    margin-left: 5px;
+}
+
+.list-addline .item {
+    font-size: 14px;
+    border: none;
+    padding: 13px 15px 13px 35px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.list-addline .item-icon-left .icon {
+    left: 3px;
+}
+
+.list-addline .item-icon-right {
+    padding-right: 30px;
+}
+
+.list-addline .icon {
+    right: 0;
+    font-size: 20px;
+}
+
+.list-addline .icon.ion-ios-location {
+    font-size: 26px;
+}
+
+.list-addline-last .list-input {
+    padding: 6px 15px;
+    /*border-top: none;*/
+}
+
+.list-addline-last .list-input input {
+    /*color: #DB4226;*/
+}
+
+
+/*发布物流*/
+
+.list-type-input .item-type {
+    padding-left: 0;
+    margin: 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.list-type-input .item-type:last-child {
+    /*border-bottom: none;*/
+}
+
+.list-type-input .item-type-no {
+    border-bottom: none;
+}
+
+.list-type-input .item-type-border-top {
+    border-top: 1px solid #f0f0f0;
+}
+
+.list-type-input .item-type-border-bottom {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.item-type h4 {
+    font-size: 14px;
+}
+
+
+/*企业管理*/
+
+
+/*企业日报下方*/
+
+.list-myitem {
+    padding-left: 15px;
+}
+
+.list-myitem .item {
+    border: none;
+    margin: 0;
+    padding-left: 57px;
+    padding-right: 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.list-myitem .item:last-child {
+    /*border-bottom: none;*/
+}
+
+.list-myitem .item-border-no {
+    border-bottom: none;
+}
+
+.item-avatar img.infor-icon {
+    top: 15px;
+    left: 0;
+}
+
+.list-myitem .item p {
+    font-size: 12px;
+    /*margin-right: 15px;*/
+}
+
+
+/*企业动态-设置公司简介*/
+
+.set-companyintro {
+    background: #f7f7f7;
+    padding: 10px;
+    color: #666;
+    white-space: normal;
+    margin: 10px 0;
+}
+
+
+/*赞相关部分*/
+
+.info-icon {
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+}
+
+.praise {
+    position: absolute;
+    right: 25px;
+    bottom: -5px;
+    display: inline-block;
+    width: 80px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    background-color: #4b5154;
+}
+
+p.praise-text {
+    background-color: #f4f4f4;
+    padding: 5px 10px;
+    color: #5B83D3;
+    margin-top: 5px;
+}
+
+p.praise-text .ion-arrow-up-b {
+    position: absolute;
+    color: #f4f4f4;
+    bottom: 38px;
+    left: 68px;
+    z-index: 99;
+    font-size: 20px;
+}
+
+.myitem-list p {
+    overflow: visible;
+}
+
+
+/*企业动态-详细内容*/
+
+.myitem-list {
+    padding-right: 15px;
+    margin-top: 10px;
+}
+
+.myitem-list h4 {
+    font-size: 14px;
+    margin: 0 5px;
+}
+
+.myitem-list h5 {
+    font-size: 10px;
+    margin-top: 5px;
+}
+
+
+/*货源列表箭头and竖线*/
+
+.route {
+    display: inline-block;
+    margin: -3px 3px 0 3px;
+}
+
+.master-line {
+    width: 1px;
+    height: 40px;
+    margin: 0 10px
+}
+
+
+/*物流标签尺寸*/
+
+.label-icon1 {
+    width: 16px;
+    height: 32px;
+}
+
+.myitem-list .item-company {
+    border-bottom: none;
+}
+
+
+/*手机号邀请页面*/
+
+.invite-list .list {
+    padding: 0 40px 0 0;
+}
+
+.invite-list .item {
+    padding: 8px 0 8px 15px;
+    border: none;
+    border-right: 1px solid #f0f0f0;
+    border-top: 1px solid #f0f0f0;
+    margin: 0;
+}
+
+.invite-list .item:first-child {
+    border-top: none;
+}
+
+.invite-list .item-input input {
+    padding-right: 25px;
+}
+
+.invite-list .item-icon-right .icon {
+    right: 3px;
+    font-size: 26px;
+}
+
+.list-tel .item {
+    border: none;
+}
+
+
+/*通讯录*/
+
+.list-telitem {
+    margin-left: 15px;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.list-telitem .item {
+    border: none;
+}
+
+.list-telitem .item-border-no {
+    border-bottom: none;
+}
+
+.list-telitem .item-avatar {
+    min-height: 0;
+}
+
+.list-telitem-checkbox .item-checkbox {
+    padding-left: 15px;
+}
+
+.list-telitem-checkbox .item-checkbox .checkbox {
+    left: -8px;
+}
+
+.item-tel {
+    margin: 0;
+    padding: 10px 0 8px 70px;
+}
+
+.item-tel img.face {
+    top: 7px;
+}
+
+.item-tel .icon {
+    font-size: 40px;
+    top: -2px;
+    left: 0;
+    color: #ccc;
+}
+
+.item-tel h2 {
+    font-size: 14px;
+}
+
+.item-tel p {
+    font-size: 12px;
+}
+
+
+/*搜索部分*/
+
+.item-search {
+    position: relative;
+    background: #f5f5f5;
+    border-bottom: 1px solid #e1e1e1;
+    padding: 10px;
+    height: 55px;
+}
+
+.item-search .tel-search {
+    position: absolute;
+    font-size: 20px;
+    color: #ccc;
+    top: 16px;
+    left: 20px;
+}
+
+.item-search input {
+    margin-left: 30px;
+    width: 80%;
+}
+
+.item-search .col-80 {
+    background: #fff;
+    border-radius: 4px;
+}
+
+.item-search .button.button-light {
+    background: #FFF;
+    color: #999;
+    border-color: #fff;
+    margin-left: 5px;
+}
+
+
+/*可删*/
+
+.invite-icon {
+    width: 80px;
+    height: 80px;
+    margin: 30px 0 10px 0;
+}
+
+
+/*关系管理-列表部分*/
+
+.list-driver {
+    padding-left: 15px;
+}
+
+.list-driver .item-divider {
+    border: none;
+    color: #999;
+    margin-left: -15px;
+}
+
+.item-driver {
+    padding: 10px 15px 10px 60px;
+    border: none;
+    border-bottom: 1px solid #f5f5f5;
+    margin: 0;
+}
+
+
+/*立即提醒*/
+
+.item-remind {
+    padding-left: 50px;
+}
+
+.item-driver:last-child {
+    /*border-bottom: none;*/
+}
+
+.item-driver-border-no {
+    border-top: 1px solid #f0f0f0;
+    border-bottom: none;
+}
+
+.item-driver-bordertop-no {
+    border-top: 1px solid #f2f2f2;
+    border-bottom: none;
+}
+
+.item-driver-noborder {
+    border-bottom: none;
+}
+
+.item-driver p {
+    color: #999;
+    font-size: 12px;
+}
+
+.item-driver h3 {
+    font-size: 16px;
+    /*color: #333;*/
+    margin-top: 3px;
+}
+
+.item-driver h2 {
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+.item-driver h5 {
+    font-size: 12px;
+}
+
+.item-driver p.text-red {
+    color: #DB4226;
+}
+
+.item-driver .item-face {
+    top: 5px;
+}
+
+.item-avatar.item-driver-condensed {
+    min-height: 58px;
+    padding-left: 50px;
+}
+
+.item-avatar.item-driver-condensed img.driver-face {
+    left: 0;
+    top: 10px;
+    max-width: 38px;
+    max-height: 38px;
+}
+
+.item-avatar.item-remind {
+    min-height: 64px;
+}
+
+.item-avatar.item-remind img.driver-face {
+    top: 11px;
+    max-width: 40px;
+    max-height: 40px;
+}
+
+
+/*替换同事*/
+
+.item-driver-slide {
+    border: none;
+    border-bottom: 1px solid #f0f0f0;
+    margin: 0;
+}
+
+.item-driver-slide .title-center {
+    margin-top: 8px;
+}
+
+.item-driver-slide .item-content>img:first-child {
+    left: 2px;
+}
+
+.item-driver-slide .item-content {
+    padding-left: 50px;
+}
+
+
+/*新的好友页面*/
+
+.item-driver .linkman {
+    position: absolute;
+    color: #999;
+    right: 65px;
+    top: 16px;
+    z-index: 99;
+    font-size: 30px;
+}
+
+.item-driver .linkman h6 {
+    width: 65px;
+}
+
+.item-driver .linkman .face {
+    margin-bottom: 2px;
+}
+
+.item-driver .title-center {
+    margin-top: 8px;
+}
+
+.item-driver .title-center1 {
+    margin-top: 15px;
+}
+
+
+/*供应商*/
+
+.item-avatar img.driver-face {
+    left: 0;
+    top: 8px;
+    max-width: 48px;
+    max-height: 48px;
+}
+
+.btn-remind {
+    padding: 8px 10px;
+    border: 1px solid #EBB99E;
+    border-radius: 4px;
+    color: #DB4226;
+    font-size: 12px;
+    background: #fff;
+}
+
+.item-driver .item-content {
+    padding-left: 50px;
+}
+
+.item-driver .item-complex.item-content {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.item-driver .item-content img.driver-face {
+    left: 0;
+}
+
+.item-complex .item-content {
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+
+
+/*运-车辆*/
+
+.item-avatar img.car-face {
+    left: 0px;
+    border-radius: 0;
+    width: 38px;
+    height: 28px;
+    top: 15px;
+}
+
+.list-passdetail .item-avatar img.car-face {
+    border-radius: 3px;
+    left: 16px;
+}
+
+
+/**/
+
+.pass-icon {
+    position: absolute;
+    width: 30px;
+    height: 17px;
+    /*top: 4px;*/
+    margin-left: 5px;
+}
+
+.pass-icon-no {
+    width: 30px;
+    height: 17px;
+    vertical-align: middle;
+}
+
+
+/*指派司机车辆*/
+
+
+/*.list-driver .item-checkbox {
+    padding-left: 80px;
+}*/
+
+.list-driver .item-checkbox .car-face {
+    left: 30px;
+}
+
+.list-driver .item-checkbox .checkbox {
+    left: -5px;
+    top: 42px;
+}
+
+
+/*选择认证企业*/
+
+.list-company-checkbox {
+    margin-left: 15px;
+}
+
+.company-checkbox {
+    padding-left: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.company-checkbox .checkbox {
+    margin-top: -20px;
+    left: -8px;
+}
+
+.company-checkbox .item-driver {
+    padding-left: 68px;
+    border-bottom: none;
+}
+
+
+/*挂靠车*/
+
+.item-avatar img.driver-car {
+    border-radius: 0;
+    width: 38px;
+    height: 28px;
+    top: 18px;
+}
+
+.btn-agreeapply {
+    padding: 8px 10px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 12px;
+    background: #EA6118;
+}
+
+
+/*新的好友页面*/
+
+.list-newcar {
+    padding-left: 15px;
+}
+
+.list-newcar .item {
+    border: none;
+    border-bottom: 1px solid #f0f0f0;
+    margin: 0;
+    /*color: #999;*/
+    padding: 12px 15px 12px 40px;
+}
+
+.list-newcar .item-icon-left .icon {
+    left: 5px;
+}
+
+.list-newcar .item:last-child {
+    border-bottom: none;
+}
+
+
+/*新的好友页面图标尺寸*/
+
+.search-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.tel-icon {
+    width: 14px;
+    height: 22px;
+}
+
+.driver-num {
+    position: absolute;
+    top: 0;
+    /*right: 0;*/
+    z-index: 999;
+    overflow: visible;
+}
+
+
+/*底部按钮*/
+
+.button-foot {
+    position: relative;
+    font-size: 14px;
+    line-height: 42px;
+}
+
+.button-foot .col-67 {
+    line-height: 32px;
+    padding-left: 15px;
+}
+
+.button-foot .checkbox {
+    left: -7px;
+    top: 5px;
+    padding: 0;
+}
+
+.button-foot .col-50 {
+    text-align: center;
+    margin: -5px;
+}
+
+.button-foot .col:last-child {
+    text-align: center;
+    margin: -5px;
+}
+
+.button-foot .col-white {
+    background: #fff;
+    color: #8b572a;
+    margin: -5px;
+    /*border-top: 1px solid #ddd;*/
+}
+
+.button-foot .col-light {
+    background: #fff;
+    color: #999;
+    margin: -5px 0 -5px -5px;
+    /*border-top: 1px solid #f0f0f0;*/
+    border-left: 1px solid #f5f5f5;
+    font-size: 14px;
+    text-align: center;
+}
+
+.button-foot .col-50 {
+    text-align: center;
+    color: #8b572a;
+}
+
+.button-foot .col-red {
+    color: #fff;
+    background: #DB4226;
+}
+
+.button-foot .col-green {
+    color: #fff;
+    background: #68b54b;
+    ;
+}
+
+.button-foot .col-dark {
+    color: #b7b7b7;
+    background: #E2E2E2;
+}
+
+.button-foot .col-brown {
+    background: #FEFFD9;
+    color: #8b572a;
+    margin: -5px;
+}
+
+.button-foot .col-brown1 {
+    background: #8b572a;
+    color: #fff;
+    margin: -5px;
+}
+
+.button-foot .col-purple {
+    background: #9898E7;
+    color: #fff;
+    margin: -5px;
+}
+
+.button-foot .text-red {
+    color: #DB4226;
+}
+
+.button-foot .text-gray {
+    color: #999;
+}
+
+.button-foot .text-gray1 {
+    color: #666;
+}
+
+.button-foot .col-yellow {
+    color: #8b572a;
+    background: #ffe89a;
+}
+
+.button-foot .text-purple {
+    color: #ad7ff7;
+}
+.button-foot .text-blue {
+    color: #2A68F4;
+}
+.button-foot .col-25 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.button-foot .text-orange {
+    color: #FF6C00;
+}
+/*底部按钮上文字有两行时*/
+
+.bar .title-second {
+    top: 5px;
+}
+
+
+/*物流订单详情*/
+
+.antcar-bg {
+    background: url(../img/common/driver-car.gif) no-repeat center center;
+    background-size: 375px;
+    padding: 20px 0;
+    background-position: center -15px;
+}
+
+.item-offer-no {
+    /*padding-left: 0;*/
+}
+
+.item-offer-border-top {
+    /*padding-left: 0;
+    border-top: 1px solid #f0f0f0;*/
+    margin-left: 15px;
+    border-top: 1px solid #f5f5f5;
+    padding-left: 0;
+}
+
+.item-offer-border-top h2 {
+    /*padding-left: 0;*/
+}
+
+
+/*列表详情*/
+
+.item-passdetail {
+    padding: 14px 15px;
+    border: none;
+    margin: 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.item-passdetail h2 {
+    font-size: 14px;
+}
+
+.item-passdetail .icon {
+    top: -4px;
+    right: 0;
+}
+
+.item-passdetail p {
+    white-space: normal;
+    font-size: 12px;
+}
+
+.list-passcompany {
+    padding: 5px;
+    background: #fff;
+    border-bottom: 1px solid #f5f5f5;
+    margin-top: 20px;
+}
+
+.list-passcompany .item {
+    border: none;
+    padding: 12px 0 12px 68px;
+}
+
+
+/*司机车辆详情*/
+
+
+/*采购数量、运输数量等-加减输入框*/
+
+.driver-input {
+    padding-right: 15px;
+}
+
+.driver-input input {
+    width: 60px;
+    background: #f4f4f4;
+    height: 30px;
+    border-radius: 2px;
+    margin: 0 5px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.driver-input img {
+    width: 30px;
+    height: 30px;
+}
+
+
+/*司机车辆详情车辆图标尺寸*/
+
+.car-img {
+    width: 330px;
+    height: 175px;
+}
+
+
+/*车辆分组*/
+
+.list .item-type-border {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.list .item-type-border .icon {
+    color: #666;
+    font-size: 26px;
+}
+
+.list .item-type-group {
+    padding-left: 65px;
+}
+
+.item-type-group .checkbox {
+    left: 10px;
+}
+
+
+/*运输-订单号*/
+
+.list-item .item-offer-transport {
+    border-bottom: 1px solid #f0f0f0;
+    padding-left: 0;
+}
+
+.transport-face {
+    width: 24px;
+    height: 24px;
+}
+
+
+/*地址管理图标透明度*/
+
+.img_opacity {
+    opacity: 0.1;
+}
+
+.img_opacity_all {
+    opacity: 1;
+}
+
+.nav-icon {
+    width: 45px;
+    height: 45px;
+}
+
+
+/*订单状态*/
+
+.row-order {
+    color: #bbb;
+}
+
+.row-order h5 {
+    color: #bbb;
+    margin-top: 5px;
+}
+
+.row-order .col.active {
+    font-weight: bold;
+    color: #222;
+}
+
+.row-order .col.active .order-icon {
+    font-weight: bold;
+}
+
+.row-order .col.active h5 {
+    font-weight: bold;
+    color: #222;
+}
+
+.order-icon {
+    font-size: 28px;
+}
+
+.order-select {
+    border: none;
+    background: #A2A2F0;
+    color: #fff;
+}
+
+.order-num {
+    position: absolute;
+    /* top: -9px;
+    right: -6px; */
+    z-index: 99;
+}
+
+
+/*///////////////5.0.0/////////////////////*/
+
+.line-icon {
+    width: 16px;
+    height: 45px;
+    margin-right: 8px;
+}
+
+/*订单详情*/
+
+.item-order {
+    border: none;
+}
+
+.item-order .ion-close-round {
+    font-size: 36px;
+}
+
+.order-car {
+    width: 46px;
+    height: 34px;
+    margin-right: 15px;
+}
+
+
+.detail-gap {
+    margin-right: 10px;
+}

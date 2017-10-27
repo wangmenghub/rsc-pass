@@ -1,0 +1,15 @@
+<div>
+    <div class="bg-white" ng-click="$root.rootGoDetail(vm.info.role,data)">
+        <div class="item item-offer">
+            <h4 class="bold">
+                {{vm.info.company_name}}
+                <img ng-if="vm.info.verify_phase == 'SUCCESS'" src="./img/158/label-v.png" class="label-v">
+            </h4>
+            <h5 class="text-gray">{{vm.info.province}}- {{vm.info.city}}</h5>
+            <div class="item-face text-center gap-5">
+                <img ng-src="{{vm.info.photo_url}}" class="face img-circle" image-404="./img/common/logo-icon.png">
+                <h6 class="text-gray">{{vm.info.user_name}}</h6>
+            </div>
+        </div>
+    </div>
+</div>

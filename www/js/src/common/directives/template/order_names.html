@@ -1,0 +1,12 @@
+<div class="row item-add">
+    <div class="col col-80">
+        <div class="row row-wrap">
+            <h4 class="col col-50 text-green">{{item.name}}</h4>
+            <h4 class="col col-50 text-gray" ng-if='item.measure_unit.length>0'>{{item.measure_unit[0].value}}{{item.measure_unit[0].unit}}</h4>
+        </div>
+        <div class="row row-wrap">
+            <h6 class="col col-50 text-green" ng-if='i.value' ng-repeat="i in item.attribute track by $index">{{i.name}} {{i.value}}{{i.unit}}</h6>
+        </div>
+    </div>
+    <!--<img src="./img/common/pro-img1.png" class="col pro-img1">-->
+</div>

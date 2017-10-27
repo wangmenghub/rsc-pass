@@ -1,0 +1,14 @@
+<ion-view view-title="默认组车辆">
+	<ion-content ng-init="init()" class="bg-gray" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+		<ion-refresher spinner="spiral" on-refresh="doRefresh()" ng-if="Platform.isWebView()"></ion-refresher>
+		<div ng-if="carList.length == 0">
+			<no-data-hint></no-data-hint>
+		</div>
+		<car-item-group current-page='query.page' ng-if="carList.length != 0" pages='groupInfo.pages' show="true" selected="selectCar(car)"
+						car-list="carList" operation="operation(car)" operation-text="分配" remove-car='remove' del="del(car)" next='next()'
+						previous='previous()'
+						count="carCount" group="setGroupMulti()"></car-item-group>
+		<ion-infinite-scroll ng-if="hasMore" icon="ion-loading-c" on-infinite="loadMore()" distance="15%">
+		</ion-infinite-scroll>
+	</ion-content>
+</ion-view>

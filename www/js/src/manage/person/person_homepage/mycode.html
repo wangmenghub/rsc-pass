@@ -1,0 +1,35 @@
+<ion-modal-view class="bg-blur">
+    <ion-content class="code-bg" on-swipe-down="vm.closeModalCode()">
+        <div class="row list-mycode gap-10">
+            <div class="col col-25"></div>
+            <div class="col">
+                <div class="item item-avatar">
+                    <img ng-src="{{vm.user.photo_url}}" class="img-circle img-size" image-404="./img/common/infor-face.png">
+                    <h3>
+                        {{vm.user.real_name}}
+                    </h3>
+                    <h4 class="text-gray">运输：<span ng-repeat="item in vm.user.transport track by $index">{{item|categoryFilter}}&nbsp</span>
+                        <span ng-if="vm.user.transport.length==0">无</span>
+                    </h4>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <div class="home-divider">
+                <span>互联网+云平台</span>
+            </div>
+            <h5>
+                <img src="./img/158/label-v.png" class="label-v">
+            </h5>
+            <div class="code-img gap-30 center-block">
+                <qrcode data="{{vm.code}}" size="220"></qrcode>
+            </div>
+            <h5 class="gap-10">扫描二维码加好友</h5>
+            <h5 class="gap-5">查看生意圈实时动态</h5>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar bar-dark">
+        <h1 class="title text-brown" ng-click='vm.closeModalCode()'>关闭</h1>
+    </ion-footer-bar>
+</ion-modal-view>

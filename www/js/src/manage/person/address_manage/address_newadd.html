@@ -1,0 +1,38 @@
+<ion-modal-view class='bg-blur'>
+    <ion-header-bar class="bar bar-nocolor">
+        <button class="button button-clear button-primary" ng-click='closeModal()'>关闭</button>
+        <h1 class="title">
+            {{vm.type == 'Pick_up_the_goods' ? '提货地址':'交货地址'}}
+        </h1>
+        <button class="button button-clear button-second" ui-sref="rsc.traffic_address_contacts({menu:vm.menu,source:vm.source})">通讯录导入</button>
+    </ion-header-bar>
+    <ion-content ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div>
+            <div class="bg-white gap-10">
+                <div class="list list-item list-type-input">
+                    <li class="item item-input list-input">
+                        <span class="input-label text-black">联系人</span>
+                        <input type="text" placeholder="请输入" ng-model="vm.addressOne.prin_name" maxlength="6" class="text-right">
+                    </li>
+                    <li class="item item-input list-input">
+                        <span class="input-label text-black">手机号码</span>
+                        <input type="tel" placeholder="请输入" ng-model="vm.addressOne.prin_phone" maxlength="11" class="text-right">
+                    </li>
+                    <li class="item item-except-adrress item-icon-right">
+                        <!--<span class="pull-right">山西省 太原市 杏花岭区</span>-->
+                        <city-picker options="vm.pickCityPickDataSendNew"></city-picker>
+                    </li>
+                </div>
+                <label class="item item-input list-input">
+                    <textarea class="text-gray1" ng-model="vm.addressOne.addr" placeholder="请输入详细地址" maxlength="200" rows="3" wrap="soft"></textarea>
+                </label>
+            </div>
+        </div>
+    </ion-content>
+
+    <div class="bar bar-footer bar-light">
+        <div class="title" ng-click="vm.saveEditAddress()">保存</div>
+    </div>
+
+
+</ion-modal-view>

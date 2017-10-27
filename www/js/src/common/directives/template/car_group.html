@@ -1,0 +1,62 @@
+<div>
+    <div ng-repeat="item in carGroup">
+        <div class="list list-item">
+            <li class="item item-type item-type-border item-icon-right gap-10" ng-class="{'item-type-group item-icon-left item-checkbox':status != 'replace'}">
+                <span class="icon checkbox" ng-if="status != 'replace'">
+					<input type="checkbox" ng-model="item.checked" ng-click="selAll(item)">
+                </span>
+				{{item.name}}({{item.count}})
+                <i class="icon" ng-class="item.isSel?'ion-ios-arrow-up':'ion-ios-arrow-down'" ng-click="getCars(item)"></i>
+            </li>
+        </div>
+        <!--<h5 class="list-inset gap-10 text-gray1">
+			<span ng-click="getCars(item)">
+			{{item.name}}
+		<i ng-class="item.isSel?'ion-ios-arrow-down':'ion-ios-arrow-up'"></i>
+		</span>
+			<span class="pull-right" ng-if="status != 'replace'" ng-click="selAll(item)">全选</span>
+		</h5>-->
+        <div class="">
+            <div class="bg-white" ng-if="item.isSel">
+                <div class="list list-driver">
+                    <li class="item item-driver item-icon-right item-checkbox" ng-if="status != 'replace'" ng-repeat="car in item.cars track by car.user_id"
+                        ng-click="selectCar(car,item)">
+                        <!--<img src="{{car.truck_log | imgDefault:'car'}}" class="car-face">-->
+                        <span class="checkbox">
+						     <input type="checkbox" ng-model="car.checked" ng-click="selectCar(car,item)">
+                        </span>
+                        <h3 class="text-blue">{{car.truck_num}}<img src="./img/pass/pass-icon2.png" class="pass-icon"></h3>
+                        <h5 class="text-gray1" ng-if="car.truck_type||car.truck_long">{{car.truck_type|carType}}，载重{{car.truck_weight|carMaxWeight}}吨，长{{car.truck_long|carLongValue}}米</h5>
+						<h5 class="text-gray1" ng-if="!car.truck_type&&!car.truck_long">载重{{car.truck_weight|carMaxWeight}}吨</h5>
+						<h5 class="{{car.tip.indexOf('0')==5?'':'text-red'}}">{{car.tip}}</h5>
+                        <i class="item-face text-center gap-10">
+							<img ng-src="{{car.user_logo}}" image-404="./img/common/infor-face.png" class="face img-circle">
+							<h6 class="text-gray">{{car.real_name}}</h6>
+						</i>
+                    </li>
+                    <li class="item item-driver item-icon-right item-checkbox" ng-if="status == 'replace'" ng-repeat="car in item.cars track by car.user_id"
+                        ng-click="selectRadioCar(car)">
+                        <!--<img src="{{car.truck_log | imgDefault:'car'}}" class="car-face">-->
+                        <span class="checkbox">
+                               <input type="radio" ng-checked="car.checked">
+                        </span>
+                        <h3 class="text-blue">{{car.truck_num}}<img src="./img/pass/pass-icon2.png" class="pass-icon"></h3>
+						<h5 class="text-gray1" ng-if="car.truck_type||car.truck_long">{{car.truck_type|carType}}，载重{{car.truck_weight|carMaxWeight}}吨，长{{car.truck_long|carLongValue}}米</h5>
+						<h5 class="text-gray1" ng-if="!car.truck_type&&!car.truck_long">载重{{car.truck_weight|carMaxWeight}}吨</h5>
+						<h5 class="text-red">{{car.tip}}</h5>
+                        <i class="item-face text-center gap-10">
+							<img ng-src="{{car.user_logo}}" image-404="./img/common/infor-face.png" class="face img-circle">
+							<h6 class="text-gray">{{car.real_name}}</h6>
+						</i>
+                    </li>
+                    <!--<div ng-show="item.hide">-->
+                        <!--<a class="list-item-border"></a>-->
+                        <!--<div class="text-center">-->
+                            <!--<h5 class="hover" ng-click="loadMore(item)">加载更多></h5>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

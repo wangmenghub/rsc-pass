@@ -1,0 +1,304 @@
+<ion-view>
+    <!-- <ion-nav-buttons side="left">
+        <span menu-close nav-transition='ios' nav-direction="back" ng-if="!!vm.sidebar||!changeType()" ng-click="goMenuClose(vm.state)">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons> -->
+    <ion-nav-bar class="bar bar-nocolor">
+        <ion-nav-buttons>
+            <button class="button button-clear icon ion-ios-arrow-back " ng-click="rootGoBack()">
+                返回
+                <!--<span menu-close nav-transition='ios' nav-direction="back">
+                    <i class="icon ion-ios-arrow-back"></i>-->
+                    <!--<span class="default-title">返回</span>-->
+                <!--</span>-->
+        </button>
+        </ion-nav-buttons>
+        <h1 class="title">个人主页</h1>
+        <ion-nav-buttons side="secondary">
+            <button ng-if="$root.rscPlatform == 'isapp'&&vm.operate" class="button button-clear" ui-sref="trade.trade_person_setting">设置</button>
+            <button ng-if="$root.rscPlatform == 'isapp'" class="button button-clear" ng-click="shareAction()">分享</button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <!--<ion-nav-buttons side="right">
+        <button ng-if="$root.rscPlatform == 'isapp'" class="button button-clear" ui-sref="trade.trade_person_setting" ng-if="vm.operate">设置</button>
+        <button ng-if="$root.rscPlatform == 'isapp'" class="button button-clear" ng-click="shareAction()">分享</button>
+    </ion-nav-buttons>-->
+    <ion-content class="has-header" ng-class="{'has-footer':!vm.operate}" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div class="text-center gap-20">
+            <img ng-src="{{vm.userInfo.user.photo_url}}" class="companyhome-icon" image-404="./img/common/infor-face.png">
+            <h3 class="text-black">
+                {{vm.userInfo.user.real_name}}&nbsp-
+                <span ng-if="vm.userInfo.user.post&&vm.userInfo.user.post != ''"> 
+                    {{vm.userInfo.user.post}} 
+                </span>
+                <span ng-if="!vm.userInfo.user.post||vm.userInfo.user.post == ''"> 
+                    {{vm.userInfo.user.role|rolefilter}} 
+                </span>
+            </h3>
+            <h5 class="text-gray gap-10" ng-if="vm.role != 'TRAFFIC_ADMIN'">
+                <span ng-if="vm.role != 'TRADE_SALE'">采购：
+                    <span ng-repeat="item in vm.userInfo.user.buy track by $index">{{item|categoryFilter}}&nbsp</span>
+                <span ng-if="vm.userInfo.user.buy.length==0">无</span>
+                </span>
+                &nbsp&nbsp
+                <span ng-if="vm.role != 'TRADE_PURCHASE'">销售：
+                    <span ng-repeat="item in vm.userInfo.user.sell track by $index">{{item|categoryFilter}}&nbsp</span>
+                <span ng-if="vm.userInfo.user.sell.length==0">无</span>
+                </span>
+            </h5>
+            <div ng-click="rootGoDetail(vm.comType,vm.userInfo.company._id)">
+                <h4 class="text-black gap-20">
+                    {{vm.userInfo.company.nick_name}}
+                </h4>
+                <h5 class="text-orange gap-10">
+                    <img src="./img/158/label-v.png" class="label-v" ng-if="vm.companyInfo.verify_phase=='SUCCESS'">
+                    <img src="./img/158/label-model.png" class="label-model" ng-if="!!vm.vip">
+                </h5>
+            </div>
+        </div>
+        <div class="row row-homepage text-center text-gray gap-20">
+            <div class="col" ng-if="vm.role != 'TRADE_PURCHASE'" ng-class='{"active":vm.type == "SALE"}' ng-click="vm.tabSwitch('SALE')">
+                <h5>销售</h5>
+                <h5 class="gap-5">{{vm.count.SALE||0}}</h5>
+            </div>
+
+            <div class="col" ng-if="vm.role != 'TRADE_SALE'" ng-class='{"active":vm.type == "PURCHASE"}' ng-click="vm.tabSwitch('PURCHASE')">
+                <h5>采购</h5>
+                <h5 class="gap-5">{{vm.count.PURCHASE||0}}</h5>
+            </div>
+
+            <div class="col" ng-class='{"active":vm.type == "TRAFFIC"}' ng-click="vm.tabSwitch('TRAFFIC')">
+                <h5>货源</h5>
+                <h5 class="gap-5">{{vm.count.TRAFFIC||0}}</h5>
+            </div>
+        </div>
+
+
+        <div class="bg-white gap-row" ng-if="vm.loading">
+            <div class="text-center gap-70">
+                <h4 class="text-gray">正在加载...</h4>
+            </div>
+        </div>
+
+        <div class="bg-white" ng-if="!vm.loading">
+            <div class="bg-white gap-10" ng-if="!!vm.content.length">
+                <div class="list list-myitem slide-top">
+                    <div ng-repeat="list in vm.content track by $index">
+
+                        <div class="text-center gap-10" ng-if="list.time_creation">
+                            <span class="text-gray order-title">{{list.time_creation|rsctime}}</span>
+                            <div class="gap-20"></div>
+                        </div>
+
+                        <!--采购-->
+                        <li class="item item-avatar" ng-if="list.type == 'trade_demand'">
+                            <img ng-src="{{list.user.photo_url}}" class="infor-icon" image-404="./img/common/infor-face.png" ng-click="rootGoDetail(list.user.role,list.user._id)">
+                            <h3 class="text-black">
+                                {{list.user.real_name}}-<span ng-if="list.user.post != ''">{{list.user.post}}</span>
+                                <span ng-if="list.user.post == ''">{{list.user.role|rolefilter}}</span>
+                            </h3>
+
+                            <div class="myitem-list gap-5">
+                                <div class="item-tradelist">
+                                    <h2>
+                                        <img src="./img/158/label-icon-3.png " class="label-icon-trade">
+                                        <span>{{list.newData.layer_1_chn}}&nbsp{{list.newData.layer_2_chn}}</span>
+                                        <span class="pull-right text-gray normal">{{list.data.amount}}{{list.newData.pass_unit}}</span>
+                                    </h2>
+                                    <div class="clear"></div>
+                                    <div class="item-add gap-10 item-brown" ng-repeat="item in list.data.product_categories">
+                                        <h5 class="title bold text-brown" ng-if="item.layer_3_chn">{{item.layer_3_chn}}</h5>
+                                        <h5 class="row row-wrap" ng-repeat="i in item.product_name">
+                                            <span class="col col-10 text-brown" ng-if="i.name">{{i.name}}</span>
+                                            <span class="col col-50 text-brown" ng-repeat="n in i.attribute">{{n.name}}&nbsp{{n.value}}&nbsp{{n.unit}}</span>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <p class="gap-5">
+                                    <span class="text-red">{{list.data.att_payment|settlementType}}，{{list.data.att_settlement|payType}}</span>
+                                    <i class="pull-right text-gray" ng-if="!timeOut">倒计时：<timer end-time="list.data.time_validity" ng-if="!timeOut" finish-callback="finsh()">{{days}}天{{hours}}小时{{minutes}}分{{seconds}}秒</timer></i>
+                                </p>
+                                <p class="text-gray">已有{{list.data.count_offer}}家企业报价</p>
+                                <p class="text-gray">
+                                    {{list.time_long}}
+                                    <span class="pull-right num-fixed">
+                                                        <span ng-if="list.showPraise">
+                                                            <i class="praise ion-android-favorite-outline" ng-click="vm.isPraise(list._id,list.users,list.isPraised,list.showPraise,$index)" ng-if="!list.isPraised"> 赞</i>
+                                                            <i class="praise ion-android-favorite-outline" ng-click="vm.isPraise(list._id,list.users,list.isPraised,list.showPraise,$index)" ng-if="list.isPraised"> 取消</i>
+                                                        </span>
+                                    <img src="./img/common/info-icon.png" class="info-icon" ng-click="list.showPraise = !list.showPraise">
+                                    </span>
+                                </p>
+                                <p class="praise-text" ng-if="list.users.length != 0">
+                                    <i class="ion-android-favorite-outline"></i>
+                                    <!--<i class="ion-android-favorite" ng-if="list.isPraised == true"></i>-->
+                                    <span ng-repeat="item in list.users track by $index">{{item.real_name}}<i ng-if="list.users.length != $index+1">，</i></span>
+                                    <span class="ion-arrow-up-b"></span>
+                                </p>
+                            </div>
+                        </li>
+
+                        <!--报价-->
+                        <li class="item item-avatar" ng-if="list.type == 'trade_pricing'">
+                            <img ng-src="{{list.user.photo_url}}" class="infor-icon" image-404="./img/common/infor-face.png" ng-click="rootGoDetail(list.user.role,list.user._id)">
+                            <h3 class="text-black">
+                                {{list.user.real_name}}-<span ng-if="list.user.post != ''">{{list.user.post}}</span>
+                                <span ng-if="list.user.post == ''">{{list.user.role|rolefilter}}</span>
+                            </h3>
+                            <div class="myitem-list gap-5 ">
+                                <div class="item-tradelist ">
+                                    <h2>
+                                        <img src="./img/me/label-icon-1.png " class="label-icon-trade">
+                                        <span>{{list.newData.layer_1_chn}}&nbsp{{list.newData.layer_2_chn}}</span>
+                                        <span ng-if="list.data.ownType == 'bidding'">
+                                                        <!-- <span ng-if="list.newData.price_routes.type == 'DjJJ'"> -->
+                                                            <span class="pull-right text-red normal" ng-if="!!list.newData.price_routes.price&&!list.newData.price_routes.min">
+                                                                ￥{{list.newData.price_routes.price}}
+                                                            </span>
+                                        <span class="pull-right text-red normal" ng-if="!!list.newData.price_routes.min">
+                                                                ￥{{list.newData.price_routes.min}}起
+                                                            </span>
+                                        <span class="pull-right text-red normal" ng-if="!list.newData.price_routes.price&&!list.newData.price_routes.min">
+                                                                ￥{{list.newData.price_routes.min}} ~ ￥{{list.newData.price_routes.max}}
+                                                            </span>
+                                        <!-- </span> -->
+
+                                        </span>
+                                        <span ng-if="list.data.ownType == 'pricing'">
+                                                        <span ng-if="list.newData.price_routes.type == 'DJ'">
+                                                            <span class="pull-right text-red normal" ng-if="!list.newData.price_routes.FOB">
+                                                                到岸价￥{{list.newData.price_routes.CIF}}
+                                                            </span>
+                                        <span class="pull-right text-red normal" ng-if="!list.newData.price_routes.CIF">
+                                                                出厂价￥{{list.newData.price_routes.FOB}}
+                                                            </span>
+                                        <span class="pull-right text-red normal" ng-if="!!list.newData.price_routes.CIF&&!!list.newData.price_routes.FOB">
+                                                                ￥{{list.newData.price_routes.FOB}} ~ ￥{{list.newData.price_routes.CIF}}
+                                                            </span>
+                                        </span>
+                                        <span ng-if="list.newData.price_routes.type != 'DJ'">
+                                                            <span class="pull-right text-red normal ">￥{{list.newData.price_min||0}} ~ {{list.newData.price_max}}</span>
+                                        </span>
+                                        </span>
+                                    </h2>
+                                    <div class="clear"></div>
+                                    <div class="item-add gap-10" ng-repeat="item in list.data.product_categories">
+                                        <h5 class="title bold text-green" ng-if="item.layer_3_chn">{{item.layer_3_chn}}</h5>
+                                        <div ng-repeat="i in item.product_name">
+                                            <h5 class="title text-green" ng-if="i.name">{{i.name}}</h5>
+                                            <h5 class="row row-wrap">
+                                                <span class="col col-50 text-green" ng-repeat="n in i.attribute">{{n.name}}&nbsp{{n.value}}&nbsp{{n.unit}}</span>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="gap-5">
+                                    <span class="text-red ">{{list.data.att_payment|settlementType}}，{{list.data.att_settlement|payType}}</span>
+                                </p>
+                                <p class="text-gray ">
+                                    {{list.time_long}}
+                                    <span class="pull-right num-fixed">
+                                                        <span ng-if="list.showPraise ">
+                                                            <i class="praise ion-android-favorite-outline " ng-click="vm.isPraise(list._id,list.users,list.isPraised,list.showPraise,$index)" ng-if="!list.isPraised "> 赞</i>
+                                                            <i class="praise ion-android-favorite-outline " ng-click="vm.isPraise(list._id,list.users,list.isPraised,list.showPraise,$index)" ng-if="list.isPraised "> 取消</i>
+                                                        </span>
+                                    <img src="./img/common/info-icon.png " class="info-icon " ng-click="list.showPraise=! list.showPraise ">
+                                    </span>
+                                </p>
+                                <p class="praise-text " ng-if="list.users.length !=0 ">
+                                    <i class="ion-android-favorite-outline "></i>
+                                    <!--<i class="ion-android-favorite " ng-if="list.isPraised==true "></i>-->
+                                    <span ng-repeat="item in list.users track by $index ">{{item.real_name}}<i ng-if="list.users.length!=$index+1">，</i></span>
+                                    <span class="ion-arrow-up-b "></span>
+                                </p>
+                            </div>
+                        </li>
+
+                        <!--traffic_assign 物流需求 空心货源-->
+                        <li class="item item-avatar" ng-if="list.type == 'traffic_assign'">
+                            <img ng-src="{{list.user.photo_url}}" class="infor-icon" image-404="./img/common/infor-face.png" ng-click="rootGoDetail(list.user.role,list.user._id)">
+                            <h3 class="text-black">
+                                {{list.user.real_name}}-<span ng-if="list.user.post != ''">{{list.user.post}}</span>
+                                <span ng-if="list.user.post == ''">{{list.user.role|rolefilter}}</span>
+                            </h3>
+
+                            <div class="myitem-list gap-5">
+                                <img src="./img/common/label-icon-purple1.png" class="label-icon1 pull-left">
+                                <div class="pull-left text-center">
+                                    <h4 class="bold">{{list.data.send_city}}</h4>
+                                    <h5 class="text-gray">{{list.data.send_district}}</h5>
+                                </div>
+                                <span class="pull-left route">-></span>
+                                <div class="pull-left text-center">
+                                    <h4 class="bold">{{list.data.receive_city}}</h4>
+                                    <h5 class="text-gray">{{list.data.receive_district}}</h5>
+                                </div>
+                                <!--<img src="./img/common/line.png" class="pull-left master-line">-->
+                                <div class="pull-right text-center">
+                                    <h4 class="text-gray1">{{list.data.amount}}吨</h4>
+                                    <h5 class="text-gray">{{list.data.material|paymentChoice}}</h5>
+                                </div>
+                                <div class="clear"></div>
+                                <p>
+                                    {{list.data.company_trade_name}}
+                                </p>
+                                <p>
+                                    <span class="text-red">{{list.data.price_type == 'fix'?'定':'竞'}}价招标 {{list.data.can_join?'可凑单':'不可凑单'}}</span>
+                                    <span class="pull-right">已指派{{list.data.verify_company.length?list.data.verify_company.length:0}}家物流公司</span>
+                                </p>
+                                <p>
+                                    <span>倒计时：<timer end-time="list.data.time_validity" ng-if="!timeOut" finish-callback="finsh()">{{days}}天{{hours}}小时{{minutes}}分{{seconds}}秒</timer></span>
+                                </p>
+
+                                <p class="text-gray ">
+                                    {{list.time_long}}
+                                    <span class="pull-right num-fixed">
+                                                        <span ng-if="list.showPraise ">
+                                                            <i class="praise ion-android-favorite-outline " ng-click="vm.isPraise(list._id,list.users,list.isPraised,list.showPraise,$index)" ng-if="!list.isPraised "> 赞</i>
+                                                            <i class="praise ion-android-favorite-outline " ng-click="vm.isPraise(list._id,list.users,list.isPraised,list.showPraise,$index)" ng-if="list.isPraised "> 取消</i>
+                                                        </span>
+                                    <img src="./img/common/info-icon.png " class="info-icon " ng-click="list.showPraise=! list.showPraise ">
+                                    </span>
+                                </p>
+                                <p class="praise-text " ng-if="list.users.length !=0 ">
+                                    <i class="ion-android-favorite-outline "></i>
+                                    <!--<i class="ion-android-favorite " ng-if=" "></i>-->
+                                    <span ng-repeat="item in list.users track by $index ">{{item.real_name}}<i ng-if="list.users.length!=$index+1">，</i></span>
+                                    <span class="ion-arrow-up-b "></span>
+                                </p>
+                            </div>
+                        </li>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white gap-10" ng-if="!vm.content.length">
+                <div class="list list-myitem slide-top text-center gap-70">
+                    暂无数据
+                </div>
+            </div>
+
+            <ion-infinite-scroll ng-if="vm.exist" immediate-check="false" icon="ion-loading-c" on-infinite="vm.loadMore()" distance="15%">
+            </ion-infinite-scroll>
+        </div>
+
+    </ion-content>
+
+
+    <ion-footer-bar class="bar bar-light" ng-if="!vm.operate">
+        <div class="row button-foot">
+            <div class="col col-light" ng-if="vm.userInfo.friend" ng-click="vm.addRelation('friend')">
+                加好友
+            </div>
+            <div class="col col-light" ng-if="!!vm.status" ng-click="vm.addRelation('supply')">
+                申请合作
+            </div>
+            <div class="col col-green" ng-if="!!vm.chatShow&&!vm.operate" ng-click="vm.chat()">
+                发消息
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

@@ -1,0 +1,803 @@
+/* Empty. Add your own CSS if you like */
+
+
+/*交易管页面*/
+
+.item-tradelist h2 {
+    position: relative;
+    padding-left: 40px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+/*通讯录letter*/
+
+.alpha_sidebar {
+    position: fixed;
+    top: 23%;
+    right: 5px;
+    z-index: 99;
+}
+
+.alpha_sidebar h6 {
+    font-size: 10px;
+    margin: 4px 0;
+}
+
+
+/*新的好友页面-新的供应商按钮*/
+
+.btn-agreeapply-blue {
+    background: #549BE2;
+}
+
+.btn-agreeapply-green {
+    background: #6FBE4B;
+}
+
+
+/*企业设置*/
+
+.list-set {
+    padding-left: 15px;
+}
+
+.list-set .item {
+    padding: 15px 0 15px 0;
+    border: none;
+    margin: 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.list-set .item-input {
+    padding: 8px 0 7px 0;
+}
+
+.list-item .item img.face {
+    width: 40px;
+    height: 40px;
+}
+
+.list-item .item-icon-left .icon-left {
+    font-size: 14px;
+    /* color: #444; */
+    left: 0;
+}
+
+
+/*企业主页*/
+
+.bg-companyhome-noani {
+    padding-top: 120px;
+}
+
+.bg-companyhome {
+    background: url("../img/me/companyhome-bg.jpg") no-repeat;
+    background-size: cover;
+    padding-bottom: 25px;
+    background-position: center -25px;
+}
+
+.companyhome-icon {
+    border: 2px solid #fff;
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    margin: 20px 20px 5px 20px;
+}
+
+
+/*企业主页下方横线*/
+
+.row-companyhome-border {
+    margin: 0 15px;
+    border-top: 1px solid #f0f0f0;
+}
+
+
+/*互联网+云平台部分*/
+
+.home-divider {
+    height: 20px;
+    border-bottom: 1px solid #fff2e7;
+    margin: 10px 15px 20px 15px;
+}
+
+.home-divider span {
+    width: 150px;
+    height: 22px;
+    background: #fff2e7;
+    color: #e54f00;
+    line-height: 22px;
+    border-radius: 10px;
+    display: inline-block;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+
+/*上传图片栅格间距*/
+
+.col-companyhome {
+    text-align: center;
+    margin: 0 10px;
+    /*max-width: 90%;
+    min-width: 90%;*/
+}
+
+.col-companyhome .col.col-20 {
+    margin: 10px 2px 10px 2px;
+    max-width: 18%;
+    min-width: 18%;
+}
+
+.col-companyhome .col.col-20 div:last-child {
+    opacity: 0;
+}
+
+.col-companyhome1 {
+    text-align: center;
+    margin: 0 8px;
+}
+
+.col-companyhome1 .col.col-33 {
+    position: relative;
+    margin: 5px 0px 5px 0px;
+    max-width: 31.8%;
+    min-width: 31.8%;
+}
+
+.companyhome-checkbox {
+    position: absolute;
+    bottom: 4px;
+    right: -1px;
+}
+
+.col-companyhome .more-box {
+    display: inline-block;
+    width: 67px;
+    height: 67px;
+    background: #f0f0f0;
+    line-height: 67px;
+    font-size: 26px;
+    color: #999;
+}
+
+.show-icon {
+    width: 64px;
+    height: 64px;
+}
+
+.show-icon1 {
+    width: 110px;
+    height: 110px;
+}
+
+.show-icon2 {
+    width: 375px;
+    height: 335px;
+}
+
+
+/*个人主页下方按钮间隙*/
+
+.row-person .col-50 {
+    max-width: 48%;
+}
+
+.row-person .col-50:first-child {
+    margin-right: 10px;
+}
+
+
+/*企业主页底部（未用可删）*/
+
+.companyhome-bar .button {
+    padding: 0;
+    overflow: visible;
+    border: none;
+    font-size: 14px;
+}
+
+.companyhome-bar .button.text-gray {
+    color: #999;
+}
+
+.companyhome-bar .button.text-gray:hover {
+    color: #999;
+}
+
+.companyhome-bar .button.text-red {
+    color: #DB4226;
+}
+
+.companyhome-bar .button.text-red:hover {
+    color: #DB4226;
+}
+
+.companyhome-bar .button.text-green {
+    color: #459352;
+}
+
+.companyhome-bar .button.text-green:hover {
+    color: #459352;
+}
+
+.companyhome-bar .button.text-purple {
+    color: #ad7ff7;
+}
+
+.companyhome-bar .button.text-purple:hover {
+    color: #ad7ff7;
+}
+
+.companyhome-bar .button.text-gray1 {
+    color: #666;
+}
+
+.companyhome-bar .button.text-gray1:hover {
+    color: #666;
+}
+
+.companyhome-bar .button.activated {
+    background: transparent;
+}
+
+
+/*个人主页*/
+
+.bg-personhome {
+    padding-top: 50px;
+    background: url("../img/me/companyhome-bg.jpg") no-repeat;
+    background-size: cover;
+    padding-bottom: 25px;
+    background-position: center -25px;
+}
+
+
+/*地址管理*/
+
+.list-address {
+    margin-left: 15px;
+}
+
+.list-address .item-avatar {
+    min-height: 0;
+}
+
+.list-address .item-avatar img.landmark {
+    left: 3px;
+}
+
+.item-address-master {
+    border: none;
+    margin: 0;
+    border-top: 1px solid #f0f0f0;
+    padding: 10px 0 10px 40px;
+}
+
+.item-address-master:first-child {
+    border-top: none;
+}
+
+.item-address-master .checkbox {
+    top: 55%;
+    left: -5px;
+}
+
+.item-address-master span.text-gray {
+    padding: 0 10px;
+}
+
+.item-address-master h2 {
+    font-size: 14px;
+}
+
+.item-address-master p {
+    font-size: 12px;
+}
+
+
+/*企业管理*/
+
+.list-master {
+    background: url("../img/me/bg-master.jpg") no-repeat center -20px;
+    background-size: cover;
+    padding-top: 35px;
+    padding-bottom: 20px;
+}
+
+
+/*企业管理客服、重新认证按钮*/
+
+.menu-info-company {
+    width: 42%;
+    min-height: 34px;
+    line-height: 34px;
+    margin: 10px 29%;
+    padding-left: 0;
+}
+
+
+/*企业管理公司头像名称部分*/
+
+.item-master {
+    border: none;
+    background: transparent;
+    padding-left: 76px;
+    min-height: 80px;
+}
+
+.item-master img.logo-icon {
+    top: 12px;
+    max-width: 48px;
+    max-height: 48px;
+}
+
+
+/*.item-master img.logo-passicon {
+    top: 14px;
+}*/
+
+.item-master h2 {
+    color: #fff;
+    /*font-weight: bold;*/
+    font-size: 16px;
+    white-space: normal;
+}
+
+
+/*.item-master h5 .label-v {
+    margin-top: 5px;
+}*/
+
+.item-master h5 {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 11px;
+}
+
+.item-master .title-center {
+    margin-top: 10px;
+}
+
+.item-master.active,
+.item-master.activated {
+    background-image: linear-gradient(90deg, #A2A2F0 0%, #A2A2F0 100%);
+    border-color: #A2A2F0;
+}
+
+
+/*企业管理新消息*/
+
+.master-info {
+    position: relative;
+    padding: 3px 0 3px 25px;
+    background: #E8E8E8;
+    line-height: 34px;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+.master-info img {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    width: 30px;
+    height: 30px;
+}
+
+.master-info span {
+    font-size: 14px;
+    color: #333;
+}
+
+
+/*企业日报图标尺寸*/
+
+.item-avatar img.report-icon {
+    border-radius: 3px;
+    left: 0;
+    top: 12px;
+}
+
+
+/*企业动态*/
+
+.list-myitem .item-avatar h4 {
+    white-space: normal;
+}
+
+
+/*点赞后新消息页面*/
+
+.info-detail-first {
+    width: 120px;
+}
+
+.info-detail img {
+    margin-right: 10px;
+}
+
+.label-icon-no {
+    width: 32px;
+    height: 16px;
+}
+
+.info-detail small {
+    font-size: 8px;
+}
+
+
+/*消息页面数字提示*/
+
+.msg-num {
+    position: absolute;
+    top: 8px;
+    left: 35px;
+    z-index: 999;
+    overflow: visible;
+}
+
+
+/*企业日报*/
+
+.list-report li {
+    float: left;
+    padding-right: 5px;
+}
+
+.list-report li img {
+    width: 32px;
+    height: 32px;
+}
+
+
+/*二维码*/
+
+.code-bg {
+    background-image: linear-gradient(-178deg, #FFFFFF 33%, #E2E2E2 99%);
+    background-size: cover;
+    padding-bottom: 30px;
+    padding-top: 25px;
+}
+
+.list-mycode .item {
+    border: none;
+}
+
+.list-mycode .item-avatar {
+    padding-left: 80px;
+}
+
+.list-mycode .item-avatar img:first-child {
+    top: 16px;
+}
+
+.code-img {
+    width: 250px;
+    height: 250px;
+}
+
+
+/*新的好友图标尺寸*/
+
+.me-icon {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+
+/*加入企业*/
+
+.item-body-condensed {
+    padding: 0 15px 5px 15px;
+    border: none;
+}
+
+.item-body-condensed p {
+    margin: 0;
+    font-size: 12px;
+}
+
+
+/*3.0.0*/
+
+
+/*个人主页*/
+
+.bg-personhome1 {
+    background: url("../img/me/companyhome-bg1.jpg") no-repeat;
+    background-size: cover;
+    padding-bottom: 25px;
+    background-position: center -25px;
+}
+
+
+/*.row-homepage .col {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.row-homepage .col.active {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #E45102;
+}*/
+
+.row-homepage .col.active h5 {
+    color: #E45102;
+    font-weight: bold;
+}
+
+
+/*企业管理*/
+
+.bg-companymaster {
+    background: url("../img/me/bg-companymaster.png") no-repeat;
+    background-size: cover;
+    padding-top: 30px;
+    padding-bottom: 25px;
+}
+
+
+/*企业主页*/
+
+.bg-comhomepage {
+    background: url("../img/me/bg-comhomepage.png") no-repeat;
+    background-size: cover;
+    padding-top: 5px;
+    height: 250px;
+}
+
+
+/*个人主页*/
+
+.item-homepage {
+    padding-left: 90px;
+    min-height: 86px;
+}
+
+.item-avatar img.homepage-face {
+    top: 14px;
+    max-width: 60px;
+    max-height: 60px;
+}
+
+.item-avatar img.passhomepage-face {
+    top: 11px;
+}
+
+
+/*企业*/
+
+.row-home {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.row-home .col-home {
+    padding: 12px 0;
+    border-left: 1px solid #f0f0f0;
+}
+
+.row-home-wrap .col {
+    min-width: 25%;
+    max-width: 25%;
+    /*margin-top: 10px;*/
+}
+
+.home-icon {
+    font-size: 30px;
+    /*color: #f35626;*/
+    /*background-image: -webkit-linear-gradient(92deg, #f35626, #f35626);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: hue 15s infinite linear;*/
+}
+
+
+/*@keyframes hue {
+    0% {
+        -webkit-filter: hue-rotate(0deg);
+    }
+    100% {
+        -webkit-filter: hue-rotate(-360deg);
+    }
+}*/
+
+.role-icon {
+    vertical-align: middle;
+    background: #9DB7FF;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 20px;
+    padding: 2px 8px;
+}
+
+.majorper-img {
+    width: 230px;
+    height: 110px;
+    position: absolute;
+    bottom: 0;
+    left: 18%;
+}
+
+
+/**/
+
+.bg-personpage {
+    background: linear-gradient(180deg, #fff 1%, #f5f5f5 100%);
+    padding-top: 5px;
+}
+
+.bg-companynpage {
+    background: linear-gradient(180deg, #fff 10%, #f5f5f5 100%);
+    padding-top: 5px;
+}
+
+
+/*对话框*/
+
+.message-wrapper {
+    position: relative;
+}
+
+.message-wrapper:last-child {
+    margin-bottom: 10px;
+}
+
+img.profile-pic {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+img.profile-pic-left {
+    left: 10px;
+    top: 10px;
+}
+
+img.profile-pic-right {
+    right: 10px;
+    top: 10px;
+}
+
+.chat-bubble {
+    border-radius: 5px;
+    display: inline-block;
+    padding: 10px 18px;
+    position: relative;
+    margin: 10px;
+    width: 60%;
+}
+
+.chat-bubble:before {
+    content: "\00a0";
+    display: block;
+    position: absolute;
+}
+
+.chat-bubble img {
+    max-width: 100%;
+    max-height: 300px;
+}
+
+.chat-bubble .item-avatar {
+    background: transparent;
+    border: none;
+    border-top: 1px solid #f2f2f2;
+    padding-left: 55px;
+    padding: 10px 0 5px 55px;
+}
+
+.chat-bubble .item-avatar>img:first-child {
+    top: 13px;
+    left: 0;
+}
+
+.chat-bubble-left {
+    background-color: #4189EB;
+    color: #fff;
+    margin-left: 65px;
+}
+
+.chat-bubble-left:before {
+    background-color: #4189EB;
+    width: 0;
+    height: 0;
+    border: 8px solid;
+    border-color: #f5f5f5 #4189EB #f5f5f5 #f5f5f5;
+    left: -15px;
+}
+
+.chat-bubble-right {
+    background-color: #fff;
+    color: #8B572A;
+    float: right;
+    margin-right: 65px;
+}
+
+.chat-bubble-right:before {
+    background-color: #fff;
+    width: 0;
+    height: 0;
+    border: 8px solid;
+    border-color: #f2f2f2 #f2f2f2 #f2f2f2 #ffffff;
+    position: absolute;
+    right: -15px;
+}
+
+.message-footer {
+    position: relative;
+    /*background: #fff;*/
+}
+
+.message-footer .item-input-wrapper {
+    margin-left: 60px;
+    margin-right: 60px;
+    background: #fff;
+}
+
+.message-footer .item-input-wrapper .textarea {
+    padding-top: 20px;
+    width: 100%;
+    resize: none;
+}
+
+.footer-btn-wrap {
+    position: absolute;
+    /*top: 10px;*/
+}
+
+.footer-left {
+    left: 10px;
+}
+
+.footer-right {
+    right: 10px;
+}
+
+.text-send {
+    color: #999;
+    padding-left: 8px;
+    font-size: 14px;
+    display: inline-block;
+    margin-top: 3px;
+}
+
+.chat-icon {
+    width: 26px;
+    height: 26px;
+}
+
+.footer-emoji {
+    position: fixed;
+    bottom: 44px;
+    background: #fff;
+    padding: 5px 10px;
+    z-index: 999;
+}
+
+.footer-emoji ul {
+    float: left;
+}
+
+
+/*司机主页*/
+
+.driver-card {
+    position: absolute;
+    right: 20px;
+    top: 50px;
+}
+
+.driver-card .icon {
+    font-size: 28px;
+}
+
+.card-img {
+    width: 300px;
+    height: 150px;
+    border-radius: 6px;
+}

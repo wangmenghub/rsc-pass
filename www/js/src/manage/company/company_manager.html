@@ -1,0 +1,61 @@
+<!--<ion-view hide-nav-bar="true">
+    <div class="bar bar-header bar-stable">
+        <h1 class="title">企业</h1>
+        <button class="button button-clear" ui-sref="rsc.traffic_person_setting">设置</button>
+    </div>-->
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">管理</h1>
+        </div>
+    </ion-nav-title>
+    <ion-nav-buttons side="secondary">
+        <button ui-sref="rsc.traffic_person_setting" class="button button-clear">设置</button>
+    </ion-nav-buttons>
+    <ion-content ng-init="vm.init()" class="bg-royal1 has-footer" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <!--<div class="bg-orange" style="height:44px;"></div>-->
+        <rsc-company-label></rsc-company-label>
+        <rsc-relation template='template.html' company="vm.company_info"></rsc-relation>
+        <rsc-company-verify company="vm.company_info"></rsc-company-verify>
+
+
+
+        <div ng-if="vm.company_info&&vm.company_info.verify_phase == 'SUCCESS'" class="bg-gray" style="height:5px;"></div>
+
+        <div class="bg-gray" style="height:15px;"></div>
+        <div class="bg-white gap-row">
+            <div class="row row-wrap row-home-wrap text-center gap-7">
+
+                <div class="col" ui-sref="rsc.traffic_address_manage">
+                    <h4 class="icon ion-location home-icon text-purple"></h4>
+                    <h5 class="gap-7">地址管理</h5>
+                </div>
+                <div class="col" ui-sref="rsc.invite">
+                    <h4 class="icon ion-arrow-swap home-icon text-purple"></h4>
+                    <h5 class="gap-7">邀请好友</h5>
+                </div>
+                <div class="col" qr-code>
+                    <h4 class="icon ion-ios-barcode-outline home-icon text-purple"></h4>
+                    <h5 class="gap-7">我的二维码</h5>
+                </div>
+                <div class="col" scan>
+                    <h4 class="icon ion-qr-scanner home-icon text-purple"></h4>
+                    <h5 class="gap-7">扫一扫</h5>
+                </div>
+                <!--<div class="col">
+                    <h4 class="icon ion-plus-round home-icon" ng-click='vm.setRike()'></h4>
+                    <h5 class="gap-7 ">设置理计</h5>
+                </div>
+                <div class="col">
+                    <h4 class="icon ion-plus-round home-icon"></h4>
+                    <h5 class="gap-7 text-gray">添加应用</h5>
+                </div>-->
+            </div>
+            <div class="clearfix"></div>
+            <div class="gap-30"></div>
+            <person-card on-click='vm.goPersonHome(user)' company="currentCompanyInfo" user="currentUser.user"></person-card>
+            <div class="gap-50"></div>
+        </div>
+    </ion-content>
+    <rsc-tabs active=5 config-name="rsc.center_goods"></rsc-tabs>
+</ion-view>

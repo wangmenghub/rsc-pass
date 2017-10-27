@@ -1,0 +1,207 @@
+<ion-view view-title="车辆详情" hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <span menu-close nav-transition='ios' nav-direction="back" ng-click="rootGoBack()">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons>
+    <!--<ion-nav-buttons side="right">-->
+    <!--<i ng-if="vm.status !='ineffective'" class="icon" ui-sref="rsc.order_trans_detail({order_id:vm.order_id,order_index:vm.order_index,source:vm.status})">查看订单</i>-->
+    <!--</ion-nav-buttons>-->
+    <div>{{vm.status}}</div>
+    <ion-content class="bg-gray" ng-init="vm.init()" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div ng-class="{'bg-white gap-20':$root.rscPlatform == 'isweb'}">
+            <div ng-class="{'login-width content-maxwidth':$root.rscPlatform == 'isweb'}">
+                <!--<ion-refresher spinner="spiral" on-refresh="doRefresh()"></ion-refresher>-->
+                <div class="text-center gap-30">
+                    <img ng-src="{{vm.dirverTransDetail.user_logo}}" image-404="./img/common/infor-face.png" class="img-size img-circle ">
+                    <h3 class="text-black gap-10">{{vm.dirverTransDetail.real_name}}-司机</h3>
+                    <h5 class="text-gray gap-10">共运输货物 {{vm.dirverTransDetail.order_count}} 单</h5>
+                </div>
+                <div class="clear"></div>
+                <div class="row text-center text-gray gap-20">
+                    <div class="col">
+                        <h4 class="text-blue">车牌号</h4>
+                        <h4 class="text-blue gap-5">{{vm.dirverTransDetail.truck_num}}</h4>
+                    </div>
+                    <div class="col-50">
+                        <h4>{{vm.dirverTransDetail.truck_type|carType}}，长{{vm.dirverTransDetail.truck_long|carLongValue}}米</h4>
+                        <h4 class="gap-5">载重{{vm.dirverTransDetail.truck_weight|carMaxWeight}}吨</h4>
+                    </div>
+                    <div class="col">
+                    <h4>线路</h4>
+                    <h4 class="gap-5">{{vm.dirverTransDetail.line_count}}条</h4>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <!--<div ng-if="vm.status == 'ineffective'" class="row-companyhome-border"></div>-->
+                <div class="bg-white gap-row" ng-if="vm.status == 'ineffective'||vm.status == 'wait_assign'">
+                    <div class="gap-row" ng-if="!vm.assign_amount" style="text-align: center">
+                        <h4>暂无产品</h4>
+                    </div>
+                    <div ng-repeat="item in vm.truckList.product_categories track by $index">
+                        <!--钢铁-->
+                        <div ng-if="item.unit != item.pass_unit">
+                            <!--指派吨数-->
+                            <div ng-if="vm.status == 'ineffective'||vm.status == 'wait_assign'">
+                                <div class="list-inset">
+                                    <h4 class="text-black gap-5" ng-if="$first">运输货物<span class="pull-right text-gray h5">单位:{{item.unit}}</span></h4>
+                                    <!--<h4 class="text-green gap-10">{{item.layer_1_chn}}&nbsp;{{item.layer_2_chn}}</h4>-->
+                                    <details-product model="vm.truckList.product_categories"></details-product>
+                                </div>
+                                <div class="gap-10" ng-repeat="guige in item.product_name">
+                                    <div class="clear"></div>
+                                    <div class="gap-5" ng-repeat="number in guige.measure_unit">
+                                        <div class="row">
+                                            <!--<details-product model="vm.truckList.product_categories"></details-product>-->
+                                            <!--<h4 class="col col-10 gap-5 text-green list-inset">-->
+                                            <!--{{item.layer_3_chn}}-->
+                                            <!--</h4>-->
+                                            <!--<h4 class="col col-25 gap-5 text-green list-inset">-->
+                                            <!--{{number.name}}:{{number.value}}{{number.unit}}-->
+                                            <!--</h4>-->
+                                            <div class="col">
+                                                <div class="gap-7">
+                                                    <!--<h4 ng-if="guige.name" class="pull-left">{{guige.name}}</h4>-->
+                                                    <div class="pull-right driver-input">
+                                                        <img src="./img/pass/minus.png" class="pull-left" ng-click="vm.subtraction(guige,vm.truckList,number,item)">
+                                                        <!--<input type="number" min="0"  ng-model="guige.number" class="pull-left" ng-change="vm.changeAmount(number,vm.truckList,number,item,guige.number)">-->
+                                                        <input type="number" min="0" ng-model="guige.number" class="pull-left" ng-keyup="vm.changeAmount(vm.truckList,number,guige,guige.number)">
+                                                        <img src="./img/pass/plus.png" class="pull-left" ng-click="vm.add(guige,vm.truckList,number,item)">
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--非钢铁-->
+                        <div ng-if="item.unit == item.pass_unit">
+                            <div>
+                                <div class="new-price bg-white">
+                                    <h4 class="bold text-black" ng-if="vm.status != 'ineffective'&&vm.status != 'wait_assign'">{{item.layer_1_chn}} <span class="pull-right text-blue">{{item.status =='effective'?'正在运输中':'已完成运输'}}</span></h4>
+                                    <ul class="offerlist-type gap-10" ng-if="vm.status != 'ineffective'&&vm.status != 'wait_assign'">
+                                        <div ng-repeat="product in item.product_name">
+                                            <li ng-repeat='i in product.attribute'>
+                                                <span>{{i.name}} {{i.value}} {{i.unit}}</span>
+                                            </li>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </ul>
+                                    <div class="item item-offer item-offer-no" ng-if="vm.status != 'ineffective'&&vm.status != 'wait_assign'">
+                                        <h5 class="text-gray1">运输单价(元/吨)： <span class="pull-right text-orange bold h4">￥{{vm.truckList.price_avg}}</span></h5>
+                                        <div class="clear"></div>
+                                        <h5 class="text-gray1">运输吨数： <span class="pull-right text-black bold h4">{{item.amount}}吨</span></h5>
+                                    </div>
+                                    <div class="item item-offer item-offer-border-top" ng-if="vm.status != 'ineffective'&&vm.status != 'wait_assign'">
+                                        <h5 class="text-gray1">运输费用： <span class="pull-right text-orange bold h4">{{item.price*item.amount | currency : '￥'}}</span>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="new-price bg-white" ng-if="vm.status == 'ineffective'||vm.status == 'wait_assign'">
+                                    <h4 class="text-black">运输货物 <span class="pull-right text-gray">单位：{{item.unit}}</span></h4>
+                                    <div class="text-black gap-10">
+                                        <h4 class="pull-left gap-10">{{item.layer_1_chn}}</h4>
+                                        <div class="pull-right driver-input">
+                                            <img src="./img/pass/minus.png" class="pull-left" ng-click="vm.subtraction(item.product_name[0],vm.truckList,number,item)">
+                                            <input type="number" min="0" ng-model="item.product_name[0].number" class="pull-left" ng-change="vm.changeAmount(product,vm.truckList,number,item,item.product_name[0].number)">
+                                            <img src="./img/pass/plus.png" class="pull-left" ng-click="vm.add(item.product_name[0],vm.truckList,number,item)">
+                                            <!--<img src="./img/pass/minus.png" class="pull-left" >-->
+                                            <!--<input type="number" min="0" ng-model="item.product_name[0].number" class="pull-left">-->
+                                            <!--<img src="./img/pass/plus.png" class="pull-left" >-->
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <ul class="offerlist-type gap-20 row row-wrap" ng-repeat="product in item.product_name">
+                                        <li class="col col-50" ng-repeat='i in product.attribute'>
+                                            <span>{{i.name}} {{i.value}} {{i.unit}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--指派信息-->
+                <div class="bg-white" ng-if="vm.status != 'ineffective'&&vm.status != 'wait_assign'">
+                    <div class="gap-20">
+                        <div class="list">
+                            <details-product model="vm.order.product_categories"></details-product>
+                            <!--<div class="item" ng-repeat="products in vm.order.product_categories track by $index">-->
+                            <!--<h3 class="bold">{{products.layer_1_chn}} {{products.layer_2_chn}}</h3>-->
+                            <!--<div class="clear"></div>-->
+                            <!--<div ng-class="{'gap-10':!$first}" ng-repeat="i in products.product_name">-->
+                            <!--<div class="item-add">-->
+                            <!--<div class="text-green">-->
+                            <!--<h4 class="bold title text-green">{{products.layer_3_chn}}</h4>-->
+                            <!--</div>-->
+                            <!--<div class="row row-wrap text-green">-->
+                            <!--<h4 class="col col-10 text-green" ng-if="i.guige">-->
+                            <!--{{i.guige}}-->
+                            <!--</h4>-->
+                            <!--<h4 class="col col-50 text-green" ng-repeat="j in i.attribute">-->
+                            <!--{{i.name?i.name+'：':''}}{{j.name}}：{{j.value}}{{j.unit}}-->
+                            <!--</h4>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="clear"></div>-->
+                            <!--<h3 class="text-orange">-->
+                            <!--<span class="pull-right text-gray">{{i.number}}{{products.unit}}</span>-->
+                            <!--</h3>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                    <div class="">
+                        <h5 class="item" ng-repeat="item in vm.order.products_replenish">{{item.layer_1_chn}}{{item.layer_2_chn}}{{item.layer_3_chn}}
+                            <span class="pull-right text-gray1">{{vm.order.replenish.replenish_count?vm.order.replenish.replenish_count+'件':'根据实际补货计算'}}</span>
+                        </h5>
+                    </div>
+                </div>
+                <div class="bg-white gap-20" ng-if="vm.status != 'ineffective'&&vm.status != 'wait_assign'">
+                    <div class="list list-item list-type-input">
+                        <li class="item item-type">
+                            <span class="text-gray1">运输单价（元／吨）</span>
+                            <span class="pull-right text-orange bold">￥{{vm.truckList.price}}</span>
+                        </li>
+                        <li class="item item-type">
+                            <span class="text-gray1">总吨数</span>
+                            <span class="pull-right text-gray1 bold">{{vm.truckList.amount}}吨</span>
+                        </li>
+                        <li class="item item-type" ng-if="vm.status != 'ineffective'&&vm.status != 'wait_assign'">
+                            <span class="text-gray1">总运费</span>
+                            <span class="pull-right text-orange bold">{{vm.truckList.price_total | currency : '￥'}}</span>
+
+                        </li>
+                    </div>
+                </div>
+                <div class="bg-white" ng-if="vm.assign_amount">
+                    <div ng-if="vm.status == 'ineffective'||vm.status == 'wait_assign'" class="row-companyhome-border"></div>
+                    <div class="pull-right list-inset" ng-if="vm.status == 'ineffective'||vm.status == 'wait_assign'">
+                        <h4 class="text-blue gap-10" ng-model="vm.long.amount">已指派 {{vm.long.amount|number:3}}吨</h4>
+                        <h4 ng-if="vm.long.count_remain>=0" class="text-orange gap-10" ng-model="vm.long.count_remain">剩余 {{vm.long.count_remain|number:3}}吨</h4>
+                        <!--<div class="clear"></div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="bar bar-light">
+        <div class="row button-foot" ng-if="vm.status == 'wait_assign'&&vm.assign_amount" >
+            <a class="col text-gray " style="display: block; width: 100%; text-align: center" href="tel:{{vm.dirverTransDetail.phone}}">
+                <div class="col text-gray" style="margin: auto" ng-class="{'col-50':(vm.status !='complete'&&vm.assign_amount)}">打电话</div>
+            </a>
+            <div  class="col col-purple" ng-click="vm.confirm('wait_assign')"> 立即派货 </div>
+        </div>
+        <div class="row button-foot" ng-if="vm.status != 'wait_assign'">
+            <a class="col col-25 text-black" href="tel:{{vm.dirverTransDetail.phone}}">打电话</a>
+            <div class="col col-25 text-green" ng-click="vm.doSome({type:'bh'})">补货</div>
+            <div class="col col-25 text-blue" ng-click="vm.doSome({type:'djd',others:'ineffective'})">代接单</div>
+            <div class="col col-25 text-red" ng-click="vm.doSome({type:'th',routePram:{status:'replace',order_id:vm.order_id,demand_id:vm.demand_id}})">替换</div>
+        </div>
+
+
+    </ion-footer-bar>
+</ion-view>

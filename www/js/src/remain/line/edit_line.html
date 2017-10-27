@@ -1,0 +1,47 @@
+﻿<ion-view hide-back-button="true" ng-init="vm.init()">
+	<ion-nav-buttons side="left">
+        <span  menu-close nav-transition='ios' nav-direction="back" ng-click="rootGoBack()">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons>
+	<ion-nav-buttons side="secondary">
+		<!--<span ng-if="!editType" ui-sref="rsc_tabs.pass_my_price_offer">我的报价</span>-->
+		<span ng-click="vm.delLine()">删除</span>
+	</ion-nav-buttons>
+	<ion-nav-title>
+		<div class="bar bar-positive">
+			<h1 class="title">编辑线路</h1>
+		</div>
+	</ion-nav-title>
+	<ion-content class="bg-gray" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div ng-class="{'bg-white gap-20':$root.rscPlatform == 'isweb'}">
+            <div ng-class="{'login-width content-maxwidth':$root.rscPlatform == 'isweb'}">
+		<form name="myform">
+			<div class="list list-addline">
+				<city-picker options="vm.pickCityPickDataBegin"></city-picker>
+				<city-picker options="vm.pickCityPickDataEnd"></city-picker>
+			</div>
+			<div class="list list-addline list-addline-last">
+				<li class="item item-input list-input gap-10">
+					<span class="input-label">线路报价(元/吨)</span>
+					<input type="tel" placeholder="请填写" name="percent_advance" min=0 ng-model="vm.address.price" class="text-right" required
+						   ng-pattern="/^[0-9]{0,6}$/"/>
+				</li>
+				<div class="form-error form-error-line" ng-messages="myform.percent_advance.$dirty&&myform.percent_advance.$error">
+					<div ng-message="required">价格不能为空</div>
+					<div ng-message="pattern">最大不能超过11个字符</div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<!--<div ng-repeat="item in lineItems">-->
+			<!--<src-traffic-line line='item'></src-traffic-line>-->
+			<!--</div>-->
+		</form>
+            </div>
+        </div>
+	</ion-content>
+	<ion-footer-bar class="bar bar-light">
+		<h1 class="title" ng-click="vm.edit()">保存</h1>
+	</ion-footer-bar>
+</ion-view>

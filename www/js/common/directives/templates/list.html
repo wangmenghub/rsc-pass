@@ -1,0 +1,163 @@
+<div>
+    <!--报价-->
+    <div ng-click="goDetail()" ng-if="list.list.dt_type == 'trade_pricing'||list.list.dt_type == 'trade_demand'">
+        <div class="item item-avatar item-avatar-face">
+            <img ng-src="{{list.user.photo_url}}" image-404="./img/common/infor-face.png" ng-click="$root.rootGoDetail(list.user.role,list.user._id);$event.stopPropagation()">
+            <h3 class="text-black">{{list.user.real_name}}</h3>
+            <h5 class="text-gray">{{list.list.time_creation|rscOfferUpDateTime}}</h5>
+            <div class="item-face text-center">
+                <h6 class="text-gray1">{{list.company.nick_name}}</h6>
+                <img ng-if="list.company.verify_phase=='SUCCESS'" src="./img/158/label-v.png" class="label-v">
+            </div>
+        </div>
+        <div class="item item-offer item-offer-no" ng-repeat="item in list.list.product_categories">
+            <h2 ng-if="list.list.ownType=='pricing'">
+                <img src="./img/158/label-icon.png" class="label-icon-trade"> {{item.layer.layer_1_chn}} {{item.layer.layer_2_chn}}
+                {{item.layer.layer_3_chn}} {{item.layer.layer_4_chn}}
+            </h2>
+            <h2 ng-if="list.list.ownType=='bidding'">
+                <img ng-if="list.list.ownType=='bidding'" src="./img/158/label-icon-2.png" class="label-icon-trade"> {{item.layer.layer_1_chn}}
+                {{item.layer.layer_2_chn}} {{item.layer.layer_3_chn}} {{item.layer.layer_4_chn}}
+            </h2>
+            <h2 ng-if="list.list.ownType=='demand'">
+                <img ng-if="list.list.ownType=='demand'" src="./img/158/label-icon-3.png" class="label-icon-trade"> {{item.layer.layer_1_chn}}
+                {{item.layer.layer_2_chn}} {{item.layer.layer_3_chn}} {{item.layer.layer_4_chn}}
+            </h2>
+            <div class="clear"></div>
+            <div class="row item-add" ng-repeat="product_name in item.product_name" ng-class="{'item-brown':list.list.ownType=='demand'}">
+                <div class="col col-80">
+                    <div class="row row-wrap">
+                        <h4 class="col col-50 text-green bold" ng-class="{'text-brown':list.list.ownType=='demand'}">{{product_name.name}}</h4>
+                        <h4 class="col col-50 text-gray3" ng-if='product_name.measure_unit.length>0&&product_name.measure_unit[0].value'>{{product_name.measure_unit[0].value}}{{product_name.measure_unit[0].unit}}</h4>
+                    </div>
+                    <div class="row row-wrap">
+                        <h6 class="col col-50 text-green" ng-class="{'text-brown':list.list.ownType=='demand'}" ng-if='i.value' ng-repeat="i in product_name.attribute track by $index">{{i.name}} {{i.value}}{{i.unit}}</h6>
+                    </div>
+                </div>
+                <img ng-if="product_name.image[0]" src="{{product_name.image[0]}}" class="col pro-img1">
+            </div>
+            <div class="clear"></div>
+            <h5 class="text-orange">
+                <span ng-if="item.product_name[0].price_weight">过磅价 ￥{{item.product_name[0].price_weight}}</span>
+                <span ng-if="item.product_name[0].price_remember">理计价 ￥{{item.product_name[0].price_remember}}</span>
+                <span ng-if="list.list.ownType=='demand'" class="pull-right text-gray1">倒计时：<timer end-time="list.list.time_validity" ng-if="!timeOut" finish-callback="finsh()">{{days}}天{{hours}}小时{{minutes}}分{{seconds}}秒</timer> </span>
+            </h5>
+            <h5 class="text-gray" ng-if="list.list.ownType=='demand'">已有{{list.list.count_offer}}家企业报价</h5>
+        </div>
+
+    </div>
+    <!--traffic_assign 物流需求 空心货源-->
+    <div ng-click="goDetail()" class="list-inset" ng-if="list.list.dt_type == 'traffic_demand'">
+        <h5>
+            {{list.user.real_name}}
+            <img ng-if="list.company.verify_phase=='SUCCESS'" src="./img/158/label-v.png" class="label-v">
+        </h5>
+        <div class="row gap-5">
+            <div class="col text-left">
+                <img src="./img/pass/pass-icon1.png" class="label-icon pull-left">
+                <!--<img src="./img/common/trans-icon.png" class="label-passicon pull-left" ng-if="pass.company_supply_id==vm.userInfo.company_id">-->
+                <!--<img src="./img/common/trans-icon1.png" class="label-passicon pull-left" ng-if="pass.company_demand_id==vm.userInfo.company_id">-->
+                <!--待提货图标-->
+                <div class="pull-left">
+                    <h4 class="bold">{{list.list.send_city}}</h4>
+                    <h5 class="text-gray1 gap-3">{{list.list.send_district}}</h5>
+                    <h5 class="text-gray1 gap-3">{{list.list.time_depart | dateformatFilter:'MM-dd E'}}</h5>
+                </div>
+            </div>
+            <div class="col text-center gap-3">
+                <h5 class="text-gray1">{{list.list.amount}}吨 {{list.list.product_categories[0].material_chn}}</h5>
+                <h5 class="status-bg status-bg1 text-orange">￥{{(list.list.price_total/list.list.amount|number:2)}}元/吨</h5>
+            </div>
+            <div class="col text-right">
+                <h4 class="bold">{{list.list.receive_city}}</h4>
+                <h5 class="text-gray1 gap-3">{{list.list.receive_district}}</h5>
+                <h5 class="text-gray1 gap-3" >{{list.list.time_arrival | dateformatFilter:'MM-dd E'}}</h5>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <h5 class="text-gray gap-4">
+            <span class="text-orange">已有{{list.list.unoffer_list.length!=undefined?list.list.unoffer_list.length:0}}家企业接单 &nbsp;&nbsp;</span>
+            <!--<span class="text-red" ng-if='item.material=="coal"'>{{item.can_join?"可凑单":"不可凑单"}}</span>-->
+            <span class="pull-right" ng-if="list.list.status=='effective'">
+                            <timer end-time="list.list.time_validity" language="zh-CN">
+                                <span>倒计时：{{days == 0?'':days+'天'}}{{hhours}}:{{mminutes}}:{{sseconds}}</span>
+                            </timer>
+                        </span>
+            <span class="pull-right" ng-if="list.list.status=='ineffective'">
+                            已过期
+                        </span>
+        </h5>
+    </div>
+    <!--仓库地址-->
+    <div class="list-inset" ng-if="list.list.dt_type == 'address'">
+        <li class="item item-avatar item-store item-icon-right gap-20">
+            <img src="./img/158/landmark.png" class="stroe-mark">
+            <h2 class="bold">{{list.list.name}} &nbsp;<span class="label-store" ng-if="vm.checkId(list.list.user_ids)">当前仓库</span></h2>
+            <div class="clear"></div>
+            <h5 class="text-gray1">{{list.list.type | storeType}} - {{list.list.area}}㎡</h5>
+            <div class="clear"></div>
+            <h5 class="text-gray">仓库地址：{{list.list.province}}{{list.city}}{{list.list.district}}{{list.addr}}</h5>
+            <h5 class="text-gray">联系人：{{list.list.prin_name}}，手机号：{{list.list.prin_phone}}</h5>
+            <!--<i class="icon ion-ios-arrow-right text-gray"></i>-->
+        </li>
+    </div>
+    <!--物流抢单-->
+    <div class="list-inset" ng-if="list.list.dt_type == 'traffic_driver_demand'" ui-sref="rsc.trans_assign_detail({demand_id:list.list._id,source:'grab',isGoback:true})">
+        <div class="">
+            <h5>
+                {{list.list.company_name}}
+                <img ng-if="list.list.verify_phase == 'SUCCESS'" src="./img/158/label-v.png" class="label-v">
+            </h5>
+            <div class="row gap-5">
+                <div class="col text-left">
+                    <img src="./img/pass/pass-icon1.png" class="label-icon pull-left">
+                    <div class="pull-left text-left">
+                        <h4 class="bold">{{list.list.send_city|rscLimit:5}}</h4>
+                        <h5 class="text-gray1 gap-3">{{list.list.send_district|rscLimit:5}}</h5>
+                        <h5 class="text-gray1 gap-3">{{list.list.time_depart  | dateformatFilter:'MM-dd E'}}</h5>
+                    </div>
+                </div>
+                <div class="col text-center gap-3">
+                    <h5 class="h5 text-gray">{{list.list.amount | number:3}}吨 {{list.list.material | paymentChoice}}</h5>
+                    <h5 class="status-bg text-orange">{{list.list.price   | currency : '￥':2 }}元/吨</h5>
+                </div>
+                <div class="col text-right">
+                    <h4 class="bold">{{list.list.receive_city|rscLimit:5}}</h4>
+                    <h5 class="text-gray1 gap-3">{{list.list.receive_district|rscLimit:5}}</h5>
+                    <h5 class="text-gray1 gap-3">{{list.list.time_arrival | dateformatFilter:'MM-dd E'}}</h5>
+                </div>
+            </div>
+            <h5 ng-if="!cancel" class="text-red gap-10">
+                司机：待接单{{list.list.wait_num}}，待派货{{list.list.assign_num}}，运输中{{list.list.effective_num}}，已运完{{list.list.complete_num}}
+            </h5>
+        </div>
+    </div>
+    <!--物流线路-->
+    <div class="list-inset" ng-if="list.list.dt_type == 'traffic_line'">
+        <div class="item item-avatar item-pass" ng-if="type == 'address'">
+            <!--<img src="./img/common/infor-face.png">-->
+            <img src="{{driverLine.user_photo}}">
+            <h3 class="text-black">{{list.list.user_name}}</h3>
+            <p>{{list.list.time_creation | rscOfferUpDateTime}}</p>
+        </div>
+        <div class="gap-3">
+            <div class="row">
+                <div class="col text-left">
+                    <img src="./img/pass/line-icon.png" class="line-icon pull-left">
+                    <div class="pull-left">
+                        <h4 class="bold gap-3">{{list.list.start_province}}</h4>
+                        <h5 class="text-gray1 gap-10">{{list.list.start_city}}</h5>
+                    </div>
+                </div>
+                <div class="col text-center gap-3">
+                    <h5 class="text-orange">去：￥{{list.list.money}}元/吨</h5>
+                    <h5 class="status-bg text-orange">回：￥{{list.list.unmoney}}元/吨</h5>
+                </div>
+                <div class="col text-right">
+                    <h4 class="bold gap-3">{{list.list.end_province}}</h4>
+                    <h5 class="text-gray1 gap-10">{{list.list.end_city}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

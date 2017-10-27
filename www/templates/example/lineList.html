@@ -1,0 +1,71 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">物流</h1>
+        </div>
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ui-sref="app.publishLine">+线路</button>
+    </ion-nav-buttons>
+    <ion-content class="bg-gray">
+        <!--看指派-->
+        <div class="list-card gap-10">
+            <div class="item item-avatar item-pass">
+                <img src="./img/common/infor-face.png">
+                <h3 class="text-black">欣兴</h3>
+                <p>32分钟</p>
+                <div class="item-face text-center">
+                    <h6 class="text-gray">亚新集团</h6>
+                    <img src="./img/158/label-v.png" class="label-v">
+                </div>
+            </div>
+            <div class="list-inset">
+                <div class="row gap-5">
+                    <div class="col text-left">
+                        <img src="./img/pass/pass-icon.png" class="label-icon pull-left">
+                        <div class="pull-left">
+                            <h4 class="bold">北京市</h4>
+                            <h5 class="text-gray1 gap-3">东城区</h5>
+                            <h5 class="text-gray1 gap-3">8月10日 周三</h5>
+                        </div>
+                    </div>
+                    <div class="col text-center gap-3">
+                        <h5 class="text-gray1">768吨 钢铁</h5>
+                        <h5 class="status-bg text-gray1">￥80元/吨</h5>
+                    </div>
+                    <div class="col text-right">
+                        <h4 class="bold">天津市</h4>
+                        <h5 class="text-gray1 gap-3">和平区</h5>
+                        <h5 class="text-gray1 gap-3">8月10日 周三</h5>
+                    </div>
+                </div>
+                <h5 class="text-gray gap-10">
+                    已有0家企业接单
+                    <span class="pull-right">距结束：12:10:08</span>
+                </h5>
+            </div>
+        </div>
+        <!--看线路-->
+        <div class="list-card gap-10">
+            <div class="list-inset">
+                <div class="row">
+                    <div class="col text-left">
+                        <img src="./img/pass/line-icon.png" class="line-icon pull-left">
+                        <div class="pull-left">
+                            <h4 class="bold gap-3">北京市</h4>
+                            <h5 class="text-gray1 gap-10">东城区</h5>
+                        </div>
+                    </div>
+                    <div class="col text-center gap-3">
+                        <h5 class="text-orange">去：￥84元/吨</h5>
+                        <h5 class="status-bg text-orange">回：￥18元/吨</h5>
+                    </div>
+                    <div class="col text-right">
+                        <h4 class="bold gap-3">天津市</h4>
+                        <h5 class="text-gray1 gap-10">和平区</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,48 @@
+<div ng-init="init()">
+	<loading-dire loadparam="reqcomplete"></loading-dire>
+	<div ng-show="reqcomplete">
+		<h5 class="text-center text-gray gap-10">挂靠车辆 {{count}}</h5>
+		<div class="text-center gap-70" ng-if="!countTotal>0">
+			<h4 class="text-gray">当前暂无挂靠车辆</h4>
+			<h4 class="text-gray gap-5">邀请我的车辆上线“互联网+”</h4>
+			<button ui-sref="rsc.invite" class="gap-20 button-circle">立即邀请</button>
+		</div>
+		<div ng-repeat="item in carGroup"  ng-if="countTotal>0">
+			<div class="list list-item">
+				<li class="item item-type item-type-border item-icon-right gap-10">
+					{{item.name}}({{item.count}})
+					<i class="icon" ng-class="item.isSel?'ion-ios-arrow-up':'ion-ios-arrow-down'" ng-click="getCars(item)"></i>
+				</li>
+			</div>
+			<div class="bg-white">
+				<div class="list list-driver" ng-if="item.isSel">
+					<li class="item item-avatar item-driver item-icon-right" ng-repeat="car in item.cars"
+						ui-sref="rsc.driver_name_cared({user_id:car.user_id})">
+						<img ng-src="{{car.truck_logo}}" image-404="./img/common/driver-car.png" class="car-face">
+						<!--<img src="./img/common/driver-car.png" class="car-face">-->
+						<h2 class="text-blue">{{car.truck_num}} <img src="./img/pass/pass-icon2.png"
+																	 class=" {{car.truck?'pass-icon':'pass-icon-no'}}"></h2>
+						<span>
+						<p ng-if="car.truck_type" class="pull-left">{{car.truck_type|carType}}，</p>
+						<p ng-if="car.truck_weight" class="pull-left">载重{{car.truck_weight|carMaxWeight}}吨</p>
+						<p ng-if="car.truck_long" class="pull-left">，长{{car.truck_long|carLongValue}}米</p>
+					</span>
+						<div class="clearfix"></div>
+						<h5 class="text-red">{{car.tip}}</h5>
+						<h5 class="text-gray" ng-if="car.truck">已运输货物 5 单</h5>
+						<i class="item-face text-center gap-10">
+							<img ng-src="{{car.user_logo}}" image-404="./img/common/infor-face.png" class="face img-circle">
+							<h6 class="text-gray">{{car.real_name}}</h6>
+						</i>
+					</li>
+				</div>
+				<div ng-show="item.hide&&item.isSel">
+					<a class="list-item-border"></a>
+					<div class="text-center gap-row">
+						<h5 ng-click="loadMore(item)">加载更多></h5>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

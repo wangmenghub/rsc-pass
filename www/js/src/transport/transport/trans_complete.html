@@ -1,0 +1,70 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">运输中心</h1>
+        </div>
+    </ion-nav-title>
+    <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+        <div class="tabs">
+            <a class="tab-item active num-fixed" menu-close nav-transition="ios" nav-direction="enter" ui-sref='rsc.trans_grab' >
+                我的运输
+                <span class="trade-num label-num" ng-if="transpmsg.transportation.total > 0">{{transpmsg.transportation.total}}</span>
+            </a>
+            <a class="tab-item num-fixed" menu-close nav-transition="ios" nav-direction="enter" ui-sref='rsc.trans_order_doing'>
+                订单
+                <span class="trade-num label-num" ng-if="transpmsg.order.total >0">{{transpmsg.order.total}}</span>
+            </a>
+            <a class="tab-item num-fixed" menu-close nav-transition="ios" nav-direction="enter" ui-sref='rsc.trans_car' >
+                车辆
+            </a>
+        </div>
+    </div>
+    <!--has-subfooter-->
+    <ion-content class="bg-gray has-subheader has-footer" ng-init="vm.init()">
+        <ul class="row third-bar text-center">
+            <li menu-close nav-transition="ios" nav-direction="enter" class="col" ui-sref="rsc.trans_grab" >进行中<span ng-if="transp.underway != 0">{{transp.underway}}</span></li>
+            <li menu-close nav-transition="ios" nav-direction="enter" class="col active" ui-sref="rsc.trans_complete" >已过期 <span ng-if="transp.expired != 0">{{transp.expired}}</span></li>
+            <li menu-close nav-transition="ios" nav-direction="enter" class="col" ui-sref="rsc.trans_cancle" >已取消<span ng-if="transp.canceled != 0">{{transp.canceled}}</span></li>
+        </ul>
+        <ion-refresher spinner="spiral" on-refresh="doRefresh()"></ion-refresher>
+        <!--运输-->
+        <loading-dire loadparam="vm.reqcomplete"></loading-dire>
+        <div ng-show="vm.reqcomplete">
+            <div class="text-center gap-70" ng-if="vm.orders.length<=0">
+                <h4 class="text-gray">暂无已过期订单</h4>
+            </div>
+            <div class="slide-top" ng-if="vm.orders.length>0" ng-repeat="order in vm.orders track by $index">
+                <div ng-class="{'gap-10':!$first}"></div>
+                <pass-order-item order="order" go-detail="goDetail(order)" source="ineffective"></pass-order-item>
+            </div>
+        </div>
+        <!---->
+        <!--<img src="./img/boss/img-38.png" style="width: 376px;margin-top: 10px;" ui-sref="model-62">-->
+        <!---->
+        <ion-infinite-scroll immediate-check="false" ng-if="vm.hasMore" icon="ion-loading-c" on-infinite="loadMore()" distance="15%">
+        </ion-infinite-scroll>
+    </ion-content>
+    <!--<ion-footer-bar class="bar bar-light bar-subfooter" ui-sref="src.release_grab_list">-->
+    <!--<h1 class="title">发布运输</h1>-->
+    <!--</ion-footer-bar>-->
+    <rsc-tabs config-name='rsc.center_goods' active=2></rsc-tabs>
+    <!--<div class="tabs-positive tabs-bottom tabs-standard">
+		<div class="tab-nav tabs">
+			<a menu-close nav-direction="enter" class="tab-item" href="#/src/center_goods">
+                    <span class="tab-title ng-binding">货源</span>
+            </a>
+			<a menu-close nav-direction="enter" class="tab-item  tab-item-active" href="#/src/sell_grab">
+                    <span class="tab-title ng-binding">运输</span>
+                </a>
+			<a menu-close nav-direction="enter" class="tab-item" href="#/traffic_relation/message">
+                    <span class="tab-title ng-binding">关系</span>
+                </a>
+			<a menu-close nav-direction="enter" class="tab-item" href="#/pass_tabs/pass_ebank">
+                    <span class="tab-title ng-binding">财务</span>
+                </a>
+			<a menu-close nav-direction="enter" class="tab-item" href="#/traffic_me/company_dynamic">
+                    <span class="tab-title ng-binding">管理</span>
+        </a>
+		</div>
+	</div>-->
+</ion-view>

@@ -1,0 +1,45 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">手机号邀请</h1>
+        </div>
+    </ion-nav-title>
+    <ion-nav-buttons side="secondary">
+        <button class="button button-clear" ui-sref="rsc.invite_contact({role:vm.role})">导入通讯录</button>
+    </ion-nav-buttons>
+    <ion-content class="bg-gray" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <form name="myform" novalidate>
+            <div class="bg-white invite-list gap-10" ng-repeat="item in vm.contantList track by $index">
+                <div class="list item-icon-right">   
+                    <li class="item item-input">
+                        <!--<span class="input-label">对方手机号：</span>-->
+                        <label class="input-label" for="{{item.chnb}}">手机号</label>
+                        <input name='{{item.chnb}}' type="tel" ng-model="item.phone" placeholder="输入对方手机号" class="text-right" maxlength="11" required
+                            ng-pattern="/(^13[0-9]{9}$)|(^15[0-9]{9}$)|(^17[0-9]{9}$)|(^18[012356789][0-9]{8}$)/" id="{{item.chnb}}">
+                    </li>
+                    <div class="form-error form-error-line" ng-messages="myform[item.chnb].$dirty&&myform[item.chnb].$error">
+                        <div ng-message="pattern">请输入11位手机号码</div>
+                        <!--<div ng-message="required">手机号不能为空 </div>-->
+                    </div>
+                    <li class="item item-input">
+                        <!--<span class="input-label">姓名：</span>-->
+                        <label class="input-label" for="{{item.chna}}">对方姓名							</label>
+                        <input name='{{item.chna}}' type="text" ng-model="item.name" placeholder="输入对方姓名" class="text-right" maxlength="10" required
+                            ng-pattern="/^[(\u4e00-\u9fa5)+A-Za-z]{1,10}[^`~!@$%^&()+=|\\\][\]\{\}:;'\,.<>?\d]$/" id="{{item.chna}}">
+                    </li>
+                    <div class="form-error form-error-line" ng-messages="myform[item.chna].$dirty&&myform[item.chna].$error">
+                        <div ng-message="pattern">请输入2-10个中英文字符</div>
+                        <!--<div ng-message="required">负责人姓名不能为空 </div>-->
+                    </div>
+                    <i ng-if="$first" ng-click="vm.add();" class="icon ion-ios-plus-outline"></i>
+                    <i ng-if="!$first" ng-click="vm.del($index)" class="icon ion-ios-minus-outline"></i>
+                </div>
+            </div>
+            <div class="list-inset gap-20">
+                <button ng-disabled="myform.$invalid" class="button button-block button-stabled" ng-click="vm.inviteImmediately()">
+					立即邀请
+				</button>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

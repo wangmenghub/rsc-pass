@@ -1,0 +1,51 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title" ng-if="vm.menu">{{vm.menu == 'Pick_up_the_goods' ? '提货地址':'交货地址'}}</h1>
+            <h1 class="title" ng-if="!vm.menu">替换同事</h1>
+        </div>
+    </ion-nav-title>
+    <ion-content class="bg-gray" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div class="item-search row">
+            <div class="col col-80">
+                <i class="ion-search tel-search"></i>
+                <input type="text" placeholder="搜索联系人" ng-model="vm.search_name">
+            </div>
+            <button class="col col-20 button button-light button-small" ng-click="vm.search(vm.search_name)">
+                搜索
+            </button>
+        </div>
+        <div ng-repeat="(letter, list) in vm.sorted_users">
+            <!--<h5 class="list-inset gap-10 text-gray"></h5>-->
+            <div class="item item-divider" id="index_{{letter}}">
+                {{letter}}
+            </div>
+            <div class="bg-white list-telitem-checkbox">
+                <div class="list list-telitem item-checkbox" ng-repeat="users in list track by $index">
+                    <label for="{{letter+$index}}">
+                    <span class="checkbox">
+                        <input type="radio" ng-model="vm.isSelect" ng-value="users.name+'&'+users.phone" name='contactsList' >
+                    </span>
+                    <li class="item item-avatar item-tel item-icon-left item-icon-right">
+                        <img src="./img/common/infor-face.png" class="face">
+                        <h2>{{users.name}}</h2>
+                        <p>{{users.phone}}</p>
+                    </li>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <div class="alpha_sidebar">
+        <h6 ng-click="vm.gotoList('index_{{letter}}')" ng-repeat="letter in vm.alphabet">
+            {{letter}}
+        </h6>
+    </div>
+    <ion-footer-bar class="bar bar-light bar-footer">
+        <div class="row button-foot">
+            <div class="col col-purple" ng-click="vm.inviteImmediately(vm.isSelect)">
+                选择
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

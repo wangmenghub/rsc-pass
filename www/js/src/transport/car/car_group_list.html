@@ -1,0 +1,47 @@
+<ion-view view-title="运输大厅" hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <span menu-close nav-transition='ios' nav-direction="back" ng-click="rootGoBack()">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">车辆管理</h1>
+        </div>
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button class="button button-clear" ng-click="add()">添加</button>
+    </ion-nav-buttons>
+    <ion-content ng-init="init()" class="bg-gray" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <ion-refresher spinner="spiral" on-refresh="doRefresh()" ng-if="Platform.isWebView()"></ion-refresher>
+        <!--<div class="button-bar button-old-bar button-old-bar-1">
+			<a class="button {{currentType=='PRIVATE'?'active':''}}">
+				挂靠车辆组
+			</a>
+		</div>-->
+        <div class="gap-10">
+            <div ng-if="groupList.length == 0">
+                <no-data-hint></no-data-hint>
+            </div>
+            <div class="bg-white" ng-repeat="item in groupList track by $index">
+                <div ng-click="goDetail(item)" class="list list-item list-type-input">
+                    <li class="item item-type item-icon-right">
+                        {{item.name}}({{item.count}})
+                        <span class="pull-right" ng-if="!item._id">
+                <i class="text-red" ng-click="edit(item);$event.stopPropagation();"></i>
+                <i class="text-red" ng-click="del(item);$event.stopPropagation();"></i>
+              </span>
+                        <span class="pull-right" ng-if="item._id">
+                <i class="text-red" ng-click="edit(item);$event.stopPropagation();">修改组名</i>
+                <i class="text-red" ng-click="del(item);$event.stopPropagation();">删除组名</i>
+              </span>
+                    </li>
+                </div>
+            </div>
+        </div>
+
+        <ion-infinite-scroll ng-if="hasMore" icon="ion-loading-c" on-infinite="loadMore()" distance="15%">
+        </ion-infinite-scroll>
+    </ion-content>
+</ion-view>

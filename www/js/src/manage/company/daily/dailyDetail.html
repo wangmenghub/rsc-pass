@@ -1,0 +1,163 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">企业日报</h1>
+        </div>
+    </ion-nav-title>
+    <ion-content class="bg-gray has-footer" ng-init="vm.init()">
+    <div class="text-center gap-70" ng-if="vm.loading"> 
+        <h4 class="text-gray">正在加载...</h4> 
+    </div> 
+    <div ng-if="!vm.loading"> 
+        <div class="bg-white">
+            <div class="list list-myitem">
+                <li class="item item-avatar item-border-no">
+                    <img src="./img/common/report-icon.png" class="report-icon">
+                    <h2 class="text-red">{{vm.year}}年{{vm.month}}月{{vm.day}}日</h2>
+                    <h4 class="text-red">
+                        {{vm.list.pricing_browse.length||0}}位客户查看报价，{{vm.list.diff_pricing_order.length||0}}位客户未下单。
+                    </h4>
+                </li>
+            </div>
+        </div>
+        <div class="bg-white gap-row">
+            <h4 class="text-center text-green">
+                销售 ->
+            </h4>
+            <div class="row row-condensed">
+                <div class="col col-33">
+                    <h5 class="text-green">定价：{{vm.list.sale_pricing||0}} </h5>
+                    <h5 class="text-green">浏览：{{vm.list.pricing_browse.length||0}} </h5>
+                    <h5 class="text-green">计划：{{vm.list.sale_pricing_have_plan||0}} </h5>
+                    <h5 class="text-green">订单：{{vm.list.sale_pricing_order||0}} </h5>
+                    <h5 class="text-green">金额：{{vm.list.sale_pricing_order_price||0}}万 </h5>
+                    <h5 class="text-green">转化：{{vm.list.sale_pricing/vm.list.pricing_browse.length*100||0 | limitTo :1}}% </h5>
+                </div>
+                <div class="col col-33">
+                    <h5 class="text-green">竞价：{{vm.list.sale_bidding||0}}</h5>
+                    <h5 class="text-green">浏览：{{vm.list.bidding_browse.length||0}} </h5>
+                    <h5 class="text-green">计划：{{vm.list.sale_bidding_have_offerAgain||0}}</h5>
+                    <h5 class="text-green">订单：{{vm.list.sale_bidding_order||0}}</h5>
+                    <h5 class="text-green">金额：{{vm.list.sale_bidding_order_price||0}}万</h5>
+                    <h5 class="text-green">转化：{{vm.list.sale_bidding/vm.list.bidding_browse.length*100||0 | limitTo :1}}%</h5>
+                </div>
+                <div class="col col-33">
+                    <h5 class="text-green">抢单：{{vm.list.sale_demand||0}}</h5>
+                    <h5 class="text-green">计划：{{vm.list.sale_demandOffer||0}}</h5>
+                    <h5 class="text-green">订单：{{vm.list.sale_demandOffer_order||0}}</h5>
+                    <h5 class="text-green">金额：{{vm.list.sale_demandOffer_order_price||0}}万</h5>
+                </div>
+            </div>
+            <div class="list-inset gap-20">
+                <h5 class="text-gray">查看报价 ({{vm.list.pricing_browse.length||0}})</h5>
+                <ul class="list-report gap-10" ng-repeat="i in vm.list.pricing_browse">
+                    <li ng-click="rootGoDetail('TRAFFIC_ADMIN', i)">
+                        <img src="./img/common/infor-face.png">
+                    </li>
+                </ul>
+            </div>
+            <div class="list-inset gap-10">
+                <h5 class="text-red">未下单 ({{vm.list.diff_pricing_order.length||0}})</h5>
+                <ul class="list-report gap-10" ng-repeat="i in vm.list.diff_pricing_order">
+                    <li ng-click="rootGoDetail('TRAFFIC_ADMIN', i)">
+                        <img src="./img/common/infor-face.png">
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="bg-white gap-row gap-10">
+            <h4 class="text-center text-brown">
+                <- 采购 </h4>
+                    <div class="row row-condensed">
+                        <div class="col col-33">
+                            <h5 class="text-brown">定价：{{vm.list.purchase_pricing||0}}</h5>
+                            <h5 class="text-brown">计划：{{vm.list.purchase_plan||0}}</h5>
+                            <h5 class="text-brown">订单：{{vm.list.purchase_pricing_order||0}}</h5>
+                            <h5 class="text-brown">金额：{{vm.list.purchase_pricing_order_price||0}}万 </h5>
+                        </div>
+                        <div class="col col-33">
+                            <h5 class="text-brown">竞价：{{vm.list.purchase_bidding||0}}</h5>
+                            <h5 class="text-brown">计划：{{vm.list.purchase_offerAgain||0}}</h5>
+                            <h5 class="text-brown">订单：{{vm.list.purchase_offerAgain_order||0}}</h5>
+                            <h5 class="text-brown">金额：{{vm.list.purchase_offerAgain_order_price||0}}万</h5>
+                        </div>
+                        <div class="col col-33">
+                            <h5 class="text-brown">抢单：{{vm.list.purchase_demand||0}}</h5>
+                            <h5 class="text-brown">浏览：{{vm.list.demand_browse.length||0}} </h5>
+                            <h5 class="text-brown">计划：{{vm.list.purchase_demand_have_demandOffer||0}}</h5>
+                            <h5 class="text-brown">订单：{{vm.list.purchase_demand_order||0}}</h5>
+                            <h5 class="text-brown">金额：{{vm.list.purchase_demand_order_price||0}}万</h5>
+                            <h5 class="text-brown">转化：{{vm.list.purchase_demand/vm.list.demand_browse.length*100||0 | limitTo :1}}%</h5>
+                        </div>
+                    </div>
+                    <div class="list-inset gap-20">
+                        <h5 class="text-gray">查看抢单 ({{vm.list.demand_browse.length||0}})</h5>
+                        <ul class="list-report gap-10" ng-repeat="i in vm.list.demand_order">
+                            <li ng-click="rootGoDetail('TRAFFIC_ADMIN', i)">
+                                <img src="./img/common/infor-face.png">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="list-inset gap-10">
+                        <h5 class="text-red">未抢单 ({{vm.list.diff_demand_browse.length||0}})</h5>
+                        <ul class="list-report gap-10" ng-repeat="i in vm.list.diff_demand_order">
+                            <li ng-click="rootGoDetail('TRAFFIC_ADMIN', i)">
+                                <img src="./img/common/infor-face.png">
+                            </li>
+                        </ul>
+                    </div>
+        </div>
+        <div class="bg-white gap-row gap-10">
+            <h4 class="text-center text-purple">
+                交易 -> 物流
+            </h4>
+            <div class="row row-condensed">
+                <div class="col col-33">
+                    <h5 class="text-purple">指派：{{vm.list.assign||0}} </h5>
+                    <h5 class="text-purple">订单：{{vm.list.assign_order||0}} </h5>
+                    <h5 class="text-purple">金额：{{vm.list.assign_order_price||0}}万 </h5>
+                    <h5 class="text-purple">吨数：{{vm.list.assign_order_amount||0}} </h5>
+                </div>
+
+            </div>
+            <!--<div class="list-inset gap-20">
+                <h5 class="text-gray">查看指派 (23)</h5>
+                <ul class="list-report gap-10">
+                    <li>
+                        <img src="./img/common/infor-face.png">
+                    </li>
+                    <li>
+                        <img src="./img/common/infor-face.png">
+                    </li>
+                    <li>
+                        <img src="./img/common/infor-face.png">
+                    </li>
+                </ul>
+            </div>
+            <div class="list-inset gap-10">
+                <h5 class="text-red">未接单 (3)</h5>
+                <ul class="list-report gap-10">
+                    <li>
+                        <img src="./img/common/infor-face.png">
+                    </li>
+                    <li>
+                        <img src="./img/common/infor-face.png">
+                    </li>
+                    <li>
+                        <img src="./img/common/infor-face.png">
+                    </li>
+                </ul>
+            </div>-->
+        </div>
+    </div>
+    </ion-content>
+    <ion-footer-bar class="bar bar-light bar-footer">
+        <div class="row button-foot">
+            <div class="col col-50 col-white" ng-click=" vm.yesterday()">
+                < 前一天 </div>
+                    <div class="col col-white" ng-click=" vm.tomorrow()" ng-if="vm.show">
+                        后一天 >
+                    </div>
+            </div>
+    </ion-footer-bar>
+</ion-view>

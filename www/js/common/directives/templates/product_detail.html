@@ -1,0 +1,33 @@
+<div>
+    <div class="item item-offer item-offer-border-top" ng-repeat="product in products">
+        <h2 ng-if="type=='categories'">
+            <img src="./img/158/label-goodsicon.png" class="label-icon-trade">
+            {{product.layer_1_chn}} {{product.layer_2_chn}} {{product.layer_3_chn}} {{product.layer_4_chn}}
+        </h2>
+        <h2 ng-if="type=='replenish' ">
+            <img src="./img/158/label-goodsicon1.png" class="label-icon-trade">
+            {{product.layer.layer_1_chn}} {{product.layer.layer_2_chn}} {{product.layer.layer_3_chn}} {{product.layer.layer_4_chn}}
+        </h2>
+        <div class="clearfix gap-10"></div>
+        <div ng-repeat="items in product.product_name track by $index">
+            <order-names model='items'></order-names>
+            <div class="clearfix"></div>
+            <h5 class="text-gray gap-10" >
+                运费<span class="text-orange h4"> {{product.pass_price | currency:'￥'}}(元/吨)</span>&nbsp;&nbsp;&nbsp; 重量 {{items.amount}}吨
+                <span class="pull-right h4" ng-if="type=='categories'">{{items.number}}{{product.unit}}</span>
+                <span class="pull-right h4" ng-if="type=='replenish'">{{items.count}}{{product.unit}}</span>
+            </h5>
+
+            <!--<h5 class="text-gray gap-10" ng-if="items.number">-->
+                <!--运费<span class="text-orange h4"> {{product.pass_price | currency:'￥'}}(元/吨)</span>&nbsp;&nbsp;&nbsp; 重量-->
+                <!--<span class="text-orange h4"> {{items.number*items.amount_unit | number:3}}{{product.unit}}</span>-->
+                <!--<span class="pull-right h4">{{items.number}}{{product.unit}}</span>-->
+            <!--</h5>-->
+            <!--<h5 class="text-gray gap-10" ng-if="!items.number">-->
+                <!--运费<span class="text-orange h4"> {{product.pass_price | currency:'￥'}}(元/吨)</span>&nbsp;&nbsp;&nbsp; 重量 实际补货计算-->
+                <!--&lt;!&ndash;<span class="pull-right h4" >{{items.number*items.amount_unit | number:3}}{{product.unit}}</span>&ndash;&gt;-->
+                <!--<span class="pull-right h4" ng-if="type!='replenishIndex'">{{items.count}}{{product.unit}}</span>-->
+            <!--</h5>-->
+        </div>
+    </div>
+</div>

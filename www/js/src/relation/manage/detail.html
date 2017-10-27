@@ -1,0 +1,70 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-positive">
+            <div class="title nav-bar">
+                <a menu-close nav-transition="ios" nav-direction="enter" ui-sref="rsc.message">消息</a>
+                <a menu-close nav-transition="ios" nav-direction="enter" ui-sref="rsc.contact">好友</a>
+                <a menu-close nav-transition="ios" nav-direction="enter" class="active">管理</a>
+            </div>
+        </div>
+    </ion-nav-title>
+    <ion-nav-buttons side="secondary">
+        <button class="button button-clear" ui-sref="rsc.invite">邀请</button>
+    </ion-nav-buttons>
+    <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+        <div class="tabs">
+            <a class="tab-item" menu-close nav-transition="ios" nav-direction="enter" ui-sref="rsc.manage_colleague" ui-sref-active="active">
+        同事
+      </a>
+            <a class="tab-item" menu-close nav-transition="ios" nav-direction="enter" ui-sref="rsc.manage_traffic({type:'PURCHASE'})"
+                ui-sref-active="active">
+        货源企业
+      </a>
+        </div>
+    </div>
+
+
+    <ion-content class="bg-gray has-footer has-subheader">
+    <div class="text-center gap-70" ng-if="vm.loading">
+        <h4 class="text-gray">正在加载...</h4>
+    </div>
+    <div ng-if="!vm.loading">
+        <div ng-repeat="(key, value) in vm.contact" ng-if="vm.show">
+            <div class="item item-divider" ng-if="key == 'yes'&&vm.contact[key].length!=0">
+                已对接企业 {{value.length}}
+            </div>
+            <div class="bg-white" ng-if="key == 'yes'" ng-repeat="item in value">
+                <div class="list list-driver">
+                    <li class="item item-avatar item-icon-right item-driver item-remind">
+                        <img ng-src="{{item.company.url_logo}}" image-404="./img/common/infor-face.png" class="driver-face">
+                        <h2 class="title-center1">
+                            {{item.company.nick_name}}
+                            <img src="./img/158/label-v.png" class="label-v">
+                            <!--<img src="./img/158/label-v-orange.gif" class="label-v">-->
+                        </h2>
+                        <!-- <h5 class="text-gray" ng-if="item.count.PURCHASE != undefined">已采购{{item.count.PURCHASE}}</h5>
+                        <h5 class="text-gray" ng-if="item.count.SALE != undefined">已销售{{item.count.SALE}}</h5> -->
+                    </li>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="!vm.show" class="text-center gap-70">
+            <h4 class="text-gray">
+                暂无数据
+            </h4>
+            <h4 class="text-gray gap-5">
+                您可以邀请好友
+            </h4>
+            <button class="gap-20 button-circle" ui-sref="rsc.invite">
+                立即邀请
+            </button>
+        </div>
+    </div>
+    </ion-content>
+
+    <ion-infinite-scroll ng-if="vm.contact.exist" immediate-check="false" icon="ion-loading-c" on-infinite="vm.loadMore()" distance="15%">
+    </ion-infinite-scroll>
+
+    <rsc-tabs active=3 config-name="rsc.center_goods"></rsc-tabs>
+</ion-view>

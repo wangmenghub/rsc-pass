@@ -1,0 +1,83 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <h1 class="title">新的好友</h1>
+        </div>
+    </ion-nav-title>
+    <ion-content class="bg-gray" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+    <div class="text-center gap-70" ng-if="vm.loading">
+        <h4 class="text-gray">正在加载...</h4>
+    </div>
+    <div ng-if="!vm.loading">
+        <div class="bg-white gap-10">
+            <div class="list list-newcar">
+                 <li class="item item-icon-left item-icon-right" ng-click="vm.invite()">
+                    <i class="icon">
+                        <img src="./img/common/tel-icon.png" class="tel-icon">
+                    </i> 邀请好友和同事
+                    <i class="icon ion-ios-arrow-right text-gray"></i>
+                </li>
+               <!-- <li class="item item-icon-left item-icon-right" ui-sref="rsc.invite_phone">
+                    <i class="icon">
+                        <img src="./img/common/search-icon.png" class="search-icon">
+                    </i> 输入手机号
+                    <i class="icon ion-ios-arrow-right text-gray"></i>
+                </li> -->
+                <li class="item item-icon-left item-icon-right" ng-click="vm.scanStart()">
+                    <i class="icon">
+                        <img src="./img/me/me-icon2.png" class="me-icon">
+                    </i> 扫一扫
+                    <i class="icon ion-ios-arrow-right text-gray"></i>
+                </li>
+            </div>
+        </div>
+        <div class="bg-white gap-20">
+            <div class="list list-driver" ng-repeat="item in vm.list">
+                <li class="item item-avatar item-driver item-icon-right item-remind" ng-if="item.relation.type == 'WORK'">
+                    <img ng-click="rootGoDetail(item.user.role, item.user._id)" ng-src="{{item.user.photo_url}}" image-404="./img/common/infor-face.png" class="driver-face">
+                    <h3>{{item.user.real_name}}</h3>
+                    <h5 class="text-gray">邀请成为你的{{item.relation.extend|relationRole}}</h5>
+                    <div class="linkman text-center">
+                        <h6 class="text-gray">{{item.company.nick_name}}</h6>
+                        <h5 ng-if="item.company.verify_phase=='SUCCESS'">
+                            <img src="./img/158/label-v.png" class="label-v">
+                        </h5>
+                    </div>
+                    <i ng-if="item.relation.status == 'WAIT'" class="icon"><button class="btn-agreeapply" ng-click="vm.agreeDeal(item.relation)">合作</button></i>
+                    <i ng-if="item.relation.status == 'ACCEPT'" class="icon">
+                        <h6 class="text-gray">已合作</h6>
+                    </i>
+                </li>
+                <li class="item item-avatar item-driver item-icon-right item-remind" ng-if="item.relation.type == 'FRIEND'">
+                    <img ng-click="rootGoDetail(item.user.role, item.user._id)" ng-src="{{item.user.photo_url}}" image-404="./img/common/infor-face.png" class="driver-face">
+                    <h3>{{item.user.real_name}}</h3>
+                    <h5 class="text-gray">邀请你成为好友</h5>
+                    <i ng-if="item.relation.status == 'WAIT'" class="icon"><button class="btn-agreeapply btn-agreeapply-green" ng-click="vm.agreeDeal(item.relation)">同意</button></i>
+                    <i ng-if="item.relation.status == 'ACCEPT'" class="icon">
+                        <h6 class="text-gray">已同意</h6>
+                    </i>
+                </li>
+                <li class="item item-avatar item-driver item-icon-right item-remind" ng-if="item.relation.type == 'COMPANY_SUPPLY'">
+                    <img ng-click="rootGoDetail(item.user.role, item.user._id)" ng-src="{{item.user.photo_url}}" image-404="./img/common/infor-face.png" class="driver-face">
+                    <h3>{{item.user.real_name}}</h3>
+                    <h5 class="text-gray" ng-if="item.relation.extend&&item.relation.extend != 'TRAFFIC_DRIVER_PRIVATE'">申请加入新同事 - {{item.relation.extend|relationRole}}</h5> 
+                    <h5 class="text-gray" ng-if="item.relation.extend&&item.relation.extend == 'TRAFFIC_DRIVER_PRIVATE'">申请成为挂靠司机</h5> 
+                    <i ng-if="item.relation.status == 'WAIT'" class="icon"><button class="btn-agreeapply btn-agreeapply-blue" ng-click="vm.acceptJoinCompany(item.relation)">添加</button></i>
+                    <i ng-if="item.relation.status == 'ACCEPT'" class="icon">
+                        <h6 class="text-gray">已添加</h6>
+                    </i>
+                </li>
+                <li class="item item-avatar item-driver item-icon-right item-remind" ng-if="item.relation.type == 'COMPANY_INVITE'">
+                    <img ng-click="rootGoDetail(item.user.role, item.user._id)" ng-src="{{item.user.photo_url}}" image-404="./img/common/infor-face.png" class="driver-face">
+                    <h3>{{item.user.real_name}}</h3>
+                    <h5 class="text-gray">邀请你加入新同事 - {{item.relation.extend|relationRole}}</h5>
+                    <i ng-if="item.relation.status == 'WAIT'" class="icon"><button class="btn-agreeapply btn-agreeapply-blue" ng-click="vm.agreeDeal(item.relation)">添加</button></i>
+                    <i ng-if="item.relation.status == 'ACCEPT'" class="icon">
+                        <h6 class="text-gray">已添加</h6>
+                    </i>
+                </li>
+            </div>
+        </div>
+    </div>
+    </ion-content>
+</ion-view>

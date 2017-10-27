@@ -1,0 +1,28 @@
+<ion-view view-title="运输大厅">
+    <ion-content ng-init="init()" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <div class="">
+            <ion-refresher spinner="spiral" on-refresh="doRefresh()" ng-if="Platform.isWebView()"></ion-refresher>
+            <div ng-if="carList.length == 0">
+                <no-data-hint></no-data-hint>
+            </div>
+            <car-item-group current-page='query.page' ng-if="carList.length != 0" pages='groupInfo.pages' show="true" selected="selectCar(car)"
+                car-list="carList" operation="operation(car)" operation-text="分配" remove-car='remove' del="del(car)" next='next()'
+                previous='previous()' count="carCount" group="setGroupMulti()" show-group-btn='showGroupBtn' go-page="goPage(page)"></car-item-group>
+        </div>
+        <ion-infinite-scroll ng-if="hasMore" icon="ion-loading-c" on-infinite="loadMore()" distance="15%">
+        </ion-infinite-scroll>
+    </ion-content>
+    <ion-footer-bar class="bar bar-light">
+        <div class="row button-foot">
+            <div class="col col-67">
+                <label class="checkbox">
+					<input type="checkbox">
+				</label>
+				全选
+            </div>
+            <div class="col col-red">
+                分配(0)
+            </div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

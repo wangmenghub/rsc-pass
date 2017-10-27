@@ -1,0 +1,29 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-positive">
+            <h1 class="title">企业管理</h1>
+        </div>
+    </ion-nav-title>
+    <ion-content class="bg-gray" ng-init="vm.init()" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+        <!--<div class="bg-companyhome bg-companyhome-noani text-center">-->
+        <div class="gap-80 text-center">
+            <div ng-if="vm.verify != 'FAILED'">
+                <h4 class="text-gray1">您还没有加入认证企业，</h4>
+                <h4 class="text-gray1 gap-5">可开通认证企业，拥有企业管理、同事动态、</h4>
+                <h4 class="text-gray1 gap-5">企业主页等板块。</h4>
+            </div>
+            <div ng-if="vm.verify == 'FAILED'">
+                <h4 class="text-gray1">审核失败</h4>
+                <h4 class="text-gray1 gap-5">营业执照不清晰，请点击开通认证企业，再次进行申请</h4>
+            </div>
+            <button class="button-circle gap-20" ui-sref="rsc.traffic_company_setting({new:true})">
+                开通企业
+            </button>
+            <h5 class="gap-20 text-gray">或</h5>
+            <button class="button-circle button-outline gap-20" ng-click="vm.search_company()">
+                加入企业
+            </button>
+        </div>
+    </ion-content>
+    <rsc-tabs active=5 config-name="rsc.center_goods"></rsc-tabs>
+</ion-view>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <!-- un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script>-->
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <link href="js/common/lib/ion_bottomSheet/ng_bottomSheet.css" rel="stylesheet">
+    <link href="lib/ionic.atlas.progress/dist/ionic.atlas.progress.min.css" rel="stylesheet">
+
+    <link href="css/common.css" rel="stylesheet">
+    <link href="css/158.css" rel="stylesheet">
+    <link href="css/pass.css" rel="stylesheet">
+    <link href="css/general.css" rel="stylesheet">
+    <link href="css/me.css" rel="stylesheet">
+    <link href="css/ebank.css" rel="stylesheet">
+
+    <link href="lib/ion-gallery/dist/ion-gallery.css" rel="stylesheet">
+    <!--动画-->
+    <link href="css/animate.css" rel="stylesheet">
+    <!--web-->
+    <link href="css/web.css" rel="stylesheet">
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!--lib-->
+    <script src="lib/angular-cache/dist/angular-cache.min.js"></script>
+    <script src="lib/angular-jwt/dist/angular-jwt.min.js"></script>
+    <script src="lib/underscore/underscore.js"></script>
+    <script src="lib/angular-touch/angular-touch.min.js"></script>
+    <script src="lib/angular-image-404/dist/angular-image-404.js"></script>
+    <script src="lib/restangular/dist/restangular.js"></script>
+    <script src="lib/ionic.atlas.progress/dist/ionic.atlas.progress.min.js"></script>
+
+    <script src="lib/angular-messages/angular-messages.js"></script>
+    <script src="lib/angular-linq/angular-linq.js"></script>
+    <!--时间插件所需要文件-->
+    <script src="lib/moment/min/moment.min.js"></script>
+    <script src="lib/moment/min/locales.min.js"></script>
+    <script src="lib/humanize-duration/humanize-duration.js"></script>
+    <script src="lib/angular-timer/dist/angular-timer.min.js"></script>
+    <script src="lib/ionic-timepicker/dist/ionic-timepicker.bundle.min.js"></script>
+    <script src="lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
+    <script src="lib/ionic-toast/dist/ionic-toast.bundle.min.js"></script>
+
+    <script src="lib/ion-gallery/dist/ion-gallery.min.js"></script>
+    <script src="lib/qrcode-generator/qrcode.js"></script>
+    <script src="lib/qrcode-generator/qrcode_UTF8.js"></script>
+    <script src="lib/angular-qrcode/angular-qrcode.js"></script>
+
+
+    <!--common-->
+    <script src="js/common/services/rest_angular.js"></script>
+    <script src="js/common/services/service.js"></script>
+    <script src="js/common/filters/filter.js"></script>
+    <script src="js/common/services/account.js"></script>
+    <script src="js/common/directives/main.js"></script>
+    <script src="js/common/services/areas.js"></script>
+    <script src="js/common/lib/ion_bottomSheet/bottomSheet.js"></script>
+    <script src="js/common/services/dictionary.js"></script>
+
+
+    <!--config-->
+    <script src="js/config/index.js"></script>
+    <script src="js/config/app.development.config.js"></script>
+    <script src="js/config/app.development.config.test.js"></script>
+    <script src="js/config/app.production.config.js"></script>
+    <script src="js/config/app.production.config.test.js"></script>
+
+    <!-- your app's js -->
+
+    <!--account-->
+    <script src="js/account/app_account.js"></script>
+    <script src="js/account/router.js"></script>
+    <script src="js/account/service.js"></script>
+    <script src="js/account/controller.js"></script>
+    <!--<script src="js/account/filter.js"></script>-->
+
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+
+
+    <!--lib-->
+    <!--<script src="lib/underscore/underscore.js"></script>
+    <script src="lib/angular-touch/angular-touch.min.js"></script>
+    <script src="lib/angular-image-404/dist/angular-image-404.js"></script>
+    <script src="lib/restangular/dist/restangular.js"></script>
+-->
+
+    <!--common-->
+    <script src="js/common/services/rest_angular.js"></script>
+
+    <!--config-->
+    <script src="js/config/app.development.config.js"></script>
+    <script src="js/config/app.development.config.test.js"></script>
+    <script src="js/config/app.production.config.js"></script>
+    <script src="js/config/app.production.config.test.js"></script>
+
+    <!-- your app's js -->
+
+    <!--临时文件！！！-->
+    <script src="js/common/temp/services.js"></script>
+    <script src="js/common/temp/common.js"></script>
+    <script src="js/common/temp/phone.js"></script>
+    <script src="js/common/temp/restangular.js"></script>
+
+
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <!--交易指令-->
+    <script src='js/src/common/services/pass.js'></script>
+
+
+
+    <!--物流 货源-->
+    <script src="js/src/remain/goods/controller.js"></script>
+    <script src="js/src/remain/order/controller.js"></script>
+    <script src="js/src/remain/line/controller.js"></script>
+    <script src="js/src/remain/PK/controller.js"></script>
+    <script src="js/src/remain/service.js"></script>
+    <script src="js/src/common/directives/directives.js"></script>
+
+    <script src="js/src/app_pass.js"></script>
+    <script src="js/src/route_pass.js"></script>
+    <script src="js/src/common/filters/filters.js"></script>
+    <!--物流 运输-->
+    <script src="js/src/transport/transport/controller.js"></script>
+    <script src="js/src/transport/order/controller.js"></script>
+    <script src="js/src/transport/car/controller.js"></script>
+    <script src="js/src/transport/service.js"></script>
+    <!--物流的财-->
+    <script src="js/src/finance/controller.js"></script>
+    <script src="js/src/finance/router.js"></script>
+
+
+    <script src="js/module/index.js"></script>
+    <script src="js/module/address/template/index.js"></script>
+    <script src="js/module/company_label/index.js"></script>
+    <script src="js/module/company_verify/index.js"></script>
+    <script src="js/module/invite/index.js"></script>
+    <script src="js/module/relation_label/index.js"></script>
+    <script src="js/module/homepage/template/method.js"></script>
+    <script src="js/module/homepage/template/index.js"></script>
+    <script src="js/module/personpage/template/index.js"></script>
+    <script src="js/module/contact/index.js"></script>
+    <script src="js/module/invite/index.js"></script>
+
+    <!-- IM -->
+    <script src="js/module/im/NIM_Web_SDK/js/NIM_Web_NIM_v4.3.0.js"></script>
+    <script src="js/module/im/index.js"></script>
+    <script src="js/module/im/factory/index.js"></script>
+    <script src="js/module/im/config/index.js"></script>
+    <script src="js/module/im/config/state.js"></script>
+    <script src="js/module/im/service/index.js"></script>
+    <script src="js/module/im/service/rsc_service.js"></script>
+    <script src="js/module/im/utils/index.js"></script>
+    <script src="js/module/im/utils/filter.js"></script>
+    <script src="js/module/im/directive/directive.js"></script>
+    <script src="js/module/im/factory/blacks.js"></script>
+    <script src="js/module/im/factory/chatroomInfos.js"></script>
+    <script src="js/module/im/factory/chatroomMsgs.js"></script>
+    <script src="js/module/im/factory/friends.js"></script>
+    <script src="js/module/im/factory/initChatroomSDK.js"></script>
+    <script src="js/module/im/factory/initNimSDK.js"></script>
+    <script src="js/module/im/factory/msgs.js"></script>
+    <script src="js/module/im/factory/robots.js"></script>
+    <script src="js/module/im/factory/rscPolyfill.js"></script>
+    <script src="js/module/im/factory/search.js"></script>
+    <script src="js/module/im/factory/session.js"></script>
+    <script src="js/module/im/factory/team.js"></script>
+    <script src="js/module/im/factory/sysMsgs.js"></script>
+    <script src="js/module/im/factory/userInfo.js"></script>
+    <script src="js/module/im/factory/widgetUi.js"></script>
+
+
+    <!--物流 关系-->
+    <script src="js/src/relation/method.js"></script>
+    <script src="js/src/relation/router.js"></script>
+    <script src="js/src/relation/service.js"></script>
+    <script src="js/src/relation/manage/controller.js"></script>
+
+
+    <!--物流 管理-->
+    <script src="js/src/manage/service.js"></script>
+    <script src="js/src/manage/router.js"></script>
+    <script src="js/src/manage/method.js"></script>
+    <script src="js/src/manage/company/dynamic/controller.js"></script>
+    <script src="js/src/manage/company/homepage/controller.js"></script>
+    <script src="js/src/manage/company/setting/controller.js"></script>
+    <script src="js/src/manage/company/daily/controller.js"></script>
+    <script src="js/src/manage/company/join/controller.js"></script>
+    <script src="js/src/manage/person/address_manage/controller.js"></script>
+    <script src="js/src/manage/person/person_homepage/controller.js"></script>
+    <script src="js/src/manage/person/person_setting/controller.js"></script>
+    <script src="js/src/manage/person/controller.js"></script>
+    <script src="js/src/manage/map/controller.js"></script>
+
+    <script src="js/src/manage/company/controller.js"></script>
+
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=f5d5510b14936d8755b11eafc587bd4b&plugin=AMap.Driving"></script>
+    <!--郑梦琳 专用-->
+    <script src="templates/example/example.js"></script>
+
+</head>
+
+<body ng-app="starter">
+    <ion-nav-bar class="bar-stable">
+        <ion-nav-back-button class="button-clear">
+            <i class="icon ion-ios-arrow-back"></i><span class="default-title">返回</span>
+        </ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-nav-view></ion-nav-view>
+</body>
+
+</html>

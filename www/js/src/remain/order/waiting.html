@@ -1,0 +1,45 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-positive">
+            <h1 class="title">我要运输</h1>
+        </div>
+    </ion-nav-title>
+    <rsc-sub-header active=2 config-name="rsc.center_goods"></rsc-sub-header>
+    <ion-content class="bg-gray has-subheader has-footer">
+        <ion-refresher spinner="spiral" on-refresh="vm.doRefresh()"></ion-refresher>
+        <ul class="row third-bar text-center" ng-controller="order_ctrl" ng-init="vm.getCount()">
+            <!--<li menu-close nav-transition="ios" nav-direction="enter" class="col active" ui-sref="rsc.order_waiting">-->
+                <!--待接单 {{vm.waiting_count}}-->
+            <!--</li>-->
+            <li menu-close nav-transition="ios" nav-direction="enter" class="col" ui-sref="rsc.order_processing">
+                进行中 {{vm.processing_count}}
+            </li>
+            <li menu-close nav-transition="ios" nav-direction="enter" class="col" ui-sref="rsc.order_robbed">
+                已完成 {{vm.robbed_count}}
+            </li>
+            <li menu-close nav-transition="ios" nav-direction="enter" class="col" ui-sref="rsc.order_cancel">
+                已取消 {{vm.cancel_count}}
+            </li>
+        </ul>
+        <div ng-init="vm.init()">
+            <div ng-if="!vm.orderList||vm.orderList.length==0">
+                <div class="text-center gap-70">
+                    <h4 class="text-gray">当前暂无待接单的订单信息</h4>
+                    <h4 class="text-gray gap-5">您可以在货源页面参与抢单等待货主指派</h4>
+                    <button menu-close nav-transition="ios" nav-direction="enter" ui-sref="rsc.center_goods" class="gap-20 button-circle">前往货源</button>
+                </div>
+            </div>
+            <div class="slide-top" ng-if="vm.orderList.length>0" ng-repeat="order in vm.orderList">
+                <div ng-click="vm.goDetail(order)">
+                    <div ng-class="{'gap-10':!$first}"></div>
+                    <order-list order="order" status="1"></order-list>
+                </div>
+            </div>
+
+        </div>
+        <ion-infinite-scroll immediate-check="false" ng-if="vm.hasMore" icon="ion-loading-c" on-infinite="vm.loadMore()" distance="15%">
+        </ion-infinite-scroll>
+    </ion-content>
+    <rsc-tabs config-name='rsc.center_goods' active=1></rsc-tabs>
+</ion-view>
+

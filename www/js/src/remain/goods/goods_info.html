@@ -1,0 +1,89 @@
+<ion-view ng-init="vm.init()">
+	<ion-nav-title>
+		<div class="bar bar-positive">
+			<h1 class="title">立即抢单</h1>
+		</div>
+	</ion-nav-title>
+	<ion-content class="bg-gray" ng-class="{'has-subheader':$root.rscPlatform == 'isweb'}">
+		<div ng-if="vm.demandList.products[0].type!='coal'" class="bg-white">
+			<div class="bg-white gap-20">
+				<div class="list-inset">
+					<h4 class="text-black gap-10">运输数量<span
+						class="pull-right text-gray h5">单位:{{vm.demandList.products[0].shop_unit}}</span>
+					</h4>
+				</div>
+				<div class="row gap-10" ng-repeat="item in vm.demandList.products">
+					<h4 class="col col-20 gap-5 text-green list-inset">{{item.category_chn}}</h4>
+					<div class="col">
+						<div class="row">
+							<h4 class="col col-33 gap-5 bold">{{item.amount | number:1}}{{vm.demandList.products[0].pass_unit}}</h4>
+							<h4 class="col"></h4>
+							<div class="pull-right driver-input" ng-init="item.locCount = item.count?item.count:item.amount">
+								<img src="./img/pass/minus.png" class="pull-left" ng-click="vm.subtraction(vm.demandList,item)">
+								<input name="jihua" type="number" placeholder="1" class="pull-left" min="0" max="item.count"
+									   ng-change="vm.itemChange(item)" ng-model="item.locCount">
+								<img src="./img/pass/plus.png" class="pull-left" ng-click="vm.add(vm.demandList,item)">
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<div class="list-inset" ng-repeat="item in vm.demandList.products_replenish">
+					<h4 class="text-green">{{item.category_chn}} {{item.layer_2_chn}} {{item.layer_3_chn}}<span class="pull-right text-gray">根据实际补货计算</span></h4>
+				</div>
+				<div class="clear"></div>
+				<div class="row-companyhome-border"></div>
+				<!--<h4 class="pull-right list-inset gap-row text-gray">系统自动计算出吨数</h4>-->
+				<div class="clear"></div>
+			</div>
+			<!--<div class="list list-item list-type-input">-->
+			<!--<li class="item item-type item-type-standard item-type-no bold">-->
+			<!--{{vm.demandList.send_city}}-> {{vm.demandList.receive_city}}-->
+			<!--</li>-->
+			<!--<div ng-repeat="item in vm.demandList.products">-->
+			<!--<li class="item item-input list-input list-input-standard">-->
+			<!--<span class="input-label">运输量(吨)</span>-->
+			<!--<input type="tel" placeholder="请输入" ng-model="item.amount" class="text-right">-->
+			<!--</li>-->
+			<!--<li class="item item-type">-->
+			<!--运输价格(元/吨)-->
+			<!--<span class="pull-right text-red">{{item.price | currency:'￥'}}</span>-->
+			<!--</li>-->
+			<!--<li class="item item-type">-->
+			<!--运输总价-->
+			<!--<span class="pull-right text-red">￥{{item.price}}</span>-->
+			<!--</li>-->
+			<!--</div>-->
+			<!--</div>-->
+		</div>
+		<div ng-if="vm.demandList.products[0].type=='coal'" class="bg-white gap-10">
+			<div class="list list-item list-type-input" ng-repeat="item in vm.demandList.products">
+				<li class="item item-type">
+					单价(元/吨)
+					<span class="pull-right text-red bold">￥{{item.price}}</span>
+				</li>
+				<li class="item item-input list-input list-input-standard" ng-init="item.locCount = item.amount">
+					<span class="input-label">运输量(吨)</span>
+					<input type="number" max="vm.demandList.amount_remain"
+						   ng-model="item.locCount"
+						   placeholder="请输入" class="text-right"
+					>
+				</li>
+			</div>
+		</div>
+	</ion-content>
+	<ion-footer-bar class="bar bar-assertive">
+		<h1 class="title" ng-click="vm.isSureOrder(vm.demandList.products[0].type)">确认接单</h1>
+		<!--<h1 class="title" ng-click="vm.goNext()">确认接单</h1>-->
+	</ion-footer-bar>
+	<!--<ion-footer-bar ng-if="vm.demandList.material=='coal'" class="bar bar-light bar-footer">-->
+	<!--<div class="row button-foot">-->
+	<!--<div class="col col-67">-->
+	<!--合计：<span class="text-red">{{vm.demandList.price*vm.demandList.demandAmount | currency:'￥'}}</span>-->
+	<!--</div>-->
+	<!--<div class="col col-red" ng-click="vm.isSureOrder(vm.demandList.material)">-->
+	<!--确认接单-->
+	<!--</div>-->
+	<!--</div>-->
+	<!--</ion-footer-bar>-->
+</ion-view>

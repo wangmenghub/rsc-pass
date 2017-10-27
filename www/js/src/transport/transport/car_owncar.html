@@ -1,0 +1,68 @@
+<ion-view view-title="指派司机车辆" ng-init="vm.init()" hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <span menu-close nav-transition='ios' nav-direction="back" ng-click="rootGoBack()">
+            <i class="icon ion-ios-arrow-back"></i>
+            <span class="default-title">返回</span>
+        </span>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="secondary">
+        <button class="button button-clear" ui-sref="rsc.add_driver({order_id:vm.order_id})">添加司机</button>
+    </ion-nav-buttons>
+    <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+        <div class="tabs">
+            <a class="tab-item" menu-close nav-transition="ios" nav-direction="enter" ui-sref='rsc.car_anchored({order_id:vm.order_id})'>
+				挂靠车辆
+			</a>
+            <a class="tab-item active" menu-close nav-transition="ios" nav-direction="enter" ui-sref='rsc.car_owncar({order_id:vm.order_id})'>
+				自有车辆
+			</a>
+        </div>
+    </div>
+    <!--顶部二级导航-->
+    <!--<div class="tabs-striped tabs-top">-->
+    <!--<div class="tabs">-->
+    <!--<a class="tab-item" menu-close nav-transition="ios" nav-direction="enter" ui-sref='rsc.car_anchored'>挂靠车辆</a>-->
+    <!--<a class="tab-item active"  menu-close nav-transition="ios" nav-direction="enter" ui-sref='rsc.car_owncar'>自有车辆</a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <ion-content class="bg-gray" style="top: 88px;">
+        <h5 class="list-inset gap-10 text-gray1" ng-repeat="item in vm.carList">
+            {{item.name}}
+            <i ng-class="item.isSel?'ion-ios-arrow-down':'ion-ios-arrow-up'" ng-click="vm.isSelFun(item)"></i>
+            <span class="pull-right" ng-click="vm.selAll(item)">全选</span>
+        </h5>
+
+        <div class="bg-white gap-10">
+            <div class="list list-driver">
+                <li class="item item-avatar item-driver item-icon-right item-checkbox" ng-repeat="item in vm.carGroupList">
+                    <img src="item.truck_log" class="car-face">
+                    <span class="checkbox">
+							    <input type="checkbox" ng-model="item.checked" ng-click="vm.selectCar($event,item)">
+						</span>
+                    <h2 class="text-blue">{{item.truck_num}}<img src="./img/pass/pass-icon2.png" class="pass-icon"></h2>
+                    <p>{{item.truck_type|carType}}，载重{{item.truck_weight|carMaxWeight}}吨，长5米</p>
+                    <h5 class="text-gray">{{item.tip}}</h5>
+                    <h5 class="text-red">忙碌中：吕梁市兴县 -> 邯郸市邯郸县</h5>
+                    <i class="item-face text-center">
+							<img src="item.user_log" class="face">
+							<h6 class="text-gray">{{item.real_name}}</h6>
+						</i>
+                </li>
+            </div>
+        </div>
+
+    </ion-content>
+    <ion-footer-bar class="bar bar-light">
+        <div class="row button-foot">
+            <div class="col col-67">
+                已选择：<span class="text-purple">{{vm.selCarList.length}}名司机</span>
+            </div>
+            <div class="col col-purple" ng-click="vm.driverToGrab()">
+                立即发布
+            </div>
+        </div>
+    </ion-footer-bar>
+    <!--<ion-footer-bar class="bar bar-stable">
+	  <h1 class="title">确认替换</h1>
+	</ion-footer-bar>-->
+</ion-view>

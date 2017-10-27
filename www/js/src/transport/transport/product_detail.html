@@ -1,0 +1,71 @@
+<ion-modal-view class="bg-blur">
+	<ion-header-bar class="bar bar-nocolor">
+		<h1 class="title">货物详情</h1>
+		<button class="button button-clear button-primary" ng-click='vm.closeModal()'>关闭</button>
+	</ion-header-bar>
+	<ion-content>
+		<!--产品单位为件时显示（例：钢）-->
+		<div class="list slide-top" ng-repeat="products in vm.order.product_categories">
+			<div class="item">
+				<div ng-class="{'gap-10':!$index}">
+					<div>
+						<h3 class="bold">{{products.layer_1_chn}} {{products.layer_2_chn}}</h3>
+						<div class="clear"></div>
+						<div class="num-fixed" ng-if="products.material=='steel'">
+							<div class="item-add gap-10">
+								<h5 class="title bold text-green">{{products.layer_3_chn}}</h5>
+								<h5 class="row" ng-repeat="x in products.product_name track by $index">
+									<span class="col col-10 text-green" ng-if="x.name">{{x.name}}</span>
+										<span ng-repeat="i in x.attribute track by $index">
+											<span class="col text-green">件重：{{i.value}}{{i.unit}}</span>
+										</span>
+								</h5>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="num-fixed" ng-if="products.material=='coal'">
+							<div class="item-add gap-10">
+								<h5 class="title bold text-green">{{products.layer_3_chn}}</h5>
+								<h5 class="row row-wrap" ng-repeat="x in products.product_name track by $index">
+									<span class="col col-10 text-green" ng-if="x.name">{{x.name}}</span>
+									<div class="col col-50" ng-repeat="i in x.attribute track by $index">
+										<span class="text-green">{{i.name}}：{{i.value}}{{i.unit}}</span>
+									</div>
+								</h5>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="clear"></div>
+						<h5 class="text-gray1 pull-right">共计{{j.count_assign?j.count_assign:j.count}}{{products.shop_unit}}</h5>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="gap-10"></div>
+		<!--补货产品-->
+		<div class="list slide-top">
+			<div class="item" ng-repeat="products in vm.order.products_replenish">
+				<h3 class="bold">{{products.layer_1_chn}} {{products.layer_2_chn}}</h3>
+				<div class="clear"></div>
+				<div class="item-add">
+					<h4 class="bold title text-green">{{products.layer_3_chn}}</h4>
+					<div ng-repeat="i in products.product_name">
+						<div class="row">
+							<h4 class="col col-10 text-green" ng-if="i.name">
+								{{i.guige}}
+							</h4>
+							<h4 class="col text-green" ng-repeat="j in i.long">
+								{{j.long?j.long:''}}件重：{{j.amount_unit}}吨
+							</h4>
+							<h4 class="col text-green" ng-repeat="j in i.attribute">
+								{{j.name}}：{{j.value}}{{j.unit}}
+							</h4>
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+				<h5 class="text-gray1 pull-right">根据实际补货计算</h5>
+			</div>
+		</div>
+	</ion-content>
+</ion-modal-view>

@@ -1,0 +1,100 @@
+<ion-view>
+    <ion-nav-title>
+        <div class="bar bar-stable">
+            <div style="margin:0 auto; width:134px;">
+                <div class="button-bar button-navbar">
+                    <a class="button" menu-close class="num-fixed" ui-sref='rsc.finance_logistics' nav-transition='none' ion-direction='enter'>货源 <span class="order-num label-num" ng-if="msgCout.pass_order>0">{{msgCout.pass_order}}</span></a>
+                    <a menu-close class="button num-fixed active">运输 <span class="order-num label-num" ng-if="msgCout.driver_order>0">{{msgCout.driver_order}}</span></a>
+                </div>
+            </div>
+        </div>
+    </ion-nav-title>
+    <ion-content class="bg-royal1" ng-class="{'has-footer':$root.rscPlatform == 'isapp','has-subheader':$root.rscPlatform == 'isweb'}">
+        <ion-refresher spinner="spiral" on-refresh="doRefresh()">
+
+        </ion-refresher>
+        <div class="bg-royal account-list text-center">
+            <h4 class="text-white1">总账户</h4>
+            <h1 class="text-white gap-10 animated pulse">{{vm.driverOrders.money| currency:'￥':0}}</h1>
+            <h5 class="text-white1 gap-20">
+                <select ng-model="item" ng-change="vm.driverChange(item)" class="order-select">
+                    <option value="" selected="selected">全部司机</option>
+                    <option ng-repeat="driver in vm.drivers" value="{{driver._id}}">{{driver.name}}</option>
+                </select>
+            </h5>
+        </div>
+        <div class="bg-white gap-row">
+            <div class="row row-order text-center">
+                <div ng-class={'col':true,'active':vm.effective} ng-click="vm.clickStatus('effective')">
+                    <i class="ion-ios-fastforward-outline order-icon"></i>
+                    <h5>进行中{{ vm.driverOrders.effective }}</h5>
+                </div>
+                <div ng-class={'col':true,'active':vm.complete} ng-click="vm.clickStatus('complete')">
+                    <i class="ion-ios-checkmark-outline order-icon"></i>
+                    <h5>已完成{{ vm.driverOrders.complete}}</h5>
+                </div>
+                <div ng-class={'col':true,'active':vm.ineffective} ng-click="vm.clickStatus('ineffective')">
+                    <i class="ion-ios-trash-outline order-icon"></i>
+                    <h5>已失效{{ vm.driverOrders.ineffective}}</h5>
+                </div>
+            </div>
+        </div>
+        <!--<div class="text-center gap-10">-->
+        <!--<span class="text-gray order-title">2017年9月 订单11</span>-->
+        <!--</div>-->
+        <!--订单-->
+        <div class="bg-white">
+            <div ng-class="{'row row-wrap row-wrap-list gap-5':$root.rscPlatform == 'isweb'}">
+                <div class="bg-white slide-top" ng-class="{'col col-50':$root.rscPlatform == 'isweb'}" ng-repeat="order in vm.orderList" ng-click="vm.goDetail(order._id)">
+                    <div class="list-inset gap-row">
+                        <span>司机：{{order.supply_user_name}}，{{order.truck_num}}</span>
+                        <h5>
+                            {{order.company_name}}
+                            <img ng-if="order.verify_phase == 'SUCCESS'" src="./img/158/label-v.png" class="label-v">
+                        </h5>
+                        <div class="row gap-5">
+                            <div class="col text-left">
+                                <img src="./img/pass/pass-icon1.png" class="label-icon pull-left">
+                                <div class="pull-left text-left">
+                                    <h4 class="bold">{{order.send_city|rscLimit:5}}</h4>
+                                    <h5 class="text-gray1 gap-3">{{order.send_district|rscLimit:5}}</h5>
+                                    <h5 class="text-gray1 gap-3">{{order.time_depart | dateformatFilter:'MM-dd E'}}</h5>
+                                </div>
+                            </div>
+                            <div class="col text-center gap-3">
+                                <h5 class="h5 text-black">{{order.amount | number:3}}吨 {{order.product_categories[0].material_chn}}</h5>
+                                <h5 class="status-bg text-orange">{{order.price_total/order.amount | currency : '￥':0 }}元/吨</h5>
+                            </div>
+                            <div class="col text-right">
+                                <h4 class="bold">{{order.receive_city|rscLimit:5}}</h4>
+                                <h5 class="text-gray1 gap-3">{{order.receive_district|rscLimit:5}}</h5>
+                                <h5 class="text-gray1 gap-3">{{order.time_arrival | dateformatFilter:'MM-dd E'}}</h5>
+                            </div>
+                        </div>
+                        <!--<h5 class="gap-10">
+                            <span ng-if="status == 'effective'" class="text-orange">进行中</span>
+                            <span ng-if="status == 'complete'" class="text-orange">已完成</span>
+                            <span ng-if="status == 'cancelled'" class="text-orange">已取消</span>
+                        </h5>-->
+                    </div>
+                </div>
+            </div>
+            <div ng-if="vm.orderList.length==0 &&  vm.reqComplete">
+                <div class="text-center gap-70" ng-if="vm.query.status=='effective'">
+                    <h4 class="text-gray">当前暂无运输订单</h4>
+                    <h4 class="text-gray gap-5">您可以发布货源-指派物流为您运输货物</h4>
+                    <h4 class="text-gray gap-5">形成运输订单</h4>
+                    <button ui-sref="rsc.center_goods" class="gap-20 button-circle">前往货源</button>
+                </div>
+                <div class="text-center gap-70" ng-if="vm.query.status=='complete'">
+                    <h4 class="text-gray">当前暂无已完成订单信息</h4>
+                </div>
+                <div class="text-center gap-70" ng-if="vm.query.status=='ineffective'">
+                    <h4 class="text-gray">当前暂无已失效订单信息</h4>
+                </div>
+            </div>
+        </div>
+        <ion-infinite-scroll immediate-check="false" ng-if="vm.hasMore" icon="ion-loading-c" on-infinite="loadMore()" distance="15%"></ion-infinite-scroll>
+    </ion-content>
+    <rsc-tabs config-name='rsc.center_goods' active=4></rsc-tabs>
+</ion-view>
